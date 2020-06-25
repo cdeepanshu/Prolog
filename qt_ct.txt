@@ -1,0 +1,3 @@
+vector_algebra.
+
+exercise_10_2 : find_the_unit_vector,check_whether_given_two_vectors_are_equal_or_not.
