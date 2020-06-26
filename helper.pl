@@ -74,8 +74,8 @@ generate_latex_var_vector_ijk([],_,Init_str,Latex_str):-
 generate_latex_var_vector_ijk([H|T],[H1|T1],Init_str,Latex_str):-
  
     (Init_str == "" ->
-	    string_concatenate(["latex(",H,"\\\\hat{",H1,"})"],"",Str1);
-	    string_concatenate(["+latex(",H,"\\\\hat{",H1,"})"],"",Str1)
+	    string_concatenate(["latex(",H,"\\\\\\\\hat{",H1,"})"],"",Str1);
+	    string_concatenate(["+latex(",H,"\\\\\\\\hat{",H1,"})"],"",Str1)
 	),
 
     string_concat(Init_str, Str1,Temp_str),
@@ -336,20 +336,20 @@ generate_latex_mag_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Given_mag,Pro,I
     	(Pro=:=1 ->
     		(Given_mag=:=1 ->
 			    (Init_str == "" ->
-			    string_concatenate(["latex(\\\\hat{",H1,"})"],"",Str1);
-			    string_concatenate(["+latex(\\\\hat{",H1,"})"],"",Str1)
+			    string_concatenate(["latex(\\\\\\\\hat{",H1,"})"],"",Str1);
+			    string_concatenate(["+latex(\\\\\\\\hat{",H1,"})"],"",Str1)
 			    );
 
 			    (Init_str == "" ->
-			    string_concatenate(["latex(\\frac{",Given_mag,"}{",Mag,"}\\\\hat{",H1,"})"],"",Str1);
-		    	string_concatenate(["+latex(\\frac{",Given_mag,"}{",Mag,"}\\\\hat{",H1,"})"],"",Str1)
+			    string_concatenate(["latex(\\\\\\\\frac{",Given_mag,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1);
+		    	string_concatenate(["+latex(\\\\\\\\frac{",Given_mag,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 			    )
 			);
 		    (Init_str == "" ->
 		    H3 is Given_mag*H,
-		    string_concatenate(["latex(\\frac{",H3,"}{",Mag,"}\\\\hat{",H1,"})"],"",Str1);
+		    string_concatenate(["latex(\\\\\\\\frac{",H3,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1);
 		    H4 is Given_mag*H,
-		    string_concatenate(["+latex(\\frac{",H4,"}{",Mag,"}\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["+latex(\\\\\\\\frac{",H4,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 		    )
 		);
 
@@ -357,7 +357,7 @@ generate_latex_mag_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Given_mag,Pro,I
 		    Str1=""; 
 		    H2 is abs(H),
 		    H5 is Given_mag*H2,
-		    string_concatenate(["-latex(\\frac{",H5,"}{",Mag,"}\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["-latex(\\\\\\\\frac{",H5,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 		)
 	),
 
@@ -411,8 +411,8 @@ generate_latex_diff_exp_ijk([],[],_,Init_str,Latex_str):-
 generate_latex_diff_exp_ijk([H|T],[H1|T1],[H2|T2],Init_str,Latex_str):-
  
     (Init_str == "" ->
-	    string_concatenate(["latex([(",H,")-(",H1,")]\\\\hat{",H2,"})"],"",Str1);
-	    string_concatenate(["+latex([(",H,")-(",H1,")]\\\\hat{",H2,"})"],"",Str1)
+	    string_concatenate(["latex([(",H,")-(",H1,")]\\\\\\\\hat{",H2,"})"],"",Str1);
+	    string_concatenate(["+latex([(",H,")-(",H1,")]\\\\\\\\hat{",H2,"})"],"",Str1)
 	),
 
     string_concat(Init_str, Str1,Temp_str),
@@ -427,8 +427,8 @@ generate_latex_sum_exp_ijk([],[],_,Init_str,Latex_str):-
 generate_latex_sum_exp_ijk([H|T],[H1|T1],[H2|T2],Init_str,Latex_str):-
  
     (Init_str == "" ->
-	    string_concatenate(["latex([(",H,")+(",H1,")]\\\\hat{",H2,"})"],"",Str1);
-	    string_concatenate(["latex(+[(",H,")+(",H1,")]\\\\hat{",H2,"})"],"",Str1)
+	    string_concatenate(["latex([(",H,")+(",H1,")]\\\\\\\\hat{",H2,"})"],"",Str1);
+	    string_concatenate(["latex(+[(",H,")+(",H1,")]\\\\\\\\hat{",H2,"})"],"",Str1)
 	),
 
     string_concat(Init_str, Str1,Temp_str),
@@ -444,8 +444,8 @@ generate_latex_sum_exp_ijk([],[],[],_,Init_str,Latex_str):-
 generate_latex_sum_exp_ijk([H|T],[H1|T1],[H2|T2],[H3|T3],Init_str,Latex_str):-
  
     (Init_str == "" ->
-	    string_concatenate(["latex([(",H,")+(",H1,")+(",H2,")]\\\\hat{",H3,"})"],"",Str1);
-	    string_concatenate(["latex(+[(",H,")+(",H1,")+(",H2,")]\\\\hat{",H3,"})"],"",Str1)
+	    string_concatenate(["latex([(",H,")+(",H1,")+(",H2,")]\\\\\\\\hat{",H3,"})"],"",Str1);
+	    string_concatenate(["latex(+[(",H,")+(",H1,")+(",H2,")]\\\\\\\\hat{",H3,"})"],"",Str1)
 	),
 
     string_concat(Init_str, Str1,Temp_str),
@@ -462,20 +462,20 @@ generate_direction_cosines([H|T],Mag,Init_str,Latex_str):-
     (H>0 ->
     	(Mag=:=1 ->
 		    (Init_str == "" ->
-		    string_concatenate(["latex(\\\\hat{",H,"})"],"",Str1);
-		    string_concatenate([",latex(,\\\\hat{",H,"})"],"",Str1)
+		    string_concatenate(["latex(\\\\\\\\hat{",H,"})"],"",Str1);
+		    string_concatenate([",latex(,\\\\\\\\hat{",H,"})"],"",Str1)
 		    );
 		    (Init_str == "" ->
-		    string_concatenate(["latex(\\frac{",H,"}{\\sqrt{",Mag,"}})"],"",Str1);
-		    string_concatenate(["latex(,\\frac{",H,"}{\\sqrt{",Mag,"}})"],"",Str1)
+		    string_concatenate(["latex(\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}})"],"",Str1);
+		    string_concatenate(["latex(,\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}})"],"",Str1)
 		    )
 		);
 
 		(H=:=0  ->
 		    Str1=",0"; 
 			(Init_str == "" ->
-		    string_concatenate(["latex(\\frac{",H,"}{\\sqrt{",Mag,"}})"],"",Str1);
-		    string_concatenate(["latex(,\\frac{",H,"}{\\sqrt{",Mag,"}})"],"",Str1)
+		    string_concatenate(["latex(\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}})"],"",Str1);
+		    string_concatenate(["latex(,\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}})"],"",Str1)
 		    )		
 		)
 	),

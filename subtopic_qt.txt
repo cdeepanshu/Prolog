@@ -1,2 +1,3 @@
 vectors : exercise_10_2.
 			
+			
