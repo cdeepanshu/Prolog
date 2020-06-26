@@ -55,7 +55,7 @@ generate_solution_vector_ex_4(Var1,Var2,List1,List2,_):-
 %------------------------------------------------------------------Example 5---------------------------------------------------------------------------------
 %Question
 
-generate_question_vector_ex_5(Var1,Var2,List1,List2,Question):-
+generate_question_vector_ex_5(List1,List2,Question):-
 	%var(List1),var(List2),
 	%random(0,1,R),
 
@@ -63,12 +63,13 @@ generate_question_vector_ex_5(Var1,Var2,List1,List2,Question):-
 	%	generate_list_for_equal_magnitude(List1,List2);
 	%	generate_list_for_non_equal_magnitude(List1,List2)
 	%),
-
+	Var1=a,
+	Var2=b,
     generate_latex_vector_ijk(List1, [i,j],"",Latex_str1),
     generate_latex_vector_ijk(List2, [i,j],"",Latex_str2),
     generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
-    string_concatenate(["string(Let ",Latex_str_name1," = ",Latex_str1," and ",Latex_str_name2," = ",Latex_str2," Is latex(|)",Latex_str_name1,"latex(|) = latex(|)",Latex_str_name2,"latex(|) ?. Are the vectors ",Latex_str_name1," and ",Latex_str_name2," equal ?.)"],"",Question).
+    string_concatenate(["[string(Let ",Latex_str_name1," = ",Latex_str1," and ",Latex_str_name2," = ",Latex_str2," Is latex(|)",Latex_str_name1,"latex(|) = latex(|)",Latex_str_name2,"latex(|) ?. Are the vectors ",Latex_str_name1," and ",Latex_str_name2," equal ?.)]"],"",Question).
 
 
 %Answer
@@ -99,8 +100,9 @@ generate_answer_vector_ex_5(Var1,Var2,List1,List2,Answer):-
 		string_concatenate([Ans_0,Ans_1],"",Answer)
 	).
 %Solution
-generate_solution_vector_ex_5(Var1,Var2,List1,List2,Solution):-
-
+generate_solution_vector_ex_5(List1,List2,Solution):-
+	Var1=a,
+	Var2=b,
     generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
 
@@ -115,23 +117,23 @@ generate_solution_vector_ex_5(Var1,Var2,List1,List2,Solution):-
 
     (List1_magnitude=:=List2_magnitude->
 
-	   	(string_concatenate(["string(We have |",Latex_str_name1,"| = ", List1_mag_exp,"= latex(\\\\\\\\sqrt{",List1_magnitude,"}) and |",Latex_str_name2,"| = ",List2_mag_exp,"= latex(\\\\\\\\sqrt{",List2_magnitude,"}) )" ],"",Sol_0),
+	   	(string_concatenate(["[string(We have |",Latex_str_name1,"| = ", List1_mag_exp,"= latex(\\\\\\\\sqrt{",List1_magnitude,"}) and |",Latex_str_name2,"| = ",List2_mag_exp,"= latex(\\\\\\\\sqrt{",List2_magnitude,"}) )" ],"",Sol_0),
 		string_concatenate([",string(So, |",Latex_str_name1,"| = |",Latex_str_name2,"|)" ],"",Sol_1),
 		string_concatenate([Sol_0,Sol_1],"",Sol_2))
 
 		;
 
-	   	(string_concatenate(["string(We have |",Latex_str_name1,"| = ", List1_mag_exp,"= latex(\\\\\\\\sqrt{",List1_magnitude,"}) and |",Latex_str_name2,"| = ",List2_mag_exp,"= latex(\\\\\\\\sqrt{",List2_magnitude,"}) )" ],"",Sol_0),
+	   	(string_concatenate(["[string(We have |",Latex_str_name1,"| = ", List1_mag_exp,"= latex(\\\\\\\\sqrt{",List1_magnitude,"}) and |",Latex_str_name2,"| = ",List2_mag_exp,"= latex(\\\\\\\\sqrt{",List2_magnitude,"}) )" ],"",Sol_0),
 		string_concatenate([",string(So, |",Latex_str_name1,"| latex(\\\\\\\\neq) |",Latex_str_name2,"|)" ],"",Sol_1),
 		string_concatenate([Sol_0,Sol_1],"",Sol_2))
 	),
 	(Comp_result=="Equal"->
-		string_concatenate([",string(The Vectors are equal since there corresponding components are same. )" ],"",Sol_3),
+		string_concatenate([",string(The Vectors are equal since there corresponding components are same. )]" ],"",Sol_3),
 		string_concatenate([Sol_2,Sol_3],"",Solution)
 
 		;
 
-		string_concatenate([",string(The Vectors are not equal since there corresponding components are distinct. )" ],"",Sol_3),
+		string_concatenate([",string(The Vectors are not equal since there corresponding components are distinct. )]" ],"",Sol_3),
 		string_concatenate([Sol_2,Sol_3],"",Solution)
 	).
 	
@@ -142,25 +144,26 @@ generate_solution_vector_ex_5(Var1,Var2,List1,List2,Solution):-
 
 %Question:
 
-generate_question_vector_ex_6(Var1,List1,Question):-
-	%Var1=a,
+generate_question_vector_ex_6(List1,Question):-
+	Var1=a,
 	%generate_list(List1),
     generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
 
     generate_latex_vector_name(Var1,Latex_str_name1),
 
-    string_concatenate(["string(Find the unit vector in the direction of vector ",Latex_str_name1," = ",Latex_str1,")"],"",Question).
+    string_concatenate(["[string(Find the unit vector in the direction of vector ",Latex_str_name1," = ",Latex_str1,")]"],"",Question).
 
 %Answer
-generate_answer_vector_ex_6(Var1,List1,Answer):-
+generate_answer_vector_ex_6(List1,Answer):-
+	Var1=a,
 	generate_magnitude(List1,0,List1_magnitude),
 	generate_latex_fraction_vector_ijk(List1, [i,j,k],List1_magnitude,"",Latex_frac_str1),
 
     string_concatenate(["[string(latex(\\\\hat{",Var1,"}) = ",Latex_frac_str1,")]"],"",Answer).
 
 %Solution
-generate_solution_vector_ex_6(Var1,List1,Solution):-
-
+generate_solution_vector_ex_6(List1,Solution):-
+	Var1=a,
     generate_latex_vector_name(Var1,Latex_str_name1),
 
     generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
@@ -172,11 +175,11 @@ generate_solution_vector_ex_6(Var1,List1,Solution):-
 
     generate_latex_magnitude_expression_ijk(List1,"",List1_mag_exp),
 
-    string_concatenate(["string(The unit vector in the direction of vector ",Latex_str_name1," is given by latex(\\\\hat{",Var1,"}) = latex(\\\\frac{1}{|\\\\overrightarrow{",Var1,"}|})",Latex_str_name1,".)"],"",Sol_0),
+    string_concatenate(["[string(The unit vector in the direction of vector ",Latex_str_name1," is given by latex(\\\\hat{",Var1,"}) = latex(\\\\frac{1}{|\\\\overrightarrow{",Var1,"}|})",Latex_str_name1,".)"],"",Sol_0),
 
     string_concatenate([",string(Now latex(\\\\overrightarrow{",Var1,"}) = ",List1_mag_exp," = latex(\\\\sqrt{",List1_magnitude,"}))"],"",Sol_1),
 
-    string_concatenate([",string(Therefore latex(\\\\hat{",Var1,"}) = latex(\\\\frac{1}{\\\\sqrt{",List1_magnitude,"}})[",Latex_str1,"] = ",Latex_frac_str1,")"],"",Sol_2),
+    string_concatenate([",string(Therefore latex(\\\\hat{",Var1,"}) = latex(\\\\frac{1}{\\\\sqrt{",List1_magnitude,"}})[",Latex_str1,"] = ",Latex_frac_str1,")]"],"",Sol_2),
 
     string_concatenate([Sol_0,Sol_1,Sol_2],"",Solution).
 
@@ -186,8 +189,8 @@ generate_solution_vector_ex_6(Var1,List1,Solution):-
 
 %Question:
 
-generate_question_vector_ex_7(Var1,List1,Magnitude,Question):-
-	%Var1=a,
+generate_question_vector_ex_7(List1,Magnitude,Question):-
+	Var1=a,
 	%generate_list(List1),
 	%generate_magnitude(Magnitude),
 
@@ -195,7 +198,7 @@ generate_question_vector_ex_7(Var1,List1,Magnitude,Question):-
 
     generate_latex_vector_name(Var1,Latex_str_name1),
 
-    string_concatenate(["string(Find the vector in the direction of vector ",Latex_str_name1," = ",Latex_str1," that has magnitude ",Magnitude, " units.)"],"",Question).
+    string_concatenate(["[string(Find the vector in the direction of vector ",Latex_str_name1," = ",Latex_str1," that has magnitude ",Magnitude, " units.)]"],"",Question).
 
 
 %Answer
@@ -219,7 +222,8 @@ generate_answer_vector_ex_7(List1,Magnitude,Answer):-
 
 
 %Solution
-generate_solution_vector_ex_7(Var1,List1,Magnitude,Solution):-
+generate_solution_vector_ex_7(List1,Magnitude,Solution):-
+	Var1=a,
 	generate_latex_vector_name(Var1,Latex_str_name1),
 
     generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
@@ -246,13 +250,13 @@ generate_solution_vector_ex_7(Var1,List1,Magnitude,Solution):-
 
 	generate_latex_mag_updated_fraction_vector_ijk(List1,[i,j,k],Ans,Magnitude,Pro,"",Latex_frac_sum),
 
-	string_concatenate(["string(The unit vector int he direction of given vector ",Latex_str_name1," is)"],"",Sol_0),
+	string_concatenate(["[string(The unit vector int he direction of given vector ",Latex_str_name1," is)"],"",Sol_0),
 
 	string_concatenate([",string(latex(\\\\\\\\hat{",Var1,"}) = latex(\\\\\\\\frac{1}{|\\\\\\\\overrightarrow{",Var1,"}|})",Latex_str_name1," = latex(\\\\\\\\frac{1}{\\\\\\\\sqrt{",List1_magnitude,"}})[",Latex_str1,"] = ",Latex_frac_str1,")"],"",Sol_1),
 
 	string_concatenate([",string(Therefore, the vector having magnitude equal to ",Magnitude,"and in the direction of ",Latex_str_name1," is)"],"",Sol_2),
 
-	string_concatenate([",string(",Magnitude,"latex(\\\\\\\\hat{",Var1,"}) = ",Magnitude,"[",Latex_frac_str1,"] = ",Latex_frac_sum,"))"],"",Sol_3),
+	string_concatenate([",string(",Magnitude,"latex(\\\\\\\\hat{",Var1,"}) = ",Magnitude,"[",Latex_frac_str1,"] = ",Latex_frac_sum,"))]"],"",Sol_3),
 
 
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
@@ -282,7 +286,7 @@ generate_question_vector_ex_8(Question):-
 
 
 %Answer
-generate_answer_vector_ex_8(_,_,List1,List2,Answer):-
+generate_answer_vector_ex_8(List1,List2,Answer):-
 	generate_sum_vector(List1,List2,Sum),
 
 	generate_magnitude(Sum,0,Sum_magnitude),
@@ -293,7 +297,9 @@ generate_answer_vector_ex_8(_,_,List1,List2,Answer):-
    string_concatenate(["[string(",Latex_frac_sum,")]"],"",Answer).
 
 %Solution
-generate_solution_vector_ex_8(Var1,Var2,List1,List2, Solution):-
+generate_solution_vector_ex_8(List1,List2, Solution):-
+	Var1=a,
+	Var2=b,
 	generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
     generate_latex_vector_name(c,Latex_str_var),
@@ -322,16 +328,16 @@ generate_solution_vector_ex_8(Var1,Var2,List1,List2, Solution):-
 
 
 %Question
-generate_question_vector_ex_9(Var1,List1,Question):-
+generate_question_vector_ex_9(List1,Question):-
 
-	%Var1=a,
+	Var1=a,
 	%generate_list(List1),
 
     generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
 
     generate_latex_vector_name(Var1,Latex_str_name1),
 
-    string_concatenate(["string(Write the direction ratios of the vector ",Latex_str_name1," = ",Latex_str1," and hence calulate it's direction cosines.)"],"",Question).
+    string_concatenate(["[string(Write the direction ratios of the vector ",Latex_str_name1," = ",Latex_str1," and hence calulate it's direction cosines.)]"],"",Question).
 
 
 %Answer
@@ -352,10 +358,10 @@ generate_solution_vector_ex_9(List1,Solution):-
     generate_magnitude(List1,0,List1_magnitude),
 	generate_direction_cosines(List1,List1_magnitude,"",Latex_direction_cosine),
 
-    string_concatenate(["string(Note that he direction ratios a,b,c of a vector ",Latex_str_vec," = ",Latex_vec," are just the respective components x, y and z of the vector)"],"",Sol_0),
+    string_concatenate(["[string(Note that he direction ratios a,b,c of a vector ",Latex_str_vec," = ",Latex_vec," are just the respective components x, y and z of the vector)"],"",Sol_0),
     string_concatenate([",string(So, for the given vector, we have [a,b,c] : ",List1,". Further if l, m and n are the direction cosines of the given vector, then)"],"",Sol_1),
     string_concatenate([",string(l = latex(\\\\\\\\frac{a}{|\\\\\\\\overrightarrow{",r,"}|}), m = latex(\\\\\\\\frac{b}{|\\\\\\\\overrightarrow{",r,"}|}), n = latex(\\\\\\\\frac{c}{|\\\\\\\\overrightarrow{",r,"}|}) and |",Latex_str_vec,"| = latex(\\\\\\\\sqrt{",List1_magnitude,"}))"],"",Sol_2),
-    string_concatenate([",string(Thus, the direction cosines are [l,m,n] : [",Latex_direction_cosine,"])"],"",Sol_3),
+    string_concatenate([",string(Thus, the direction cosines are [l,m,n] : [",Latex_direction_cosine,"])]"],"",Sol_3),
 
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
 
@@ -365,25 +371,26 @@ generate_solution_vector_ex_9(List1,Solution):-
 %------------------------------------------------------------------Example 10---------------------------------------------------------------------------------
 
 %Question
-generate_question_vector_ex_10(Point1,Point2,Question):-
+generate_question_vector_ex_10(Point_list_1,Point_list_2,Question):-
 	
 	%generate_list(Point1),
 	%generate_list(Point2),
-
-    string_concatenate(["string(Find the vector joining the points P(",Point1,") and Q(",Point2,") directed from P to Q.)"],"",Question).
+	convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
+    convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
+    string_concatenate(["[string(Find the vector joining the points P latex(",Point_list_string_1,") and Q latex(",Point_list_string_1,") directed from P to Q.)]"],"",Question).
 
 
 %Answer
-generate_answer_vector_ex_10(Point1,Point2,Answer):-
-	generate_diff_vector(Point2,Point1,Diff),
+generate_answer_vector_ex_10(Point_list_1,Point_list_2,Answer):-
+	generate_diff_vector(Point_list_2,Point_list_1,Diff),
 	generate_latex_vector_ijk(Diff, [i,j,k],"",Latex_Diff),
 
 	string_concatenate(["[string(latex(\\\\overrightarrow{PQ}) = ",Latex_Diff,")]"],"",Answer).
 
 %Solution
-generate_solution_vector_ex_10(Point1,Point2,Solution):-
-	generate_latex_diff_exp_ijk(Point2,Point1,[i,j,k],"",Latex_diff_exp),
-	generate_diff_vector(Point2,Point1,Diff),
+generate_solution_vector_ex_10(Point_list_1,Point_list_2,Solution):-
+	generate_latex_diff_exp_ijk(Point_list_2,Point_list_1,[i,j,k],"",Latex_diff_exp),
+	generate_diff_vector(Point_list_2,Point_list_1,Diff),
 	generate_latex_vector_ijk(Diff, [i,j,k],"",Latex_Diff),
 
 	string_concatenate(["[string(Since the vector is to be directed from P to Q, clearly P is the initial point and Q is the terminal point.)"],"",Sol_0),
@@ -399,13 +406,13 @@ generate_solution_vector_ex_10(Point1,Point2,Solution):-
 %------------------------------------------------------------------Example 11---------------------------------------------------------------------------------
 
 %Question
-generate_question_vector_ex_11(Question):-
+generate_question_vector_ex_11(Point1,Point2,Ratio1,Ratio2,Question):-
 	
-	generate_list(Point1),
+	/*generate_list(Point1),
 	generate_list(Point2),
 
 	generate_magnitude(Ratio1),
-	generate_magnitude(Ratio2),
+	generate_magnitude(Ratio2),*/
 
 	generate_latex_vector_ijk(Point1, [i,j,k],"",Latex_str1),
     generate_latex_vector_ijk(Point2, [i,j,k],"",Latex_str2),
@@ -449,9 +456,9 @@ generate_solution_vector_ex_11(Point1,Point2,Ratio1,Ratio2,Solution):-
 	generate_latex_fraction_vector(Div_externally,[i,j,k],Externally,"",Latex_ratio_2),
 
 	string_concatenate(["[string((i) The position vector of the point R dividing the join of P and Q intenally in the ratio",Ratio1," : ",Ratio2," is )"],"",Sol_0),
-	string_concatenate([",string(latex(\\\\overrightarrow{OR}) = latex(\\\\frac{",Ratio1,"(",Latex_str2,") + ",Ratio2,"(",Latex_str1,")}{",Ratio1," + ",Ratio2,"}) = ",Latex_ratio_1,")]"],"",Sol_1),
+	string_concatenate([",string(latex(\\\\\\\\overrightarrow{OR}) = latex(\\\\\\\\frac{",Ratio1,"(",Latex_str2,") + ",Ratio2,"(",Latex_str1,")}{",Ratio1," + ",Ratio2,"}) = ",Latex_ratio_1,")"],"",Sol_1),
 	string_concatenate([",string((ii) The position vector of the point R dividing the join of P and Q extenally in the ratio",Ratio1," : ",Ratio2," is )"],"",Sol_2),
-	string_concatenate([",string(latex(\\\\overrightarrow{OR}) = latex(\\\\frac{",Ratio1,"(",Latex_str2,") - ",Ratio2,"(",Latex_str1,")}{",Ratio1," - ",Ratio2,"}) = ",Latex_ratio_2,")]"],"",Sol_3),
+	string_concatenate([",string(latex(\\\\\\\\overrightarrow{OR}) = latex(\\\\\\\\frac{",Ratio1,"(",Latex_str2,") - ",Ratio2,"(",Latex_str1,")}{",Ratio1," - ",Ratio2,"}) = ",Latex_ratio_2,")]"],"",Sol_3),
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
 
 %---------------------------------------------------------------End of Example 11-----------------------------------------------------------------------------------------
@@ -460,13 +467,16 @@ generate_solution_vector_ex_11(Point1,Point2,Ratio1,Ratio2,Solution):-
 %------------------------------------------------------------------Example 12---------------------------------------------------------------------------------
 
 %Question
-generate_question_vector_ex_12(Question):-
+generate_question_vector_ex_12(Point_list_1,Point_list_2,Point_list_3,Question):-
 	
-	generate_list(Point1),
+	/*generate_list(Point1),
 	generate_list(Point2),
-	generate_list(Point3),
+	generate_list(Point3),*/
+	convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
+    convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
+    convert_square_brackets_to_round_brackets(Point_list_3,Point_list_string_3),
 
-    string_concatenate(["[string(Show that the points A(",Point1,"), B(",Point2,"), C(",Point3,") are vertices of right angle triangle.)]"],"",Question).
+    string_concatenate(["[string(Show that the points A latex(",Point_list_string_1,"), B latex(",Point_list_string_2,"), C latex(",Point_list_string_3,") are vertices of right angle triangle.)]"],"",Question).
 
 
 %Answer
@@ -510,26 +520,26 @@ generate_solution_vector_ex_12(Point1,Point2,Point3,Solution):-
 
 
     string_concatenate(["[string(We have,)"],"",Sol_0),
-	string_concatenate([",string(latex(\\\\overrightarrow{AB}) = ",Latex_diff_exp_1," = ",Latex_Diff_1,")"],"",Sol_1),
-	string_concatenate([",string(latex(\\\\overrightarrow{BC}) = ",Latex_diff_exp_2," = ",Latex_Diff_2,")"],"",Sol_2),
-	string_concatenate([",string(latex(\\\\overrightarrow{CA}) = ",Latex_diff_exp_3," = ",Latex_Diff_3,")"],"",Sol_3),
+	string_concatenate([",string(latex(\\\\\\\\overrightarrow{AB}) = ",Latex_diff_exp_1," = ",Latex_Diff_1,")"],"",Sol_1),
+	string_concatenate([",string(latex(\\\\\\\\overrightarrow{BC}) = ",Latex_diff_exp_2," = ",Latex_Diff_2,")"],"",Sol_2),
+	string_concatenate([",string(latex(\\\\\\\\overrightarrow{CA}) = ",Latex_diff_exp_3," = ",Latex_Diff_3,")"],"",Sol_3),
     string_concatenate([",string(Further note that,)"],"",Sol_4),
 
     (Diff_1_magnitude=:=Diff_3_magnitude+Diff_2_magnitude->
-		string_concatenate([",string(latex(|\\\\overrightarrow{AB}|^2) = ",Diff_1_magnitude," latex(=) ",Diff_2_magnitude," + ",Diff_3_magnitude," = latex(|\\\\overrightarrow{BC}|^2) + latex(|\\\\overrightarrow{CA}|^2))"],"",Sol_5);
-		string_concatenate([",string(latex(|\\\\overrightarrow{AB}|^2) = ",Diff_1_magnitude," latex(\\neq) ",Diff_2_magnitude," + ",Diff_3_magnitude," = latex(|\\\\overrightarrow{BC}|^2) + latex(|\\\\overrightarrow{CA}|^2))"],"",Sol_5)
+		string_concatenate([",string(latex(|\\\\\\\\overrightarrow{AB}|^2) = ",Diff_1_magnitude," latex(=) ",Diff_2_magnitude," + ",Diff_3_magnitude," = latex(|\\\\\\\\overrightarrow{BC}|^2) + latex(|\\\\\\\\overrightarrow{CA}|^2))"],"",Sol_5);
+		string_concatenate([",string(latex(|\\\\\\\\overrightarrow{AB}|^2) = ",Diff_1_magnitude," latex(\\\\\\\\neq) ",Diff_2_magnitude," + ",Diff_3_magnitude," = latex(|\\\\\\\\overrightarrow{BC}|^2) + latex(|\\\\\\\\overrightarrow{CA}|^2))"],"",Sol_5)
 
 	),
 
 	(Diff_2_magnitude=:=Diff_1_magnitude+Diff_3_magnitude->
-		string_concatenate([",string(latex(|\\\\overrightarrow{BC}|^2) = ",Diff_2_magnitude," latex(=) ",Diff_1_magnitude," + ",Diff_3_magnitude," = latex(|\\\\overrightarrow{AB}|^2) + latex(|\\\\overrightarrow{CA}|^2))"],"",Sol_6);
-		string_concatenate([",string(latex(|\\\\overrightarrow{BC}|^2) = ",Diff_2_magnitude," latex(\\neq) ",Diff_1_magnitude," + ",Diff_3_magnitude," = latex(|\\\\overrightarrow{AB}|^2) + latex(|\\\\overrightarrow{CA}|^2))"],"",Sol_6)
+		string_concatenate([",string(latex(|\\\\\\\\overrightarrow{BC}|^2) = ",Diff_2_magnitude," latex(=) ",Diff_1_magnitude," + ",Diff_3_magnitude," = latex(|\\\\\\\\overrightarrow{AB}|^2) + latex(|\\\\\\\\overrightarrow{CA}|^2))"],"",Sol_6);
+		string_concatenate([",string(latex(|\\\\\\\\overrightarrow{BC}|^2) = ",Diff_2_magnitude," latex(\\\\\\\\neq) ",Diff_1_magnitude," + ",Diff_3_magnitude," = latex(|\\\\\\\\overrightarrow{AB}|^2) + latex(|\\\\\\\\overrightarrow{CA}|^2))"],"",Sol_6)
 
 	),
 
 	(Diff_3_magnitude=:=Diff_1_magnitude+Diff_2_magnitude->
-		string_concatenate([",string(latex(|\\\\overrightarrow{CA}|^2) = ",Diff_3_magnitude," latex(=) ",Diff_1_magnitude," + ",Diff_2_magnitude," = latex(|\\\\overrightarrow{AB}|^2) + latex(|\\\\overrightarrow{BC}|^2))"],"",Sol_7);
-		string_concatenate([",string(latex(|\\\\overrightarrow{CA}|^2) = ",Diff_3_magnitude," latex(\\neq) ",Diff_1_magnitude," + ",Diff_2_magnitude," = latex(|\\\\overrightarrow{AB}|^2) + latex(|\\\\overrightarrow{BC}|^2))"],"",Sol_7)
+		string_concatenate([",string(latex(|\\\\\\\\overrightarrow{CA}|^2) = ",Diff_3_magnitude," latex(=) ",Diff_1_magnitude," + ",Diff_2_magnitude," = latex(|\\\\\\\\overrightarrow{AB}|^2) + latex(|\\\\\\\\overrightarrow{BC}|^2))"],"",Sol_7);
+		string_concatenate([",string(latex(|\\\\\\\\overrightarrow{CA}|^2) = ",Diff_3_magnitude," latex(\\\\\\\\neq) ",Diff_1_magnitude," + ",Diff_2_magnitude," = latex(|\\\\\\\\overrightarrow{AB}|^2) + latex(|\\\\\\\\overrightarrow{BC}|^2))"],"",Sol_7)
 
 	),
 
@@ -551,34 +561,52 @@ generate_solution_vector_ex_12(Point1,Point2,Point3,Solution):-
 %------------------------------------------------------------------Question 1---------------------------------------------------------------------------------
 
 %Question
-generate_question_vector_q_1(Question):-
+generate_question_vector_q_1(Vector,Question):-
 	
-	generate_list(Vector),
-	Var1=a,
+	%generate_list(Vector),
 	generate_latex_vector_ijk(Vector, [i,j,k],"",Latex_str1),
-    generate_latex_vector_name(Var1,Latex_str_name1),
 
     string_concatenate(["[string(Compute the magnitude of the following vector:)"],"",Q_0),
-    string_concatenate([",string(",Latex_str_name1," = ",Latex_str1,")]"],"",Q_1),
+    string_concatenate([",string(latex(\\\\\\\\overrightarrow{a}) = ",Latex_str1,")]"],"",Q_1),
 
 	string_concatenate([Q_0,Q_1],"",Question).
 
 %Answer
 generate_answer_vector_q_1(Vector,Answer):-
-	generate_magnitude(Vector,0,Mag),
+	generate_magnitude(Vector,0,List1_magnitude),
 
-	(Mag=:=1->
-	string_concatenate(["[string(latex(|\\\\overrightarrow{a}|) = ",Mag,")]"],"",Answer);
-
-	string_concatenate(["[string(latex(|\\\\overrightarrow{a}|) = latex(\\\\sqrt{",Mag,"}))]"],"",Answer)
-	).
+	get_updated_coefficient([[[1,1],[List1_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	string_concatenate(["[string(latex(",Ans,"))]"],"",Answer).
 
 %Solution
 generate_solution_vector_q_1(Vector,Solution):-
-	generate_magnitude(Vector,0,Mag),
-    generate_latex_magnitude_expression_ijk(Vector,"",List1_mag_exp),
+	generate_magnitude(Vector,0,Vector_magnitude),
+    generate_latex_magnitude_expression_ijk(Vector,"",Vector_mag_exp),
 
-	string_concatenate(["[string(latex(|\\\\overrightarrow{a}|) = ",List1_mag_exp," = latex(\\\\sqrt{",Mag,"}))]"],"",Solution).
+	get_updated_coefficient([[[1,1],[Vector_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	string_concatenate(["[string(latex(|\\\\\\\\overrightarrow{a}|) = ",Vector_mag_exp," = latex(\\\\sqrt{",Vector_magnitude,"} = ",Ans,"))]"],"",Solution).
 
 
 %------------------------------------------------------------------End of Question 1---------------------------------------------------------------------------------
@@ -630,37 +658,42 @@ generate_solution_vector_q_4(Var1,Var2,List1,List2,_):-
 %------------------------------------------------------------------Question 5---------------------------------------------------------------------------------
 
 %Question:
-generate_question_vector_q_5(Question):-
+generate_question_vector_q_5(Point_list_1,Point_list_2,Question):-
 	
-	generate_list(Point1),
-	generate_list(Point2),
-  
+	%generate_list(Point1),
+	%generate_list(Point2),
+    convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
+    convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
 
-    string_concatenate(["[string(Find the scalar and vector components of the vector with initial point ",Point1," and terminal point ",Point2,".)]"],"",Question).
+
+    string_concatenate(["[string(Find the scalar and vector components of the vector with initial point latex(",Point_list_string_1,") and terminal point latex(",Point_list_string_1,").)]"],"",Question).
 
 
 %Answer
-generate_answer_vector_q_5(Point1,Point2,Answer):-
-	generate_diff_vector(Point2,Point1,Diff),
+generate_answer_vector_q_5(Point_list_1,Point_list_2,Answer):-
+	generate_diff_vector(Point_list_1,Point_list_2,Diff),
 	generate_vector_component(Diff, [i,j,k],"",Latex_Diff),
 
-	string_concatenate(["[string(Scalar components : ",Diff,")"],"",Ans_0),
-	string_concatenate([",string(Vector components : ",Latex_Diff,")]"],"",Ans_1),
+	string_concatenate(["string(Scalar components : ",Diff,")"],"",Ans_0),
+	string_concatenate([",string(Vector components : ",Latex_Diff,")"],"",Ans_1),
 
 	string_concatenate([Ans_0,Ans_1],"",Answer).
 
 %Solution
-generate_solution_vector_q_5(Point1,Point2,Solution):-
-	generate_latex_diff_exp_ijk(Point2,Point1,[i,j,k],"",Latex_diff_exp),
-	generate_diff_vector(Point2,Point1,Diff),
+generate_solution_vector_q_5(Point_list_1,Point_list_2,Solution):-
+	generate_latex_diff_exp_ijk(Point_list_2,Point_list_1,[i,j,k],"",Latex_diff_exp),
+	generate_diff_vector(Point_list_2,Point_list_1,Diff),
 	generate_latex_vector_ijk(Diff, [i,j,k],"",Latex_Diff),
 	generate_vector_component(Diff, [i,j,k],"",Latex_vector_Diff),
+	convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
+    convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
+    
+    convert_square_brackets_to_round_brackets(Diff,Diff_string),
 
-
-	string_concatenate(["[string(The vector with the initial point P ",Point1," and terminal point Q ",Point2," is given by)"],"",Sol_0),
-    string_concatenate([",string(latex(\\\\overrightarrow{PQ}) = ",Latex_diff_exp,")"],"",Sol_1),
-	string_concatenate([",string(latex(\\\\overrightarrow{PQ}) = ",Latex_Diff,")"],"",Sol_2),
-	string_concatenate([",string(Hence, the required scalar components are ",Diff," while the vector components are ",Latex_vector_Diff,".)]"],"",Sol_3),
+	string_concatenate(["[string(The vector with the initial point P latex(",Point_list_string_1,") and terminal point Q latex(",Point_list_string_2,") is given by)"],"",Sol_0),
+    string_concatenate([",string(latex(\\\\\\\\overrightarrow{PQ}) = ",Latex_diff_exp,")"],"",Sol_1),
+	string_concatenate([",string(latex(\\\\\\\\overrightarrow{PQ}) = ",Latex_Diff,")"],"",Sol_2),
+	string_concatenate([",string(Hence, the required scalar components are latex(",Diff_string,") while the vector components are ",Latex_vector_Diff,".)]"],"",Sol_3),
 
 
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
@@ -670,13 +703,14 @@ generate_solution_vector_q_5(Point1,Point2,Solution):-
 %------------------------------------------------------------------Question 6---------------------------------------------------------------------------------
 
 %Question:
-generate_question_vector_q_6(Question):-
+generate_question_vector_q_6(List1,List2,List3,Question):-
 	Var1=a,
 	Var2=b,
 	Var3=c,
+	/*
 	generate_list(List1),
 	generate_list(List2),
-	generate_list(List3),
+	generate_list(List3),*/
     generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
     generate_latex_vector_ijk(List2, [i,j,k],"",Latex_str2),
     generate_latex_vector_ijk(List3, [i,j,k],"",Latex_str3),

@@ -4,5 +4,10 @@ exercise_10_2 : find_the_unit_vector,
 				check_whether_given_two_vectors_are_equal_or_not,
 				find_vector_in_direction_of_vector_that_has_magnitude,
 				calculate_direction_cosines,
-				find_the_vector_joining_two_points.
+				find_the_vector_joining_two_points,
+				find_position_vector_of_a_point_which_divide_line_segment,
+				find_given_points_are_vertices_of_a_right_angle_triangle_or_not,
+				compute_magnitude_of_vector,
+				find_scalar_and_vector_components,
+				find_sum_of_vector.
 

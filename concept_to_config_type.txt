@@ -3,4 +3,8 @@ magitude_product : find_vector_in_direction_of_vector_that_has_magnitude.
 equal_vector : check_whether_given_two_vectors_are_equal_or_not.
 direction_cosines : calculate_direction_cosines. 
 vector_joining_the_points : find_the_vector_joining_two_points.
-
+section_formula : find_position_vector_of_a_point_which_divide_line_segment.
+pythagoras_theorem : find_given_points_are_vertices_of_a_right_angle_triangle_or_not.
+vector_magnitude : compute_magnitude_of_vector.
+scalar_vector_components : find_scalar_and_vector_components.
+sum_of_vector : find_sum_of_vector.
