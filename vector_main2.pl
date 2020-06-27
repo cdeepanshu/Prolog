@@ -1,20 +1,20 @@
-:- include('radicals/helper.pl').
+/*:- include('radicals/helper.pl').
 :- include('vector_algebra/helper.pl').
 :- include('application_of_integrals/gfs.pl').
 :- include('trigno_with_val/helper.pl').
-:- include('binomial_multinomials/helper_general.pl').
+:- include('binomial_multinomials/helper_general.pl').*/
 
 
 %--------------------------------------------------------------------Exercise 10.3-------------------------------------------------------------------------
 %------------------------------------------------------------------Example 13---------------------------------------------------------------------------------
 
 %Question
-generate_question_vector_ex_13(Question):-
+generate_question_vector_ex_13(Mag1,Mag2,Mag3,Question):-
 	Var1=a,
 	Var2=b,
-	generate_magnitude(Mag1),
+	/*generate_magnitude(Mag1),
 	generate_magnitude(Mag2),
-	generate_magnitude(Mag3),
+	generate_magnitude(Mag3),*/
 
     generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
@@ -41,19 +41,19 @@ generate_solution_vector_ex_13(Mag1,Mag2,Mag3,Solution):-
 	string_concatenate([Num,"/",Den],"",Term),
 	trignometric_inverse_function(1,Term,Angle),
 	string_concatenate(["[string(Given ",Latex_str_name1,".",Latex_str_name2," = ",Mag3,", |",Latex_str_name1,"| = ",Mag1," and ",Latex_str_name2,"| = ",Mag2,". We have)"],"",Sol_0),
-	string_concatenate([",string(latex(\\\\theta = \\\\cos^{-1}(\\\\frac{\\\\overrightarrow{a}.\\\\overrightarrow{b}}{|\\\\overrightarrow{a}| |\\\\overrightarrow{b}|})))"],"",Sol_1),
-	string_concatenate([",string(latex(\\\\cos^{-1}(\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Sol_2),
+	string_concatenate([",string(latex(\\\\\\\\theta = \\\\\\\\cos^{-1}(\\\\\\\\frac{\\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b}}{|\\\\\\\\overrightarrow{a}| |\\\\\\\\overrightarrow{b}|})))"],"",Sol_1),
+	string_concatenate([",string(latex(\\\\\\\\cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Sol_2),
 	string_concatenate([Sol_0,Sol_1,Sol_2],"",Solution).
 
 %------------------------------------------------------------------End of Question 13---------------------------------------------------------------------------------
 
 %------------------------------------------------------------------Example 14---------------------------------------------------------------------------------
 %Question
-generate_question_vector_ex_14(Question):-
+generate_question_vector_ex_14(List1,List2,Question):-
 	Var1=a,
 	Var2=b,
-	generate_list(List1),
-	generate_list(List2),
+	/*generate_list(List1),
+	generate_list(List2),*/
 
     generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
@@ -61,7 +61,7 @@ generate_question_vector_ex_14(Question):-
   	generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
     generate_latex_vector_ijk(List2, [i,j,k],"",Latex_str2),
 
-    string_concatenate(["[string(Find angle 'latex(\\\\theta)' between the vector ",Latex_str_name1," = ",Latex_str1," and ",Latex_str_name2," = ",Latex_str2,".)]"],"",Question).
+    string_concatenate(["[string(Find angle 'latex(\\\\\\\\theta)' between the vector ",Latex_str_name1," = ",Latex_str1," and ",Latex_str_name2," = ",Latex_str2,".)]"],"",Question).
 
 %Answer
 generate_answer_vector_ex_14(List1,List2,Answer):-
@@ -80,11 +80,11 @@ generate_answer_vector_ex_14(List1,List2,Answer):-
 			simplify(Num,Den,R1,R2),
 			string_concatenate([R1,"/",R2],"",Term),
 			trignometric_inverse_function(1,Term,Angle),
-			string_concatenate(["[string(latex(\\\\theta = cos^{-1}(\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Answer);
+			string_concatenate(["[string(latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Answer);
 
 			S is (S1)*(S2),
-			string_concatenate(["\\\\sqrt{",S,"}"],"",Den),
-			string_concatenate(["[string(latex(\\\\theta = cos^{-1}(\\\\frac{",Num,"}{",Den,"})))]"],"",Answer)
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Den),
+			string_concatenate(["[string(latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"})))]"],"",Answer)
 
 		);
 		(S1=:=S2->
@@ -92,12 +92,12 @@ generate_answer_vector_ex_14(List1,List2,Answer):-
 			simplify(Num,Den,R1,R2),
 			string_concatenate([R1,"/",R2],"",Term),
 			trignometric_inverse_function(1,Term,Angle),
-			string_concatenate(["[string(latex(\\\\theta = cos^{-1}(\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Answer);
+			string_concatenate(["[string(latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Answer);
 
 			S is (S1)*(S2),
 			M is (M1)*(M2),
-			string_concatenate(["",M,"\\\\sqrt{",S,"}"],"",Den),
-			string_concatenate(["[string(latex(\\\\theta = cos^{-1}(\\\\frac{",Num,"}{",Den,"})))]"],"",Answer)
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Den),
+			string_concatenate(["[string(latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"})))]"],"",Answer)
 
 		)
 	).
@@ -130,11 +130,11 @@ generate_solution_vector_ex_14(List1,List2,Solution):-
 			simplify(Num,Den,R1,R2),
 			string_concatenate([R1,"/",R2],"",Term),
 			trignometric_inverse_function(1,Term,Angle),
-			string_concatenate([",string(Hence the required angle is latex(\\\\theta = cos^{-1}(\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Sol_4);
+			string_concatenate([",string(Hence the required angle is latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Sol_4);
 
 			S is (S1)*(S2),
-			string_concatenate(["\\\\sqrt{",S,"}"],"",Den),
-			string_concatenate([",string(Hence the required angle is latex(\\\\theta = cos^{-1}(\\\\frac{",Num,"}{",Den,"})))]"],"",Sol_4)
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Den),
+			string_concatenate([",string(Hence the required angle is latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"})))]"],"",Sol_4)
 
 		);
 		(S1=:=S2->
@@ -142,20 +142,20 @@ generate_solution_vector_ex_14(List1,List2,Solution):-
 			simplify(Num,Den,R1,R2),
 			string_concatenate([R1,"/",R2],"",Term),
 			trignometric_inverse_function(1,Term,Angle),
-			string_concatenate([",string(Hence the required angle is latex(\\\\theta = cos^{-1}(\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Sol_4);
+			string_concatenate([",string(Hence the required angle is latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Sol_4);
 
 			S is (S1)*(S2),
 			M is (M1)*(M2),
-			string_concatenate(["",M,"\\\\sqrt{",S,"}"],"",Den),
-			string_concatenate([",string(Hence the required angle is latex(\\\\theta = cos^{-1}(\\\\frac{",Num,"}{",Den,"})))]"],"",Sol_4)
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Den),
+			string_concatenate([",string(Hence the required angle is latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"})))]"],"",Sol_4)
 
 		)
 	),
 
-	string_concatenate(["[string(The angle latex(\\\\theta) between two vectors ",Latex_str_name1," and ",Latex_str_name2," is given by)"],"",Sol_0),
-	string_concatenate([",string(latex(cos\\\\theta = \\\\frac{\\\\overrightarrow{a}.\\\\overrightarrow{b}}{|\\\\overrightarrow{a}|.|\\\\overrightarrow{b}|}) )"],"",Sol_1),
+	string_concatenate(["[string(The angle latex(\\\\\\\\theta) between two vectors ",Latex_str_name1," and ",Latex_str_name2," is given by)"],"",Sol_0),
+	string_concatenate([",string(latex(cos\\\\\\\\theta = \\\\\\\\frac{\\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b}}{|\\\\\\\\overrightarrow{a}|.|\\\\\\\\overrightarrow{b}|}) )"],"",Sol_1),
 	string_concatenate([",string(Now ",Latex_str_name1,".",Latex_str_name2," = [",Latex_str1,"].[",Latex_str2,"] = ",Num,".)"],"",Sol_2),
-	string_concatenate([",string(Therefore, we have latex(cos\\\\theta = \\\\frac{",Num,"}{",Den,"}))"],"",Sol_3),
+	string_concatenate([",string(Therefore, we have latex(cos\\\\\\\\theta = \\\\\\\\frac{",Num,"}{",Den,"}))"],"",Sol_3),
 	string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3,Sol_4],"",Solution).
 
 
@@ -163,11 +163,11 @@ generate_solution_vector_ex_14(List1,List2,Solution):-
 
 %------------------------------------------------------------------Example 15---------------------------------------------------------------------------------
 %Question
-generate_question_vector_ex_15(Question):-
+generate_question_vector_ex_15(List1,List2,Question):-
 	Var1=a,
 	Var2=b,
-	generate_list(List1),
-	generate_list(List2),
+	/*generate_list(List1),
+	generate_list(List2),*/
 
 	generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
     generate_latex_vector_ijk(List2, [i,j,k],"",Latex_str2),
@@ -175,7 +175,7 @@ generate_question_vector_ex_15(Question):-
     generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
 
-    string_concatenate(["[string(If ",Latex_str_name1," = ",Latex_str1," and ",Latex_str_name2," = ",Latex_str2," , then show that vectors",Latex_str_name1," + ",Latex_str_name2," and ",Latex_str_name1," - ",Latex_str_name2," are perpendicular.)]"],"",Question).
+    string_concatenate(["[string(If ",Latex_str_name1," = ",Latex_str1," and ",Latex_str_name2," = ",Latex_str2," , then that vectors",Latex_str_name1," + ",Latex_str_name2," and ",Latex_str_name1," - ",Latex_str_name2," are perpendicular. Determine whether the statement is true or false.)]"],"",Question).
 %Answer
 generate_answer_vector_ex_15(List1,List2,Answer):-
 	Var1=a,
@@ -227,11 +227,11 @@ generate_solution_vector_ex_15(List1,List2,Solution):-
 
 %------------------------------------------------------------------Example 16---------------------------------------------------------------------------------
 %Question
-generate_question_vector_ex_16(Question):-
+generate_question_vector_ex_16(List1,List2,Question):-
 	Var1=a,
 	Var2=b,
-	generate_list(List1),
-	generate_list(List2),
+	/*generate_list(List1),
+	generate_list(List2),*/
 
 	generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
     generate_latex_vector_ijk(List2, [i,j,k],"",Latex_str2),
@@ -251,13 +251,13 @@ generate_answer_vector_ex_16(List1,List2,Answer):-
 	(Result=:=0->
 		string_concatenate(["[string(0)]"],"",Answer);
 		(M1=:=1->
-			string_concatenate(["[string(latex(\\\\frac{",Result,"}{\\\\sqrt{",S1,"}}))]"],"",Answer);
-			string_concatenate(["[string(latex(\\\\frac{",Result,"}{",M1,"\\\\sqrt{",S1,"}}))]"],"",Answer)
+			string_concatenate(["[string(latex(\\\\\\\\frac{",Result,"}{\\\\\\\\sqrt{",S1,"}}))]"],"",Answer);
+			string_concatenate(["[string(latex(\\\\\\\\frac{",Result,"}{",M1,"\\\\\\\\sqrt{",S1,"}}))]"],"",Answer)
 		)
 	).
 %Solution
 generate_solution_vector_ex_16(List1,List2,Solution):-
-Var1=a,
+	Var1=a,
 	Var2=b,
 	generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
@@ -268,16 +268,22 @@ Var1=a,
 	generate_magnitude(List2,0,List2_magnitude),
 	generate_magnitude_expression_ijk(List2,"",List2_mag_exp),
 	get_updated_coefficient([[[1,1],[List2_magnitude,1]]],X1,_),
-	get_updated_coefficient_result(X1,M1,S1),
-
+	get_updated_coefficient_result(X1,M,S),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
     string_concatenate(["[string(The projection of vector ",Latex_str_name1," on the vector ",Latex_str_name2," is given by )"],"",Sol_0),
     (Result=:=0->
-	    string_concatenate([",string(latex(\\\\frac{1}{|\\\\overrightarrow{b}|}(\\\\overrightarrow{a}).(\\\\overrightarrow{b}) = \\\\frac{[",Latex_str1,"].[",Latex_str2,"]}{",List2_mag_exp,"} = \\\\frac{",Result,"}{\\\\sqrt{",S1,"}}) = 0 )]"],"",Sol_1);
-
-	    (M1=:=1->
-	    	string_concatenate([",string(latex(\\\\frac{1}{|\\\\overrightarrow{b}|}(\\\\overrightarrow{a}).(\\\\overrightarrow{b}) = \\\\frac{[",Latex_str1,"].[",Latex_str2,"]}{",List2_mag_exp,"} = \\\\frac{",Result,"}{\\\\sqrt{",S1,"}}) )]"],"",Sol_1);
-	    	string_concatenate([",string(latex(\\\\frac{1}{|\\\\overrightarrow{b}|}(\\\\overrightarrow{a}).(\\\\overrightarrow{b}) = \\\\frac{[",Latex_str1,"].[",Latex_str2,"]}{",List2_mag_exp,"} = \\\\frac{",Result,"}{",M1,"\\\\sqrt{",S1,"}}) )]"],"",Sol_1)
-	    )
+	    string_concatenate([",string(latex(\\\\\\\\frac{1}{|\\\\\\\\overrightarrow{b}|}(\\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b}) = \\\\\\\\frac{[",Latex_str1,"].[",Latex_str2,"]}{",List2_mag_exp,"} = \\\\\\\\frac{",Result,"}{\\\\\\\\sqrt{",S1,"}}) = 0 )]"],"",Sol_1);
+	 	string_concatenate([",string(latex(\\\\\\\\frac{1}{|\\\\\\\\overrightarrow{b}|}(\\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b}) = \\\\\\\\frac{[",Latex_str1,"].[",Latex_str2,"]}{",List2_mag_exp,"} = \\\\\\\\frac{",Result,"}{",Ans,"}) )]"],"",Sol_1)
+	    
     ),
 	string_concatenate([Sol_0,Sol_1],"",Solution).
 

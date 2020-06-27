@@ -46,19 +46,19 @@ generate_latex_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Pro,Init_str,Latex_
     (H>0 ->
     	(Pro=:=1 ->
 		    (Init_str == "" ->
-		    string_concatenate(["latex(\\\\hat{",H1,"})"],"",Str1);
-		    string_concatenate(["+latex(\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["latex(\\\\\\\\hat{",H1,"})"],"",Str1);
+		    string_concatenate(["+latex(\\\\\\\\hat{",H1,"})"],"",Str1)
 		    );
 		    (Init_str == "" ->
-		    string_concatenate(["latex(\\frac{",H,"}{",Mag,"}\\\\hat{",H1,"})"],"",Str1);
-		    string_concatenate(["+latex(\\frac{",H,"}{",Mag,"}\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["latex(\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1);
+		    string_concatenate(["+latex(\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 		    )
 		);
 
 		(H=:=0  ->
 		    Str1=""; 
 		    H2 is abs(H),
-		    string_concatenate(["-latex(\\frac{",H2,"}{",Mag,"}\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["-latex(\\\\\\\\frac{",H2,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 		)
 	),
 
@@ -93,17 +93,26 @@ generate_latex_vector_ijk([H|T],[H1|T1],Init_str,Latex_str):-
     	(H=:=1 ->
 		    (Init_str == "" ->
 		    string_concatenate(["latex(\\\\\\\\hat{",H1,"})"],"",Str1);
-		    string_concatenate(["+latex(\\\\\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["latex(+\\\\\\\\hat{",H1,"})"],"",Str1)
 		    );
 		    (Init_str == "" ->
 		    string_concatenate(["latex(",H,"\\\\\\\\hat{",H1,"})"],"",Str1);
-		    string_concatenate(["+latex(",H,"\\\\\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["latex(+",H,"\\\\\\\\hat{",H1,"})"],"",Str1)
 		    )
 		);
 
 		(H=:=0 ->
-		    Str1=""; 
-		    string_concatenate(["latex(",H,"\\\\\\\\hat{",H1,"})"],"",Str1)
+		    Str1="";
+		    H2 is abs(H),
+
+			(H2=:=1 ->
+			    (Init_str == "" ->
+			    string_concatenate(["latex(-\\\\\\\\hat{",H1,"})"],"",Str1);
+			    string_concatenate(["latex(-\\\\\\\\hat{",H1,"})"],"",Str1)
+			    );
+			    string_concatenate(["latex(-",H2,"\\\\\\\\hat{",H1,"})"],"",Str1)
+			    
+			)		
 		)
 	),
 
@@ -147,18 +156,27 @@ generate_vector_ijk([H|T],[H1|T1],Init_str,Latex_str):-
     (H>0 ->
     	(H=:=1 ->
 		    (Init_str == "" ->
-		    string_concatenate(["\\\\hat{",H1,"}"],"",Str1);
-		    string_concatenate(["+\\\\hat{",H1,"}"],"",Str1)
+		    string_concatenate(["\\\\\\\\hat{",H1,"}"],"",Str1);
+		    string_concatenate(["+\\\\\\\\hat{",H1,"}"],"",Str1)
 		    );
 		    (Init_str == "" ->
-		    string_concatenate(["",H,"\\\\hat{",H1,"}"],"",Str1);
-		    string_concatenate(["+",H,"\\\\hat{",H1,"}"],"",Str1)
+		    string_concatenate(["",H,"\\\\\\\\hat{",H1,"}"],"",Str1);
+		    string_concatenate(["+",H,"\\\\\\\\hat{",H1,"}"],"",Str1)
 		    )
 		);
 
 		(H=:=0 ->
-		    Str1=""; 
-		    string_concatenate(["",H,"\\\\hat{",H1,"}"],"",Str1)
+		    Str1="";
+		    H2 is abs(H),
+
+			(H2=:=1 ->
+			    (Init_str == "" ->
+			    string_concatenate(["-\\\\\\\\hat{",H1,"}"],"",Str1);
+			    string_concatenate(["-\\\\\\\\hat{",H1,"}"],"",Str1)
+			    );
+			    string_concatenate(["-",H2,"\\\\\\\\hat{",H1,"}"],"",Str1)
+			    
+			)		
 		)
 	),
 

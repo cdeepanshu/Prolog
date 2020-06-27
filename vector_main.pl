@@ -859,11 +859,11 @@ generate_solution_vector_q_8(Point1,Point2,Solution):-
 
 %Question:
 
-generate_question_vector_q_9(Question):-
+generate_question_vector_q_9(List1,List2,Question):-
 	Var1=a,
 	Var2=b,
-	generate_list(List1),
-	generate_list(List2),
+	/*generate_list(List1),
+	generate_list(List2),*/
 
 	generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
     generate_latex_vector_ijk(List2, [i,j,k],"",Latex_str2),
@@ -878,9 +878,22 @@ generate_answer_vector_q_9(List1,List2,Answer):-
 	
 	generate_sum_vector(List1,List2,Sum),
 	generate_magnitude(Sum,0,Sum_magnitude),
-	generate_latex_fraction_vector_ijk(Sum, [i,j,k],Sum_magnitude,"",Latex_frac_str1),
+	get_updated_coefficient([[[1,1],[Sum_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+	(M=:=1->
+		(S=:=1->
+			Num is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Num)
+		);
+		(S=:=1->
+			Num is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Num)
+		)
+	),
+	Pro is (M)*(S),
+	generate_latex_updated_fraction_vector_ijk(Sum, [i,j,k],Num,Pro,"",Latex_frac_str1),
 
-    string_concatenate(["[string(latex(\\\\hat{a+b}) = ",Latex_frac_str1,")]"],"",Answer).
+    string_concatenate(["[string(latex(\\\\\\\\hat{a+b}) = ",Latex_frac_str1,")]"],"",Answer).
 
 
 %Solution
@@ -898,13 +911,22 @@ generate_solution_vector_q_9(List1,List2,Solution):-
 	generate_sum_vector(List1,List2,Sum),
 	generate_latex_vector_ijk(Sum, [i,j,k],"",Latex_Sum),
 	generate_latex_sum_exp_ijk(List1,List2,[i,j,k],"",Latex_sum_exp),
-
-
-
     generate_magnitude(Sum,0,Sum_magnitude),
-
-	generate_latex_fraction_vector_ijk(Sum, [i,j,k],Sum_magnitude,"",Latex_frac_str1),
-
+ 	get_updated_coefficient([[[1,1],[Sum_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+	(M=:=1->
+		(S=:=1->
+			Num is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Num)
+		);
+		(S=:=1->
+			Num is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Num)
+		)
+	),
+	Pro is (M)*(S),
+	generate_latex_updated_fraction_vector_ijk(Sum, [i,j,k],Num,Pro,"",Latex_frac_str1),
+	
     generate_latex_magnitude_expression_ijk(Sum,"",Sum_mag_exp),
 
 
@@ -912,10 +934,10 @@ generate_solution_vector_q_9(List1,List2,Solution):-
  	string_concatenate([",string(",Latex_str_name1,"+",Latex_str_name2," = ",Latex_sum_exp,")"],"",Sol_1),
 	string_concatenate([",string(",Latex_str_name1,"+",Latex_str_name2," = ",Latex_Sum,")"],"",Sol_2),
 
-    string_concatenate([",string(Now |",Latex_str_name1,"+",Latex_str_name2,"| = ",Sum_mag_exp," = latex(\\\\sqrt{",Sum_magnitude,"}))"],"",Sol_3),
+    string_concatenate([",string(Now |",Latex_str_name1,"+",Latex_str_name2,"| = ",Sum_mag_exp," = latex(\\\\\\\\sqrt{",Sum_magnitude,"}))"],"",Sol_3),
     string_concatenate([",string(Hence, the unit vector in the direction of [ ",Latex_str_name1," + ",Latex_str_name2," ] is)"],"",Sol_4),
 
-    string_concatenate([",string(Therefore latex(\\\\hat{a+b}) = latex(\\\\frac{1}{\\\\sqrt{",Sum_magnitude,"}})[",Latex_Sum,"] = ",Latex_frac_str1,")]"],"",Sol_5),
+    string_concatenate([",string(Therefore latex(\\\\hat{a+b}) = latex(\\\\\\\\frac{1}{\\\\\\\\sqrt{",Sum_magnitude,"}})[",Latex_Sum,"] = ",Latex_frac_str1,")]"],"",Sol_5),
 
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3,Sol_4,Sol_5],"",Solution).
 
@@ -979,15 +1001,15 @@ generate_solution_vector_q_10(List1,Magnitude, Solution):-
 
 
 %Question
-generate_question_vector_q_11(Question):-
+generate_question_vector_q_11(List1,List2,Question):-
 
-	generate_list(List1),
-	generate_list(List2),
+	/*generate_list(List1),
+	generate_list(List2),*/
 
     generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
     generate_latex_vector_ijk(List2, [i,j,k],"",Latex_str2),
 
-    string_concatenate(["[string(Show that the vectors ",Latex_str1," and ",Latex_str2," are collinear or not.)]"],"",Question).
+    string_concatenate(["[string(The vectors ",Latex_str1," and ",Latex_str2," are collinear. Determine whether the statement is True or False.)]"],"",Question).
 
 generate_answer_vector_q_11(List1,List2,Answer):-
 	check_collinear(List1,List2,Coll),
@@ -1007,13 +1029,13 @@ generate_solution_vector_q_11(List1,List2,Solution):-
 	check_list(Coll,Check_result),
 	find_lanbda(List1,List2,Lam),
 
-	string_concatenate(["[string(Let latex(\\\\overrightarrow{a} = )",Latex_str1," and latex(\\\\overrightarrow{b} = )",Latex_str2,".)" ],"",Sol_0),
-	string_concatenate([",string(For Vectors to be collinear latex(\\\\overrightarrow{b} = \\\\lambda.\\\\overrightarrow{a}))" ],"",Sol_1),
+	string_concatenate(["[string(Let latex(\\\\\\\\overrightarrow{a} = )",Latex_str1," and latex(\\\\\\\\overrightarrow{b} = )",Latex_str2,".)" ],"",Sol_0),
+	string_concatenate([",string(For Vectors to be collinear latex(\\\\\\\\overrightarrow{b} = \\\\\\\\lambda.\\\\\\\\overrightarrow{a}))" ],"",Sol_1),
 	(Check_result=="Equal"->
-		string_concatenate([",string(It can be observed that ",Latex_str2," = ",Lam,".[",Latex_str1,"] where latex(\\\\lambda ) = ",Lam,".)" ],"",Sol_2),
+		string_concatenate([",string(It can be observed that ",Latex_str2," = ",Lam,".[",Latex_str1,"] where latex(\\\\\\\\lambda ) = ",Lam,".)" ],"",Sol_2),
 		string_concatenate([",string(Hence, The given vectors are collinear.)]" ],"",Sol_3)
 		;
-		string_concatenate([",string(It can be observed that ",Latex_str2," latex(\\\\neq \\\\lambda.)[",Latex_str1,"].)" ],"",Sol_2),
+		string_concatenate([",string(It can be observed that ",Latex_str2," latex(\\\\\\\\neq \\\\\\\\lambda.)[",Latex_str1,"].)" ],"",Sol_2),
 		string_concatenate([",string(Hence, The given vectors are not collinear.)]" ],"",Sol_3)
 	),
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
@@ -1113,12 +1135,12 @@ generate_solution_vector_q_13(Point1,Point2,Solution):-
 
 %------------------------------------------------------------------Question 14---------------------------------------------------------------------------------
 %Question
-generate_question_vector_q_14(Question):-
+generate_question_vector_q_14(List,Question):-
 
-	generate_list(List),
+	%generate_list(List),
 	generate_latex_vector_ijk(List, [i,j,k],"",Latex_str1),
 
-    string_concatenate(["[string(Show that the vector ",Latex_str1," is equally inclined to the axes OX, OY and OZ.)]"],"",Question).
+    string_concatenate(["[string(Thehe vector ",Latex_str1," is equally inclined to the axes OX, OY and OZ. Determine whether the statement is True or False.)]"],"",Question).
 
 
 %Answer
@@ -1142,8 +1164,8 @@ generate_solution_vector_q_14(List,Solution):-
     check_list(List,Check_result),
 
 	string_concatenate(["[string(Let ",Latex_str_name1," = ",Latex_str1,")" ],"",Sol_1),
-	string_concatenate([",string(and  |",Latex_str_name1,"| = ",List_mag_exp," = latex(\\\\sqrt{",List_magnitude,"}) )"],"",Sol_2),
-    string_concatenate([",string(Therefore, the direction cosines of latex(\\\\overrightarrow{a}) are [",Latex_direction_cosine,"])"],"",Sol_3),
+	string_concatenate([",string(and  |",Latex_str_name1,"| = ",List_mag_exp," = latex(\\\\\\\\sqrt{",List_magnitude,"}) )"],"",Sol_2),
+    string_concatenate([",string(Therefore, the direction cosines of latex(\\\\\\\\overrightarrow{a}) are [",Latex_direction_cosine,"])"],"",Sol_3),
 
 	(Check_result=="Equal"->
 		string_concatenate([",string(Hence, the Vectors is equally inclined to OX,OY,OZ.)]" ],"",Sol_4)
@@ -1222,33 +1244,35 @@ generate_solution_vector_q_15(Point1,Point2,Ratio1,Ratio2,Solution):-
 %------------------------------------------------------------------Question 16---------------------------------------------------------------------------------
 
 %Question
-generate_question_vector_q_16(Question):-
+generate_question_vector_q_16(Point_list_1,Point_list_2,Question):-
 	
-	generate_list(Point1),
-	generate_list(Point2),
+	/*generate_list(Point_list_1),
+	generate_list(Point_list_2),*/
+    convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
+    convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
 
-    string_concatenate(["[string(Find the position vector of the mid point of the vector joining the points P",Point1," and Q",Point2,".)]"],"",Question).
+    string_concatenate(["[string(Find the position vector of the mid point of the vector joining the points P latex(",Point_list_string_1,") and Q latex(",Point_list_string_2,").)]"],"",Question).
 
 %Answer
-generate_answer_vector_q_16(Point1,Point2,Answer):-
-	generate_sum_vector_mid(Point1,Point2,Sum_mid),
+generate_answer_vector_q_16(Point_list_1,Point_list_2,Answer):-
+	generate_sum_vector_mid(Point_list_1,Point_list_2,Sum_mid),
 	generate_latex_vector_ijk(Sum_mid, [i,j,k],"",Sum_mid_str),
 	string_concatenate(["[string(",Sum_mid_str,")]"],"",Answer).
 
 %Solution
-generate_solution_vector_q_16(Point1,Point2,Solution):-
+generate_solution_vector_q_16(Point_list_1,Point_list_2,Solution):-
 
-	generate_sum_vector_mid(Point1,Point2,Sum_mid),
-	generate_sum_vector(Point1,Point2,Sum),
-	generate_sum_exp_ijk(Point1,Point2,[i,j,k],"",Latex_sum_exp),
-	generate_vector_ijk(Point1, [i,j,k],"",Latex_str1),
-	generate_vector_ijk(Point2, [i,j,k],"",Latex_str2),
+	generate_sum_vector_mid(Point_list_1,Point_list_2,Sum_mid),
+	generate_sum_vector(Point_list_1,Point_list_2,Sum),
+	generate_sum_exp_ijk(Point_list_1,Point_list_2,[i,j,k],"",Latex_sum_exp),
+	generate_vector_ijk(Point_list_1, [i,j,k],"",Latex_str1),
+	generate_vector_ijk(Point_list_2, [i,j,k],"",Latex_str2),
 	generate_latex_vector_ijk(Sum_mid, [i,j,k],"",Sum_mid_str),
 	generate_vector_ijk(Sum, [i,j,k],"",Sum_str),
 
 	string_concatenate(["[string(The position vector of the mid-point R of the vector joining points is given by,)"],"",Sol_0),
-	string_concatenate([",string(latex(\\\\overrightarrow{OR}) = latex(\\\\frac{(",Latex_str1,") + (",Latex_str2,")}{2} = \\\\frac{",Latex_sum_exp,"}{2} ))"],"",Sol_1),
-	string_concatenate([",string(latex(\\\\overrightarrow{OR}) = latex(\\\\frac{(",Sum_str,")}{2} = )",Sum_mid_str," )]"],"",Sol_2),
+	string_concatenate([",string(latex(\\\\overrightarrow{OR}) = latex(\\\\\\\\frac{(",Latex_str1,") + (",Latex_str2,")}{2} = \\\\\\\\frac{",Latex_sum_exp,"}{2} ))"],"",Sol_1),
+	string_concatenate([",string(latex(\\\\overrightarrow{OR}) = latex(\\\\\\\\frac{(",Sum_str,")}{2} = )",Sum_mid_str," )]"],"",Sol_2),
 
     string_concatenate([Sol_0,Sol_1,Sol_2],"",Solution).
 %------------------------------------------------------------------End of Question 16---------------------------------------------------------------------------------

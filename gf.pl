@@ -33,4 +33,28 @@ find_scalar_and_vector_components:-
 find_sum_of_vector:-
 	setName(Result),
    assert(objectList(find_sum_of_vector(Result))).
+find_unit_vector_in_diection_of_the_sum_of_vectors:-
+	setName(Result),
+   assert(objectList(find_unit_vector_in_diection_of_the_sum_of_vectors(Result))).
+check_whether_two_vectors_are_collinear_or_not:-
+	setName(Result),
+   assert(objectList(check_whether_two_vectors_are_collinear_or_not(Result))).
+check_whether_vectors_is_equally_inclined_to_the_axes_or_not:-
+	setName(Result),
+   assert(objectList(check_whether_vectors_is_equally_inclined_to_the_axes_or_not(Result))).
+find_position_vector_of_the_mid_point_of_the_vector:-
+   setName(Result),
+   assert(objectList(find_position_vector_of_the_mid_point_of_the_vector(Result))).
+find_angle_between_two_vectors_with_given_magnitude_and_product:-
+	setName(Result),
+   assert(objectList(find_angle_between_two_vectors_with_given_magnitude_and_product(Result))).
+find_angle_between_the_vectors:-
+	setName(Result),
+   assert(objectList(find_angle_between_the_vectors(Result))).	
+check_whether_vectors_are_perpendicular_or_not:-
+	setName(Result),
+   assert(objectList(check_whether_vectors_are_perpendicular_or_not(Result))).
+find_projection_of_the_vector_on_another_vector:-
+	setName(Result),
+   assert(objectList(find_projection_of_the_vector_on_another_vector(Result))).	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
