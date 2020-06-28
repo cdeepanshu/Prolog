@@ -23,7 +23,11 @@ eof2 ==> write('exercise'),nl,handle_include_for_cqt([vector_algebra]).
     find_angle_between_two_vectors_with_given_magnitude_and_product1/1,
     find_angle_between_the_vectors1/1,
     check_whether_vectors_are_perpendicular_or_not1/1,
-    find_projection_of_the_vector_on_another_vector1/1.
+    find_projection_of_the_vector_on_another_vector1/1,
+    find_magnitude_of_differnce_of_vectors1/1,
+    given_a_unit_vector_and_equation_find_magnitude_of_variable1/1,
+    check_whether_points_are_collinear_or_not1/1,
+    check_for_unit_vector_and_mutually_perpendicular1/1.
     
 
 name1(A,B) ==> check_fact_exists(name1(A,B)) | assert(is_fact_exists(name1(A,B))).
@@ -82,6 +86,18 @@ assert(is_fact_exists(check_whether_vectors_are_perpendicular_or_not1(Result))).
 
 find_projection_of_the_vector_on_another_vector1(Result)==>check_fact_exists(find_projection_of_the_vector_on_another_vector1(Result))|
 assert(is_fact_exists(find_projection_of_the_vector_on_another_vector1(Result))).
+
+find_magnitude_of_differnce_of_vectors1(Result)==>check_fact_exists(find_magnitude_of_differnce_of_vectors1(Result))|
+assert(is_fact_exists(find_magnitude_of_differnce_of_vectors1(Result))).
+
+given_a_unit_vector_and_equation_find_magnitude_of_variable1(Result)==>check_fact_exists(given_a_unit_vector_and_equation_find_magnitude_of_variable1(Result))|
+assert(is_fact_exists(given_a_unit_vector_and_equation_find_magnitude_of_variable1(Result))).
+
+check_whether_points_are_collinear_or_not1(Result)==>check_fact_exists(check_whether_points_are_collinear_or_not1(Result))|
+assert(is_fact_exists(check_whether_points_are_collinear_or_not1(Result))).
+
+check_for_unit_vector_and_mutually_perpendicular1(Result)==>check_fact_exists(check_for_unit_vector_and_mutually_perpendicular1(Result))|
+assert(is_fact_exists(check_for_unit_vector_and_mutually_perpendicular1(Result))).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -790,3 +806,152 @@ get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
 complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
 Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
 
+/*****************************find_magnitude_of_differnce_of_vectors***************/
+eof1,find_magnitude_of_differnce_of_vectors1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_magnitude(Mag1),
+generate_magnitude(Mag2),
+generate_magnitude(Mag3),
+generate_question_vector_ex_17(Mag1,Mag2,Mag3,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_answer_vector_ex_17(Mag1,Mag2,Mag3,Ans),
+
+generate_solution_vector_ex_17(Mag1,Mag2,Mag3,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,1),
+
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+
+New_reasoning_list =[find_magnitude_of_differnce_of_vectors(Result)],
+Current_config = New_reasoning_list,
+Concept = magnitude_of_differnce,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(Magnitude : ),type(s_textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(latex(|\\\\\\\\overrightarrow{a}-\\\\\\\\overrightarrow{b}|^2 = (\\\\\\\\overrightarrow{a}-\\\\\\\\overrightarrow{b}).(\\\\\\\\overrightarrow{a}-\\\\\\\\overrightarrow{b}) ) )]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************given_a_unit_vector_and_equation_find_magnitude_of_variable***************/
+eof1,given_a_unit_vector_and_equation_find_magnitude_of_variable1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_magnitude(Mag1),
+generate_question_vector_ex_18(Mag1,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_answer_vector_ex_18(Mag1,Ans),
+
+generate_solution_vector_ex_18(Mag1,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,1),
+
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+
+New_reasoning_list =[given_a_unit_vector_and_equation_find_magnitude_of_variable(Result)],
+Current_config = New_reasoning_list,
+Concept = magnitude_of_variable,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(Magnitude : ),type(s_textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(Unit vector, latex(|\\\\\\\\overrightarrow{a}| = 1.) )]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************check_whether_points_are_collinear_or_not***************/
+eof1,check_whether_points_are_collinear_or_not1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_list(Point_list_1),
+generate_list(Point_list_2),
+generate_list(Point_list_3),
+generate_question_vector_ex_21(Point_list_1,Point_list_2,Point_list_3,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_answer_vector_ex_21(Point_list_1,Point_list_2,Point_list_3,Ans),
+
+generate_solution_vector_ex_21(Point_list_1,Point_list_2,Point_list_3,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,1),
+
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+
+New_reasoning_list =[check_whether_points_are_collinear_or_not(Result)],
+Current_config = New_reasoning_list,
+Concept = collinear_points,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(True/False : ),type(s_textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(If latex(|\\\\overrightarrow{AB}|) = latex(|\\\\overrightarrow{BC}|) + latex(|\\\\overrightarrow{AC}|), Then the points A,B,C are collinear. )]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************check_for_unit_vector_and_mutually_perpendicular***************/
+eof1,check_for_unit_vector_and_mutually_perpendicular1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_magnitude(Mag1),
+generate_magnitude(Mag2),
+generate_magnitude(Mag3),
+
+generate_list(List1),
+generate_list(List2),
+generate_list(List3),
+generate_question_vector_10_3_5(Mag1,Mag2,Mag3,List1,List2,List3,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_answer_vector_10_3_5(Mag1,Mag2,Mag3,List1,List2,List3,Ans),
+
+generate_solution_vector_10_3_5(Mag1,Mag2,Mag3,List1,List2,List3,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,1),
+
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+
+New_reasoning_list =[check_for_unit_vector_and_mutually_perpendicular(Result)],
+Current_config = New_reasoning_list,
+Concept = unit_vector_and_mutually_perpendicular,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(),type(continuous(string(Unit Vectors (Yes/No) :),input(string(),type(textbox)) ))]]),answer_types([[string(),type(continuous(string(Mutually perpendicular (Yes/No) :),input(string(),type(textbox)) ))]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(latex(i.)Unit vector, latex(|\\\\\\\\overrightarrow{a}| = 1.)),string(latex(ii.)If latex(\\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b} = \\\\\\\\overrightarrow{b}.\\\\\\\\overrightarrow{c} = \\\\\\\\overrightarrow{c}.\\\\\\\\overrightarrow{a} = 0) then latex(\\\\\\\\overrightarrow{a},\\\\\\\\overrightarrow{b},\\\\\\\\overrightarrow{c}) are mutually perpendicular)]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).

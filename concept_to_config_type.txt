@@ -16,3 +16,10 @@ basic_trignometry : find_angle_between_two_vectors_with_given_magnitude_and_prod
 trignometry_and_scalar_product : find_angle_between_the_vectors.
 perpendicular_vectors : check_whether_vectors_are_perpendicular_or_not.
 projection_of_vetor : find_projection_of_the_vector_on_another_vector.
+magnitude_of_differnce : find_magnitude_of_differnce_of_vectors.
+magnitude_of_variable : given_a_unit_vector_and_equation_find_magnitude_of_variable.
+collinear_points : 	check_whether_points_are_collinear_or_not.
+unit_vector_and_mutually_perpendicular : check_for_unit_vector_and_mutually_perpendicular.
+
+
+

@@ -236,8 +236,8 @@ generate_magnitude_den_expression_ijk([],_,Init_mag_exp_str,Latex_mag_exp_str):-
 	string_concat(Init_mag_exp_str,"}",Latex_mag_exp_str).
 generate_magnitude_den_expression_ijk([H|T],Mag,Init_mag_exp_str,Latex_mag_exp_str):-
 	(Init_mag_exp_str == "" ->
-	    string_concatenate(["\\\\sqrt{(\\\\frac{",H,"}{",Mag,"})^2"],"",Str1);
-	    string_concatenate(["+(\\\\frac{",H,"}{",Mag,"})^2"],"",Str1)
+	    string_concatenate(["\\\\\\\\sqrt{(\\\\\\\\frac{",H,"}{",Mag,"})^2"],"",Str1);
+	    string_concatenate(["+(\\\\\\\\frac{",H,"}{",Mag,"})^2"],"",Str1)
     ),
     string_concat(Init_mag_exp_str, Str1,Temp_str),
     generate_magnitude_den_expression_ijk(T,Mag,Temp_str,Latex_mag_exp_str).

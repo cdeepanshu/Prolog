@@ -57,4 +57,16 @@ check_whether_vectors_are_perpendicular_or_not:-
 find_projection_of_the_vector_on_another_vector:-
 	setName(Result),
    assert(objectList(find_projection_of_the_vector_on_another_vector(Result))).	
+find_magnitude_of_differnce_of_vectors:-
+	setName(Result),
+   assert(objectList(find_magnitude_of_differnce_of_vectors(Result))).
+given_a_unit_vector_and_equation_find_magnitude_of_variable:-
+	setName(Result),
+   assert(objectList(given_a_unit_vector_and_equation_find_magnitude_of_variable(Result))).
+check_whether_points_are_collinear_or_not:-
+	setName(Result),
+   assert(objectList(check_whether_points_are_collinear_or_not(Result))).
+check_for_unit_vector_and_mutually_perpendicular:-
+	setName(Result),
+   assert(objectList(check_for_unit_vector_and_mutually_perpendicular(Result))).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

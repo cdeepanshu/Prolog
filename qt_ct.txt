@@ -18,4 +18,8 @@ exercise_10_2 : find_the_unit_vector,
 exercise_10_3 : find_angle_between_two_vectors_with_given_magnitude_and_product,
 				find_angle_between_the_vectors,
 				check_whether_vectors_are_perpendicular_or_not,
-				find_projection_of_the_vector_on_another_vector.
+				find_projection_of_the_vector_on_another_vector,
+				find_magnitude_of_differnce_of_vectors,
+				given_a_unit_vector_and_equation_find_magnitude_of_variable,
+				check_whether_points_are_collinear_or_not,
+				check_for_unit_vector_and_mutually_perpendicular.
