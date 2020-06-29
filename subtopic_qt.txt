@@ -1,4 +1,5 @@
 vectors : exercise_10_2,
-		  exercise_10_3.
+		  exercise_10_3,
+		  exercise_10_4.
 			
 			

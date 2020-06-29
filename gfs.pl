@@ -1,6 +1,7 @@
 %:- include('../utils').
 :- include('vector_algebra/vector_main').
 :- include('vector_algebra/vector_main2').
+:- include('vector_algebra/vector_main3').
 
 eof2 ==> write('exercise'),nl,handle_include_for_cqt([vector_algebra]).
 
@@ -27,7 +28,17 @@ eof2 ==> write('exercise'),nl,handle_include_for_cqt([vector_algebra]).
     find_magnitude_of_differnce_of_vectors1/1,
     given_a_unit_vector_and_equation_find_magnitude_of_variable1/1,
     check_whether_points_are_collinear_or_not1/1,
-    check_for_unit_vector_and_mutually_perpendicular1/1.
+    check_for_unit_vector_and_mutually_perpendicular1/1,
+    find_variable_magnitude1/1,
+    evaluate_the_product1/1,
+    find_magnitude_of_vectors_given_magnitude_angle_scalar_product1/1,
+    find_value_of_lambda1/1,
+    find_value_of_expression1/1,
+    find_angle_between_the_vectors_with_given_vertices_of_triangle1/1,
+    find_magnitude_of_cross_product1/1,
+    find_unit_vector_perpendicular_to_each_of_the_vector1/1,
+    find_area_of_triangle_having_point_as_it_vertices1/1,
+    find_lambda_and_mu_in_the_expression1/1.
     
 
 name1(A,B) ==> check_fact_exists(name1(A,B)) | assert(is_fact_exists(name1(A,B))).
@@ -99,6 +110,35 @@ assert(is_fact_exists(check_whether_points_are_collinear_or_not1(Result))).
 check_for_unit_vector_and_mutually_perpendicular1(Result)==>check_fact_exists(check_for_unit_vector_and_mutually_perpendicular1(Result))|
 assert(is_fact_exists(check_for_unit_vector_and_mutually_perpendicular1(Result))).
 
+find_variable_magnitude1(Result)==>check_fact_exists(find_variable_magnitude1(Result))|
+assert(is_fact_exists(find_variable_magnitude1(Result))).
+
+evaluate_the_product1(Result)==>check_fact_exists(evaluate_the_product1(Result))|
+assert(is_fact_exists(evaluate_the_product1(Result))).
+
+find_magnitude_of_vectors_given_magnitude_angle_scalar_product1(Result)==>check_fact_exists(find_magnitude_of_vectors_given_magnitude_angle_scalar_product1(Result))|
+assert(is_fact_exists(find_magnitude_of_vectors_given_magnitude_angle_scalar_product1(Result))).
+
+find_value_of_lambda1(Result)==>check_fact_exists(find_value_of_lambda1(Result))|
+assert(is_fact_exists(find_value_of_lambda1(Result))).
+
+find_value_of_expression1(Result)==>check_fact_exists(find_value_of_expression1(Result))|
+assert(is_fact_exists(find_value_of_expression1(Result))).
+
+find_angle_between_the_vectors_with_given_vertices_of_triangle1(Result)==>check_fact_exists(find_angle_between_the_vectors_with_given_vertices_of_triangle1(Result))|
+assert(is_fact_exists(find_angle_between_the_vectors_with_given_vertices_of_triangle1(Result))).
+
+find_magnitude_of_cross_product1(Result)==>check_fact_exists(find_magnitude_of_cross_product1(Result))|
+assert(is_fact_exists(find_magnitude_of_cross_product1(Result))).
+
+find_unit_vector_perpendicular_to_each_of_the_vector1(Result)==>check_fact_exists(find_unit_vector_perpendicular_to_each_of_the_vector1(Result))|
+assert(is_fact_exists(find_unit_vector_perpendicular_to_each_of_the_vector1(Result))).
+
+find_area_of_triangle_having_point_as_it_vertices1(Result)==>check_fact_exists(find_area_of_triangle_having_point_as_it_vertices1(Result))|
+assert(is_fact_exists(find_area_of_triangle_having_point_as_it_vertices1(Result))).
+
+find_lambda_and_mu_in_the_expression1(Result)==>check_fact_exists(find_lambda_and_mu_in_the_expression1(Result))|
+assert(is_fact_exists(find_lambda_and_mu_in_the_expression1(Result))).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 /*****************************check_whether_given_two_vectors_are_equal_or_not1***************/
@@ -955,3 +995,354 @@ Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
 get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
 complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
 Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************find_variable_magnitude***************/
+eof1,find_variable_magnitude1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_magnitude(Mag1),
+generate_magnitude(Mag2),
+
+generate_question_vector_10_3_6(Mag1,Mag2,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_answer_vector_10_3_6(Mag1,Mag2,Ans),
+
+generate_solution_vector_10_3_6(Mag1,Mag2,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,1),
+
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+
+New_reasoning_list =[find_variable_magnitude(Result)],
+Current_config = New_reasoning_list,
+Concept = value_substitution,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(),type(continuous(string(Magnitude of a:),input(string(),type(textbox)) ))]]),answer_types([[string(),type(continuous(string(Magnitude of b :),input(string(),type(textbox)) ))]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(latex((\\\\\\\\overrightarrow{a} + \\\\\\\\overrightarrow{b}).(\\\\\\\\overrightarrow{a} - \\\\\\\\overrightarrow{b}) = |\\\\\\\\overrightarrow{a}|^2 - |\\\\\\\\overrightarrow{b}|^2 ))]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************evaluate_the_product***************/
+eof1,evaluate_the_product1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_list_of_two(List1),
+generate_list_of_two(List2),
+
+generate_question_vector_10_3_7(List1,List2,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+
+%generate_answer_vector_10_3_7(List1,List2,Ans),
+
+generate_solution_vector_10_3_7(List1,List2,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+
+term1(Result,1),
+
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+
+New_reasoning_list =[evaluate_the_product(Result)],
+Current_config = New_reasoning_list,
+Concept = evaluate_product,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(Product : ),type(textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(latex((\\\\\\\\overrightarrow{a} - \\\\\\\\overrightarrow{b}).(\\\\\\\\overrightarrow{a} + \\\\\\\\overrightarrow{b}) = \\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{a} + \\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b} - \\\\\\\\overrightarrow{b}.\\\\\\\\overrightarrow{a} - \\\\\\\\overrightarrow{b}.\\\\\\\\overrightarrow{b}))]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************find_magnitude_of_vectors_given_magnitude_angle_scalar_product***************/
+eof1, find_magnitude_of_vectors_given_magnitude_angle_scalar_product1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_magnitude(Scalar_product),
+generate_angle(Angle),
+
+
+generate_question_vector_10_3_8(Angle,Scalar_product,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+
+%generate_answer_vector_10_3_8(Angle,Scalar_product,Ans),
+
+generate_solution_vector_10_3_8(Angle,Scalar_product,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+
+term1(Result,1),
+
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+
+New_reasoning_list =[find_magnitude_of_vectors_given_magnitude_angle_scalar_product(Result)],
+Current_config = New_reasoning_list,
+Concept = magnitude_of_vectors_using_trignometry,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(Magnitude : ),type(s_textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(latex(\\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b} = |\\\\\\\\overrightarrow{a}|.|\\\\\\\\overrightarrow{b}| cos\\\\\\\\theta) )]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************find_value_of_lambda***************/
+eof1, find_value_of_lambda1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_list_with_condition(List1,List2,List3),
+
+
+generate_question_vector_10_3_10(List1,List2,List3,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+
+%generate_answer_vector_10_3_10(List1,List2,List3,Ans),
+
+generate_solution_vector_10_3_10(List1,List2,List3,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+
+term1(Result,1),
+
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+
+New_reasoning_list =[find_value_of_lambda(Result)],
+Current_config = New_reasoning_list,
+Concept = dot_product_of_perpendicular_vectors,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(latex(\\\\lambda) : ),type(s_textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(If latex(\\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b} = 0), then latex(\\\\\\\\overrightarrow{a}) is perpendicular to latex(\\\\\\\\overrightarrow{b}) )]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************find_value_of_expression***************/
+eof1, find_value_of_expression1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_magnitude(Mag),
+generate_question_vector_10_3_13(Mag,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_answer_vector_10_3_13(Mag,Ans),
+generate_solution_vector_10_3_13(Mag,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,1),
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+New_reasoning_list =[find_value_of_expression(Result)],
+Current_config = New_reasoning_list,
+Concept = expand_expression,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(Value : ),type(s_textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(latex(|\\\\overrightarrow{a}+\\\\overrightarrow{b}+\\\\overrightarrow{c}|^2 = (\\\\overrightarrow{a}+\\\\overrightarrow{b}+\\\\overrightarrow{c}).(\\\\overrightarrow{a}+\\\\overrightarrow{b}+\\\\overrightarrow{c})) )]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************find_angle_between_the_vectors_with_given_vertices_of_triangle***************/
+eof1, find_angle_between_the_vectors_with_given_vertices_of_triangle1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_list(Point_list_1),
+generate_list(Point_list_2),
+generate_list(Point_list_3),
+
+generate_question_vector_10_3_15(Point_list_1,Point_list_2,Point_list_3,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_answer_vector_10_3_15(Point_list_1,Point_list_2,Point_list_3,Ans),
+generate_solution_vector_10_3_15(Point_list_1,Point_list_2,Point_list_3,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,1),
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+New_reasoning_list =[find_angle_between_the_vectors_with_given_vertices_of_triangle(Result)],
+Current_config = New_reasoning_list,
+Concept = expand_expression,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(Angle : ),type(s_textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(latex(\\\\overrightarrow{BA}.\\\\overrightarrow{BC} = |\\\\overrightarrow{BA}| |\\\\overrightarrow{BC}| cos(\\\\angle{ABC})) )]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************find_magnitude_of_cross_product***************/
+eof1, find_magnitude_of_cross_product1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_list(List1),
+generate_list(List2),
+generate_question_vector_ex_22(List1,List2,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_answer_vector_ex_22(List1,List2,Ans),
+generate_solution_vector_ex_22(List1,List2,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,1),
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+New_reasoning_list =[find_magnitude_of_cross_product(Result)],
+Current_config = New_reasoning_list,
+Concept = cross_product,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(latex(|\\\\\\\\overrightarrow{a}) X latex(\\\\\\\\overrightarrow{b}|) : ),type(s_textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(Find cross product latex(\\\\\\\\overrightarrow{a}) X latex(\\\\\\\\overrightarrow{b}))]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************find_unit_vector_perpendicular_to_each_of_the_vector***************/
+eof1, find_unit_vector_perpendicular_to_each_of_the_vector1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_list(List1),
+generate_list(List2),
+generate_question_vector_ex_23(List1,List2,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_answer_vector_ex_23(List1,List2,Ans),
+generate_solution_vector_ex_23(List1,List2,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,1),
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+New_reasoning_list =[find_unit_vector_perpendicular_to_each_of_the_vector(Result)],
+Current_config = New_reasoning_list,
+Concept = perpendicular_unit_vector,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(Unit vector : ),type(s_textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(Find cross product latex(\\\\\\\\overrightarrow{a}) X latex(\\\\\\\\overrightarrow{b}))]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************find_area_of_triangle_having_point_as_it_vertices***************/
+eof1, find_area_of_triangle_having_point_as_it_vertices1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_list(Point_list_1),
+generate_list(Point_list_2),
+generate_list(Point_list_3),
+generate_question_vector_ex_24(Point_list_1,Point_list_2,Point_list_3,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_answer_vector_ex_24(Point_list_1,Point_list_2,Point_list_3,Ans),
+generate_solution_vector_ex_24(Point_list_1,Point_list_2,Point_list_3,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,1),
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+New_reasoning_list =[find_area_of_triangle_having_point_as_it_vertices(Result)],
+Current_config = New_reasoning_list,
+Concept = cross_product_triangle_area,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(Area : ),type(s_textbox)]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(Find cross product latex(\\\\\\\\overrightarrow{a}) X latex(\\\\\\\\overrightarrow{b}))]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************find_lambda_and_mu_in_the_expression***************/
+eof1, find_lambda_and_mu_in_the_expression1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_list(List1),
+generate_magnitude(Mag),
+generate_question_vector_10_4_5(List1,Mag,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+%generate_solution_vector_10_4_5(List1,Mag,Ans),
+generate_solution_vector_10_4_5(List1,Mag,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+
+term1(Result,1),
+New_element_formed = term(Result,1),
+Reasoning_list = [],
+New_reasoning_list =[find_lambda_and_mu_in_the_expression(Result)],
+Current_config = New_reasoning_list,
+Concept = cross_product_to_find_variables,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(),type(continuous(string(latex(\\\\\\\\lambda)),input(string(),type(textbox)) ))]]),answer_types([[string(),type(continuous(string(latex(\\\\\\\\mu) :),input(string(),type(textbox)) ))]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [[1]],
+string_concatenate(["[string(Find cross product latex(\\\\\\\\overrightarrow{a}) X latex(\\\\\\\\overrightarrow{b}))]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+

@@ -20,6 +20,22 @@ magnitude_of_differnce : find_magnitude_of_differnce_of_vectors.
 magnitude_of_variable : given_a_unit_vector_and_equation_find_magnitude_of_variable.
 collinear_points : 	check_whether_points_are_collinear_or_not.
 unit_vector_and_mutually_perpendicular : check_for_unit_vector_and_mutually_perpendicular.
+value_substitution : find_variable_magnitude.
+evaluate_product :	evaluate_the_product.
+magnitude_of_vectors_using_trignometry : find_magnitude_of_vectors_given_magnitude_angle_scalar_product.
+dot_product_of_perpendicular_vectors : find_value_of_lambda.
+expand_expression : find_value_of_expression.
+vector_and_trignometry	: find_angle_between_the_vectors_with_given_vertices_of_triangle.
+cross_product : find_magnitude_of_cross_product.
+perpendicular_unit_vector : find_unit_vector_perpendicular_to_each_of_the_vector.
+cross_product_triangle_area : find_area_of_triangle_having_point_as_it_vertices.
+cross_product_to_find_variables : find_lambda_and_mu_in_the_expression.
+
+
+
+
+
+
 
 
 

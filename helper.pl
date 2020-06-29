@@ -122,29 +122,38 @@ generate_latex_vector_ijk([H|T],[H1|T1],Init_str,Latex_str):-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %latex Generation Function
-generate_latex_abc([],_,Init_str,Latex_str):-
+generate_abc([],_,Init_str,Latex_str):-
     Latex_str = Init_str.
-generate_latex_abc([H|T],[H1|T1],Init_str,Latex_str):-
+generate_abc([H|T],[H1|T1],Init_str,Latex_str):-
     (H>0 ->
     	(H=:=1 ->
 		    (Init_str == "" ->
-		    string_concatenate(["latex(\\\\overrightarrow{",H1,"})"],"",Str1);
-		    string_concatenate(["+latex(\\\\overrightarrow{",H1,"})"],"",Str1)
+		    string_concatenate(["\\\\\\\\overrightarrow{",H1,"}"],"",Str1);
+		    string_concatenate(["+\\\\\\\\overrightarrow{",H1,"}"],"",Str1)
 		    );
 		    (Init_str == "" ->
-		    string_concatenate(["latex(",H,"\\\\overrightarrow{",H1,"})"],"",Str1);
-		    string_concatenate(["+latex(",H,"\\\\overrightarrow{",H1,"})"],"",Str1)
+		    string_concatenate(["",H,"\\\\\\\\overrightarrow{",H1,"}"],"",Str1);
+		    string_concatenate(["+",H,"\\\\\\\\overrightarrow{",H1,"}"],"",Str1)
 		    )
 		);
 
 		(H=:=0 ->
-		    Str1=""; 
-		    string_concatenate(["latex(",H,"\\\\overrightarrow{",H1,"})"],"",Str1)
+		    Str1="";
+		    H2 is abs(H),
+
+			(H2=:=1 ->
+			    (Init_str == "" ->
+			    string_concatenate(["-\\\\\\\\overrightarrow{",H1,"}"],"",Str1);
+			    string_concatenate(["-\\\\\\\\overrightarrow{",H1,"}"],"",Str1)
+			    );
+			    string_concatenate(["-",H2,"\\\\\\\\overrightarrow{",H1,"}"],"",Str1)
+			    
+			)		
 		)
 	),
 
     string_concat(Init_str, Str1,Temp_str),
-    generate_latex_abc(T,T1,Temp_str,Latex_str).
+    generate_abc(T,T1,Temp_str,Latex_str).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -208,6 +217,10 @@ generate_sum_exp_ijk([H|T],[H1|T1],[H2|T2],Init_str,Latex_str):-
 %Latex Vector name Function
 generate_latex_vector_name(Var,Latex_str_name):-
     string_concatenate(["latex(\\\\\\\\overrightarrow{",Var,"})"],"",Latex_str_name).
+
+%Latex name Function
+generate_vector_name(Var,Latex_str_name):-
+    string_concatenate(["\\\\\\\\overrightarrow{",Var,"}"],"",Latex_str_name).
 
 %Find magnitude
 generate_magnitude([],Init_magnitude,Final_magnitude):-
@@ -849,3 +862,20 @@ remove_square_brackets_from_string(String,String_without_brackets):-
 	sub_string(String, _,_,Z,"["),
 	New is Z-1,
 	sub_string(String, 1,New,_,String_without_brackets).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+/*List 1= a1+a2+a3,
+List 2= b1+b2+b3,
+a1.b1+a2.b2+a3.b3=0.*/
+generate_list_with_condition(List1,List2,List3):-
+	generate_list(L1),
+	generate_list(L2),	
+    generate_mul_vector(L1,L2,Mul),
+    generate_sum(Mul,0,Result),
+    (Result=\=0->
+		generate_list_with_condition(List1,List2,List3);    	
+		(generate_list(L3),
+		List1 = L1,
+		List2 = L2,
+		List3 = L3)
+	).
+	

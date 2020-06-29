@@ -22,4 +22,15 @@ exercise_10_3 : find_angle_between_two_vectors_with_given_magnitude_and_product,
 				find_magnitude_of_differnce_of_vectors,
 				given_a_unit_vector_and_equation_find_magnitude_of_variable,
 				check_whether_points_are_collinear_or_not,
-				check_for_unit_vector_and_mutually_perpendicular.
+				check_for_unit_vector_and_mutually_perpendicular,
+				find_variable_magnitude,
+				evaluate_the_product,
+				find_magnitude_of_vectors_given_magnitude_angle_scalar_product,
+				find_value_of_lambda,
+				find_value_of_expression,
+				find_angle_between_the_vectors_with_given_vertices_of_triangle.
+
+exercise_10_4 : find_magnitude_of_cross_product,
+				find_unit_vector_perpendicular_to_each_of_the_vector,
+				find_area_of_triangle_having_point_as_it_vertices,
+				find_lambda_and_mu_in_the_expression.

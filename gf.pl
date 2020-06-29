@@ -69,4 +69,34 @@ check_whether_points_are_collinear_or_not:-
 check_for_unit_vector_and_mutually_perpendicular:-
 	setName(Result),
    assert(objectList(check_for_unit_vector_and_mutually_perpendicular(Result))).
+find_variable_magnitude:-
+	setName(Result),
+   assert(objectList(find_variable_magnitude(Result))).
+evaluate_the_product:-
+	setName(Result),
+   assert(objectList(evaluate_the_product(Result))).
+find_magnitude_of_vectors_given_magnitude_angle_scalar_product:-
+	setName(Result),
+   assert(objectList(find_magnitude_of_vectors_given_magnitude_angle_scalar_product(Result))).
+find_value_of_lambda:-
+	setName(Result),
+   assert(objectList(find_value_of_lambda(Result))).
+find_value_of_expression:-
+	setName(Result),
+   assert(objectList(find_value_of_expression(Result))).
+find_angle_between_the_vectors_with_given_vertices_of_triangle:-
+	setName(Result),
+   assert(objectList(find_angle_between_the_vectors_with_given_vertices_of_triangle(Result))).
+find_magnitude_of_cross_product:-
+	setName(Result),
+   assert(objectList(find_magnitude_of_cross_product(Result))).
+find_unit_vector_perpendicular_to_each_of_the_vector:-
+	setName(Result),
+   assert(objectList(find_unit_vector_perpendicular_to_each_of_the_vector(Result))).
+find_area_of_triangle_having_point_as_it_vertices:-
+	setName(Result),
+   assert(objectList(find_area_of_triangle_having_point_as_it_vertices(Result))).
+find_lambda_and_mu_in_the_expression:-
+	setName(Result),
+   assert(objectList(find_lambda_and_mu_in_the_expression(Result))).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

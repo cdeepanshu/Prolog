@@ -1,16 +1,16 @@
-:- include('radicals/helper.pl').
+/*:- include('radicals/helper.pl').
 :- include('vector_algebra/helper.pl').
 :- include('application_of_integrals/gfs.pl').
 :- include('trigno_with_val/helper.pl').
-:- include('binomial_multinomials/helper_general.pl').
+:- include('binomial_multinomials/helper_general.pl').*/
 %--------------------------------------------------------------------Exercise 10.4-------------------------------------------------------------------------
 %------------------------------------------------------------------Example 22---------------------------------------------------------------------------------
 %Question
-generate_question_vector_ex_22(Question):-
+generate_question_vector_ex_22(List1,List2,Question):-
 	Var1=a,
 	Var2=b,
-	generate_list(List1),
-	generate_list(List2),
+	/*generate_list(List1),
+	generate_list(List2),*/
 
     generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
@@ -18,7 +18,7 @@ generate_question_vector_ex_22(Question):-
   	generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
     generate_latex_vector_ijk(List2, [i,j,k],"",Latex_str2),
 
-    string_concatenate(["[string(Find |",Latex_str_name1," X ",Latex_str_name2,"|, if ",Latex_str_name1," = ",Latex_str1," and ",Latex_str_name2," = ",Latex_str2,")]"],"",Question).
+    string_concatenate(["[string(Find latex(|)",Latex_str_name1," X ",Latex_str_name2,"latex(|), if ",Latex_str_name1," = ",Latex_str1," and ",Latex_str_name2," = ",Latex_str2,")]"],"",Question).
 %Answer
 generate_answer_vector_ex_22(List1,List2,Answer):-
 	Var1=a,
@@ -41,7 +41,7 @@ generate_answer_vector_ex_22(List1,List2,Answer):-
 			string_concatenate(["",M,"\\\\sqrt{",S,"}"],"",Num)
 		)
 	),
-    string_concatenate(["[string(|",Latex_str_name1," X ",Latex_str_name2,"| = latex(",Num,"))]"],"",Answer).
+    string_concatenate(["[string(latex(|)",Latex_str_name1," X ",Latex_str_name2,"latex(|) = latex(",Num,"))]"],"",Answer).
 %Solution
 generate_solution_vector_ex_22(List1,List2,Solution):-
 	Var1=a,
@@ -69,9 +69,9 @@ generate_solution_vector_ex_22(List1,List2,Solution):-
 		)
 	),
     string_concatenate(["[string(We have)"],"",Sol_0),
-    string_concatenate([",string(",Latex_str_name1," X ",Latex_str_name2," = latex(\\\\begin{vmatrix} \\\\hat{i} & \\\\hat{j} & \\\\hat{j} \\\\\\ ",X1," & ",Y1," & ",Z1," \\\\\\ ",X2," & ",Y2," & ",Z2," \\\\end{vmatrix}))"],"",Sol_1),
+    string_concatenate([",string(",Latex_str_name1," X ",Latex_str_name2," = latex(\\\\begin{vmatrix} \\\\hat{i} & \\\\hat{j} & \\\\hat{j} \\\\\\\\\\\\ ",X1," & ",Y1," & ",Z1," \\\\\\\\\\\\ ",X2," & ",Y2," & ",Z2," \\\\end{vmatrix}))"],"",Sol_1),
     string_concatenate([",string(",Latex_str_name1," X ",Latex_str_name2," = latex(",Latex_cross_product," = )",Latex_product,"))"],"",Sol_2),
-    string_concatenate([",string(Hence, |",Latex_str_name1," X ",Latex_str_name2,"| = latex(",Num,"))]"],"",Sol_3),
+    string_concatenate([",string(Hence, latex(|)",Latex_str_name1," X ",Latex_str_name2,"latex(|) = latex(",Num,"))]"],"",Sol_3),
    
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
 
@@ -79,19 +79,19 @@ generate_solution_vector_ex_22(List1,List2,Solution):-
 
 %------------------------------------------------------------------Example 23---------------------------------------------------------------------------------
 %Question
-generate_question_vector_ex_23(Question):-
+generate_question_vector_ex_23(List1,List2,Question):-
 	Var1=a,
 	Var2=b,
-	generate_list(List1),
-	generate_list(List2),
+	/*generate_list(List1),
+	generate_list(List2),*/
 
-    generate_latex_vector_name(Var1,Latex_str_name1),
-    generate_latex_vector_name(Var2,Latex_str_name2),
+    generate_vector_name(Var1,Latex_str_name1),
+    generate_vector_name(Var2,Latex_str_name2),
 
   	generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
     generate_latex_vector_ijk(List2, [i,j,k],"",Latex_str2),
 
-    string_concatenate(["[string(Find a unit vector perpendicular to each of the vectors [",Latex_str_name1," + ",Latex_str_name2,"] and [",Latex_str_name1," - ",Latex_str_name2,"] where ",Latex_str_name1," = ",Latex_str1,", ",Latex_str_name2," = ",Latex_str2,".)]"],"",Question).
+    string_concatenate(["[string(Find a unit vector perpendicular to each of the vectors latex((",Latex_str_name1," + ",Latex_str_name2,")) and latex((",Latex_str_name1," - ",Latex_str_name2,")) where latex(",Latex_str_name1,") = ",Latex_str1,", latex(",Latex_str_name2,") = ",Latex_str2,".)]"],"",Question).
 %Answer
 generate_answer_vector_ex_23(List1,List2,Answer):-
 	generate_sum_vector(List1,List2,Sum),
@@ -154,7 +154,7 @@ generate_solution_vector_ex_23(List1,List2,Solution):-
 
     string_concatenate(["[string(We have ",Latex_str_name1," + ",Latex_str_name2," = ",Latex_sum," and ",Latex_str_name1," - ",Latex_str_name2," = ",Latex_diff,")"],"",Sol_0),
     string_concatenate([",string(A vector which is perpendicular to both ",Latex_str_name1," + ",Latex_str_name2," and ",Latex_str_name1," - ",Latex_str_name2," is given by )"],"",Sol_1),
-    string_concatenate([",string([",Latex_str_name1," + ",Latex_str_name2,"] X [",Latex_str_name1," - ",Latex_str_name2,"] =  latex(\\\\begin{vmatrix} \\\\hat{i} & \\\\hat{j} & \\\\hat{j} \\\\\\ ",X1," & ",Y1," & ",Z1," \\\\\\ ",X2," & ",Y2," & ",Z2," \\\\end{vmatrix}) = ",Latex_product," = [latex(\\\\overrightarrow{c}, say)] )"],"",Sol_2),
+    string_concatenate([",string([",Latex_str_name1," + ",Latex_str_name2,"] X [",Latex_str_name1," - ",Latex_str_name2,"] =  latex(\\\\begin{vmatrix} \\\\hat{i} & \\\\hat{j} & \\\\hat{j} \\\\\\\\\\\\ ",X1," & ",Y1," & ",Z1," \\\\\\\\\\\\ ",X2," & ",Y2," & ",Z2," \\\\end{vmatrix}) = ",Latex_product," = [latex(\\\\overrightarrow{c}, say)] )"],"",Sol_2),
     string_concatenate([",string(Now  latex(|\\\\overrightarrow{c}|) =  ",Product_mag_exp," = latex(\\\\sqrt{",Product_magnitude,"} = ",Num,"))"],"",Sol_3),
     string_concatenate([",string(Therefore, the required unit vector is )"],"",Sol_4),
     string_concatenate([",string( latex(\\\\frac{\\\\overrightarrow{c}}{|\\\\overrightarrow{c}|} = )",Latex_frac_str," )]"],"",Sol_5),
@@ -164,11 +164,14 @@ generate_solution_vector_ex_23(List1,List2,Solution):-
 
 %------------------------------------------------------------------Example 24---------------------------------------------------------------------------------
 %Question
-generate_question_vector_ex_24(Question):-
-	generate_list(List1),
-	generate_list(List2),
-	generate_list(List3),
-    string_concatenate(["[string(Find the area of a triangle having the points A",List1,", B",List2," and C",List3," as its vertices.)]"],"",Question).
+generate_question_vector_ex_24(Point_list_1,Point_list_2,Point_list_3,Question):-
+	/*generate_list(Point_list_1),
+	generate_list(Point_list_2),
+	generate_list(Point_list_3),*/
+	convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
+    convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
+    convert_square_brackets_to_round_brackets(Point_list_3,Point_list_string_3),
+    string_concatenate(["[string(Find the area of a triangle having the points A latex(",Point_list_string_1,"), B latex(",Point_list_string_2,") and C latex(",Point_list_string_1,") as its vertices.)]"],"",Question).
 %Answer
 generate_answer_vector_ex_24(List1,List2,List3,Answer):-
 	generate_diff_vector(List2,List1,Diff_1),
@@ -216,7 +219,7 @@ generate_solution_vector_ex_24(List1,List2,List3,Solution):-
 	),
     string_concatenate(["[string(We have latex(\\\\overrightarrow{AB} = )",Latex_Diff1," and latex(\\\\overrightarrow{AC} = )",Latex_Diff2,".)"],"",Sol_0),
     string_concatenate([",string(The area of the given triangle is latex(\\\\frac{1}{2}|\\\\overrightarrow{AB} X \\\\overrightarrow{AC}|).)"],"",Sol_1),
-    string_concatenate([",string(Now latex(\\\\overrightarrow{AB} X \\\\overrightarrow{AC} = )  latex(\\\\begin{vmatrix} \\\\hat{i} & \\\\hat{j} & \\\\hat{j} \\\\\\ ",X1," & ",Y1," & ",Z1," \\\\\\ ",X2," & ",Y2," & ",Z2," \\\\end{vmatrix} = ) ",Latex_product," )"],"",Sol_2),
+    string_concatenate([",string(Now latex(\\\\overrightarrow{AB} X \\\\overrightarrow{AC} = )  latex(\\\\begin{vmatrix} \\\\hat{i} & \\\\hat{j} & \\\\hat{j} \\\\\\\\\\\\ ",X1," & ",Y1," & ",Z1," \\\\\\\\\\\\ ",X2," & ",Y2," & ",Z2," \\\\end{vmatrix} = ) ",Latex_product," )"],"",Sol_2),
     string_concatenate([",string(Therefore  latex(|\\\\overrightarrow{AB} X \\\\overrightarrow{AC}|) =  ",Product_mag_exp," = latex(\\\\sqrt{",Product_magnitude,"} = ",Num,"))"],"",Sol_3),
     string_concatenate([",string(Thus, the required area is latex(\\\\frac{1}{2}",Num,"))]"],"",Sol_4),
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3,Sol_4],"",Solution).
@@ -224,11 +227,11 @@ generate_solution_vector_ex_24(List1,List2,List3,Solution):-
 
 %------------------------------------------------------------------Example 25---------------------------------------------------------------------------------
 %Question
-generate_question_vector_ex_25(Question):-
+generate_question_vector_ex_25(List1,List2,Question):-
 	Var1=a,
 	Var2=b,
-	generate_list(List1),
-	generate_list(List2),
+	/*generate_list(List1),
+	generate_list(List2),*/
 
     generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
@@ -283,9 +286,9 @@ generate_solution_vector_ex_25(List1,List2,Solution):-
 		)
 	),
     string_concatenate(["[string(The area of a parallelogram with ",Latex_str_name1," and ",Latex_str_name2," as its adjacent sides is given by |",Latex_str_name1," X ",Latex_str_name2,"|.)"],"",Sol_0),
-    string_concatenate([",string(Now ",Latex_str_name1," X ",Latex_str_name2," = latex(\\\\begin{vmatrix} \\\\hat{i} & \\\\hat{j} & \\\\hat{j} \\\\\\ ",X1," & ",Y1," & ",Z1," \\\\\\ ",X2," & ",Y2," & ",Z2," \\\\end{vmatrix}))"],"",Sol_1),
+    string_concatenate([",string(Now ",Latex_str_name1," X ",Latex_str_name2," = latex(\\\\begin{vmatrix} \\\\hat{i} & \\\\hat{j} & \\\\hat{j} \\\\\\\\\\\\ ",X1," & ",Y1," & ",Z1," \\\\\\\\\\\\ ",X2," & ",Y2," & ",Z2," \\\\end{vmatrix}))"],"",Sol_1),
     string_concatenate([",string(",Latex_str_name1," X ",Latex_str_name2," = latex(",Latex_cross_product," = )",Latex_product,"))"],"",Sol_2),
-    string_concatenate([",string(Therefore   |",Latex_str_name1," X ",Latex_str_name2,"| = ",Product_mag_exp," = latex(",Num,"))"],"",Sol_3),
+    string_concatenate([",string(Therefore   latex(|)",Latex_str_name1," X ",Latex_str_name2,"latex(|) = ",Product_mag_exp," = latex(",Num,"))"],"",Sol_3),
     string_concatenate([",string(and hence, the required area is latex(",Num,").)]"],"",Sol_4),
 
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3,Sol_4],"",Solution).
@@ -450,13 +453,13 @@ generate_solution_vector_10_4_2(List1,List2,Solution):-
 
 %------------------------------------------------------------------Question 5--------------------------------------------------------------------------------
 %Question
-generate_question_vector_10_4_5(Question):-
-	generate_list(List1),
-	generate_magnitude(Mag),
+generate_question_vector_10_4_5(List1,Mag,Question):-
+	/*generate_list(List1),
+	generate_magnitude(Mag),*/
 
   	generate_vector_ijk(List1, [i,j,k],"",Latex_str1),
 
-    string_concatenate(["[string(Find latex(\\\\lambda) and latex(\\\\mu) if latex((",Latex_str1,") X (",Mag,"\\\\hat{i} + \\\\lambda\\\\hat{j} + \\\\mu\\\\hat{k}) = 0))]"],"",Question).
+    string_concatenate(["[string(Find latex(\\\\\\\\lambda) and latex(\\\\\\\\mu) if latex((",Latex_str1,")) X latex((",Mag,"\\\\\\\\hat{i} + \\\\\\\\lambda\\\\\\\\hat{j} + \\\\\\\\mu\\\\\\\\hat{k}) = 0))]"],"",Question).
 %Answer
 generate_answer_vector_10_4_5(List1,Mag,Answer):-
 	List1=[A,B,C],
@@ -464,13 +467,25 @@ generate_answer_vector_10_4_5(List1,Mag,Answer):-
 	Mu is (Mag*C),
 	simplify(Lambda,A,N_L,D_L),
 	simplify(Mu,A,N_M,D_M),
-	(D_L=:=1->
-		string_concatenate(["[string(latex(\\\\lambda = ",N_L,"))"],"",Ans_0);
-		string_concatenate(["[string(latex(\\\\lambda = \\\\frac{",N_L,"}{",D_L,"}))"],"",Ans_0)
+	(N_L=:=0->
+		string_concatenate(["[string(latex(\\\\lambda = 0))"],"",Ans_0);
+		(D_L=:=0->
+			string_concatenate(["[string(latex(\\\\lambda = 0))"],"",Ans_0);
+			(D_L=:=1->
+				string_concatenate(["[string(latex(\\\\lambda = ",N_L,"))"],"",Ans_0);
+				string_concatenate(["[string(latex(\\\\lambda = \\\\frac{",N_L,"}{",D_L,"}))"],"",Ans_0)
+			)
+		)
 	),
-	(D_M=:=1->
-		string_concatenate([",string(latex(\\\\mu = ",N_M,"))]"],"",Ans_1);
-		string_concatenate([",string(latex(\\\\mu = \\\\frac{",N_M,"}{",D_M,"}))]"],"",Ans_1)
+	(N_M=:=0->
+		string_concatenate([",string(latex(\\\\mu = 0))]"],"",Ans_1);
+		(D_M=:=0->
+			string_concatenate(["string(latex(\\\\mu = 0))]"],"",Ans_1);
+			(D_M=:=1->
+				string_concatenate([",string(latex(\\\\mu = ",N_M,"))]"],"",Ans_1);
+				string_concatenate([",string(latex(\\\\mu = \\\\frac{",N_M,"}{",D_M,"}))]"],"",Ans_1)
+			)
+		)
 	),
     string_concatenate([Ans_0,Ans_1],"",Answer).
 
@@ -482,18 +497,31 @@ generate_solution_vector_10_4_5(List1,Mag,Solution):-
 	Mu is (Mag*C),
 	simplify(Lambda,A,N_L,D_L),
 	simplify(Mu,A,N_M,D_M),
-	(D_L=:=1->
-		string_concatenate([",string(latex(\\\\lambda = ",N_L,"))"],"",Sol_6);
-		string_concatenate([",string(latex(\\\\lambda = \\\\frac{",N_L,"}{",D_L,"}))"],"",Sol_6)
+	(N_L=:=0->
+		string_concatenate([",string(latex(\\\\lambda = 0))"],"",Sol_6);
+		(D_L=:=0->
+			string_concatenate([",string(latex(\\\\lambda = 0))"],"",Sol_6);
+
+			(D_L=:=1->
+				string_concatenate([",string(latex(\\\\lambda = ",N_L,"))"],"",Sol_6);
+				string_concatenate([",string(latex(\\\\lambda = \\\\frac{",N_L,"}{",D_L,"}))"],"",Sol_6)
+			)
+		)
 	),
-	(D_M=:=1->
-		string_concatenate([",string(latex(\\\\mu = ",N_M,"))]"],"",Sol_7);
-		string_concatenate([",string(latex(\\\\mu = \\\\frac{",N_M,"}{",D_M,"}))]"],"",Sol_7)
+	(N_M=:=0->
+		string_concatenate([",string(latex(\\\\mu = 0))]"],"",Sol_7);
+		(D_M=:=0->
+			string_concatenate([",string(latex(\\\\mu = 0))]"],"",Sol_7);
+			(D_M=:=1->
+				string_concatenate([",string(latex(\\\\mu = ",N_M,"))]"],"",Sol_7);
+				string_concatenate([",string(latex(\\\\mu = \\\\frac{",N_M,"}{",D_M,"}))]"],"",Sol_7)
+			)
+		)
 	),
 	Q2 is Mag*C,
 	Q3 is Mag*B,
-	string_concatenate(["[string(Given latex((",Latex_str1,") X (",Mag,"\\\\hat{i} + \\\\lambda\\\\hat{j} + \\\\mu\\\\hat{k}) = 0))"],"",Sol_0),
-    string_concatenate([",string(latex(\\\\begin{vmatrix} \\\\hat{i} & \\\\hat{j} & \\\\hat{j} \\\\\\ ",A," & ",B," & ",C," \\\\\\ ",Mag," & \\\\lambda & \\\\mu \\\\end{vmatrix} = 0\\\\hat{i} + 0\\\\hat{j} + 0\\\\hat{k}))"],"",Sol_1),
+	string_concatenate(["[string(Given latex((",Latex_str1,")) X latex((",Mag,"\\\\hat{i} + \\\\lambda\\\\hat{j} + \\\\mu\\\\hat{k}) = 0))"],"",Sol_0),
+    string_concatenate([",string(latex(\\\\begin{vmatrix} \\\\hat{i} & \\\\hat{j} & \\\\hat{j} \\\\\\\\\\\\ ",A," & ",B," & ",C," \\\\\\\\\\\\ ",Mag," & \\\\lambda & \\\\mu \\\\end{vmatrix} = 0\\\\hat{i} + 0\\\\hat{j} + 0\\\\hat{k}))"],"",Sol_1),
 	string_concatenate([",string(latex([(",B,")\\\\mu - (",C,")\\\\lambda]\\\\hat{i} - [(",A,")\\\\mu - (",Q2,")]\\\\hat{j} + [(",A,")\\\\lambda - (",Q3,")]\\\\hat{k} = 0\\\\hat{i} + 0\\\\hat{j} + 0\\\\hat{k} ))"],"",Sol_2),
 	string_concatenate([",string(latex((",B,")\\\\mu - (",C,")\\\\lambda = 0 ))"],"",Sol_3),
 	string_concatenate([",string(latex((",A,")\\\\mu - (",Q2,") = 0 ))"],"",Sol_4),
