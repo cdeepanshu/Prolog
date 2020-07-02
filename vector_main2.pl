@@ -80,11 +80,11 @@ generate_answer_vector_ex_14(List1,List2,Answer):-
 			simplify(Num,Den,R1,R2),
 			string_concatenate([R1,"/",R2],"",Term),
 			trignometric_inverse_function(1,Term,Angle),
-			string_concatenate(["[string(latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Answer);
+			string_concatenate(["",Angle,""],"",Answer);
 
 			S is (S1)*(S2),
 			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Den),
-			string_concatenate(["[string(latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"})))]"],"",Answer)
+			string_concatenate(["cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}"],"",Answer)
 
 		);
 		(S1=:=S2->
@@ -92,12 +92,12 @@ generate_answer_vector_ex_14(List1,List2,Answer):-
 			simplify(Num,Den,R1,R2),
 			string_concatenate([R1,"/",R2],"",Term),
 			trignometric_inverse_function(1,Term,Angle),
-			string_concatenate(["[string(latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}) = ",Angle,"))]"],"",Answer);
+			string_concatenate(["",Angle,""],"",Answer);
 
 			S is (S1)*(S2),
 			M is (M1)*(M2),
 			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Den),
-			string_concatenate(["[string(latex(\\\\\\\\theta = cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"})))]"],"",Answer)
+			string_concatenate(["cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}"],"",Answer)
 
 		)
 	).
@@ -190,35 +190,33 @@ generate_answer_vector_ex_15(List1,List2,Answer):-
     generate_sum(Mul,0,Result),
 
     (Result=:=0->
-    	string_concatenate(["[string(",Latex_str_name1," + ",Latex_str_name2," and ",Latex_str_name1," - ",Latex_str_name2," are perpendicular.)]"],"",Answer);
-    	string_concatenate(["[string(",Latex_str_name1," + ",Latex_str_name2," and ",Latex_str_name1," - ",Latex_str_name2," are not perpendicular.)]"],"",Answer)
-
+    	Answer is 1;
+    	Answer is 0
     ).
 %Solution
 generate_solution_vector_ex_15(List1,List2,Solution):-
 	Var1=a,
 	Var2=b,
-
-	generate_latex_vector_name(Var1,Latex_str_name1),
-    generate_latex_vector_name(Var2,Latex_str_name2),
+    generate_vector_name(Var1,Str_name1),
+    generate_vector_name(Var2,Str_name2),
 
     generate_sum_vector(List1,List2,Sum),
     generate_diff_vector(List1,List2,Diff),
     generate_mul_vector(Sum,Diff,Mul),
     generate_sum(Mul,0,Result),
 
-    generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
-    generate_latex_vector_ijk(List2, [i,j,k],"",Latex_str2),
-    generate_latex_vector_ijk(Sum, [i,j,k],"",Latex_sum),
-    generate_latex_vector_ijk(Diff, [i,j,k],"",Latex_diff),
+    generate_vector_ijk(List1, [i,j,k],"",Latex_str1),
+    generate_vector_ijk(List2, [i,j,k],"",Latex_str2),
+    generate_vector_ijk(Sum, [i,j,k],"",Latex_sum),
+    generate_vector_ijk(Diff, [i,j,k],"",Latex_diff),
 
     string_concatenate(["[string(We know that two nonzero vectors are perpendicular if there scalar product is zero.)"],"",Sol_0),
-    string_concatenate([",string(Hence",Latex_str_name1," + ",Latex_str_name2," = [",Latex_str1,"] + [",Latex_str2,"] = ",Latex_sum,")"],"",Sol_1),
-    string_concatenate([",string(and",Latex_str_name1," - ",Latex_str_name2," = [",Latex_str1,"] - [",Latex_str2,"] = ",Latex_diff,")"],"",Sol_2),
-    string_concatenate([",string(So [",Latex_str_name1," + ",Latex_str_name2,"].[",Latex_str_name1," - ",Latex_str_name2,"] = [",Latex_sum,"] . [",Latex_diff,"] = ",Result,")"],"",Sol_3),
+    string_concatenate([",string(Hence latex(",Str_name1," + ",Str_name2," = (",Latex_str1,") + (",Latex_str2,") = ",Latex_sum,"))"],"",Sol_1),
+    string_concatenate([",string(and latex(",Str_name1," - ",Str_name2," = (",Latex_str1,") - (",Latex_str2,") = ",Latex_diff,"))"],"",Sol_2),
+    string_concatenate([",string(So latex((",Str_name1," + ",Str_name2,").(",Str_name1," - ",Str_name2,") = (",Latex_sum,") . (",Latex_diff,") = ",Result,"))"],"",Sol_3),
     (Result=:=0->
-    	string_concatenate([",string(Hence, ",Latex_str_name1," + ",Latex_str_name2," and ",Latex_str_name1," - ",Latex_str_name2," are perpendicular.)]"],"",Sol_4);
-    	string_concatenate([",string(Hence, ",Latex_str_name1," + ",Latex_str_name2," and ",Latex_str_name1," - ",Latex_str_name2," are not perpendicular.)]"],"",Sol_4)
+    	string_concatenate([",string(Hence, latex((",Str_name1," + ",Str_name2,")) and latex((",Str_name1," - ",Str_name2,")) are perpendicular.)]"],"",Sol_4);
+    	string_concatenate([",string(Hence, latex((",Str_name1," + ",Str_name2,")) and latex((",Str_name1," - ",Str_name2,")) are not perpendicular.)]"],"",Sol_4)
 
     ),
 	string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3,Sol_4],"",Solution).
@@ -251,8 +249,8 @@ generate_answer_vector_ex_16(List1,List2,Answer):-
 	(Result=:=0->
 		string_concatenate(["[string(0)]"],"",Answer);
 		(M1=:=1->
-			string_concatenate(["[string(latex(\\\\\\\\frac{",Result,"}{\\\\\\\\sqrt{",S1,"}}))]"],"",Answer);
-			string_concatenate(["[string(latex(\\\\\\\\frac{",Result,"}{",M1,"\\\\\\\\sqrt{",S1,"}}))]"],"",Answer)
+			string_concatenate(["\\\\\\\\frac{",Result,"}{\\\\\\\\sqrt{",S1,"}}"],"",Answer);
+			string_concatenate(["\\\\\\\\frac{",Result,"}{",M1,"\\\\\\\\sqrt{",S1,"}}"],"",Answer)
 		)
 	).
 %Solution
@@ -321,7 +319,7 @@ generate_answer_vector_ex_17(Mag1,Mag2,Mag3,Answer):-
 			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
 		)
 	),
-	string_concatenate(["[string(latex(|)",Latex_str_name1," - ",Latex_str_name2,"latex(|) = latex(",Ans,"))]"],"",Answer).
+	string_concatenate(["",Ans,""],"",Answer).
 %Solution
 generate_solution_vector_ex_17(Mag1,Mag2,Mag3,Solution):-
 	Var1=a,
@@ -383,7 +381,7 @@ generate_answer_vector_ex_18(Mag,Answer):-
 			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Num)
 		)
 	),
-	string_concatenate(["[string(latex(|)",Latex_str_name1,"latex(|) = latex(",Num,"))]"],"",Answer).
+	string_concatenate(["",Num,""],"",Answer).
 %Solution
 generate_solution_vector_ex_18(Mag,Solution):-
 	Var1=x,
@@ -447,16 +445,16 @@ generate_answer_vector_ex_21(Point1,Point2,Point3,Answer):-
 	get_updated_coefficient_result(X3,M3,S3),
 
 	(S1=\=S2->
-    	string_concatenate(["[string(The points A, B and C are not collinear.)]"],"",Answer);
+		Answer is 0;
     	(S2=\=S3->
-    		string_concatenate(["[string(The points A, B and C are not collinear.)]"],"",Answer);
+			Answer is 0;
 			(M3=:=M1+M2->
-    			string_concatenate(["[string(The points A, B and C are collinear.)]"],"",Answer);
+				Answer is 1;
 	    	    (M2=:=M3+M1->
-    				string_concatenate(["[string(The points A, B and C are collinear.)]"],"",Answer);
+					Answer is 1;
 	     			(M1=:=M3+M2->
-    					string_concatenate(["[string(The points A, B and C are collinear.)]"],"",Answer);
-    					string_concatenate(["[string(The points A, B and C are not collinear.)]"],"",Answer)
+					Answer is 1;
+					Answer is 0
 					)
 				)
     		)
@@ -902,53 +900,59 @@ generate_answer_vector_10_3_6(Mag1,Mag2,Answer):-
 	generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
 	Mul is (Mag2**2-1),
-	get_updated_coefficient([[[1,1],[Mag1,1]]],X1,_),
-	get_updated_coefficient_result(X1,N1,S1),
-	get_updated_coefficient([[[1,1],[Mul,1]]],X2,_),
-	get_updated_coefficient_result(X2,N2,S2),
-	simplify(N1,N2,M1,M2),
 
-	(M1=:=1->
-		(S1=:=1->
-			Num is S1;
-			string_concatenate(["\\\\sqrt{",S1,"}"],"",Num)
-		);
-		(S1=:=1->
-			Num is M1*S1;
-			string_concatenate(["",M1,"\\\\sqrt{",S1,"}"],"",Num)
-		)
-	),
+	(Mag1=:=Mul->
+		(string_concatenate([",1"],"",Ans_0),
+		string_concatenate(["",Mag2,""],"",Ans_1));
 
-	(M2=:=1->
-		(S2=:=1->
-			Den is S2;
-			string_concatenate(["\\\\sqrt{",S2,"}"],"",Den)
-		);
-		(S2=:=1->
-			Den is M2*S2;
-			string_concatenate(["",M2,"\\\\sqrt{",S2,"}"],"",Den)
-		)
-	),
-	string_concatenate(["[string(latex(|",Latex_str_name2,"|) = latex(\\\\frac{",Num,"}{",Den,"}))"],"",Ans_0),
-	(Mag2=:=1->
+		get_updated_coefficient([[[1,1],[Mag1,1]]],X1,_),
+		get_updated_coefficient_result(X1,N1,S1),
+		get_updated_coefficient([[[1,1],[Mul,1]]],X2,_),
+		get_updated_coefficient_result(X2,N2,S2),
+		simplify(N1,N2,M1,M2),
+
 		(M1=:=1->
 			(S1=:=1->
-				Num1 is S1;
-				string_concatenate(["\\\\sqrt{",S1,"}"],"",Num1)
+				Num is S1;
+				string_concatenate(["\\\\sqrt{",S1,"}"],"",Num)
 			);
 			(S1=:=1->
-				Num1 is M1*S1;
-				string_concatenate(["",M1,"\\\\sqrt{",S1,"}"],"",Num1)
+				Num is M1*S1;
+				string_concatenate(["",M1,"\\\\sqrt{",S1,"}"],"",Num)
 			)
-		);
-		(S1=:=1->
-				Num1 is Mag2*M1;
-				M is Mag2*M1,
-				string_concatenate(["",M,"\\\\sqrt{",S1,"}"],"",Num1)
-		)
+		),
+
+		(M2=:=1->
+			(S2=:=1->
+				Den is S2;
+				string_concatenate(["\\\\sqrt{",S2,"}"],"",Den)
+			);
+			(S2=:=1->
+				Den is M2*S2;
+				string_concatenate(["",M2,"\\\\sqrt{",S2,"}"],"",Den)
+			)
+		),
+		string_concatenate([",\\\\frac{",Num,"}{",Den,"}"],"",Ans_0),
+		(Mag2=:=1->
+			(M1=:=1->
+				(S1=:=1->
+					Num1 is S1;
+					string_concatenate(["\\\\sqrt{",S1,"}"],"",Num1)
+				);
+				(S1=:=1->
+					Num1 is M1*S1;
+					string_concatenate(["",M1,"\\\\sqrt{",S1,"}"],"",Num1)
+				)
+			);
+			(S1=:=1->
+					Num1 is Mag2*M1;
+					M is Mag2*M1,
+					string_concatenate(["",M,"\\\\sqrt{",S1,"}"],"",Num1)
+			)
+		),
+		string_concatenate(["\\\\frac{",Num1,"}{",Den,"}"],"",Ans_1)
 	),
-	string_concatenate([",string(latex(|",Latex_str_name1,"|) = latex(\\\\frac{",Num1,"}{",Den,"}))]"],"",Ans_1),
-	string_concatenate([Ans_0,Ans_1],"",Answer).
+	string_concatenate([Ans_1,Ans_0],"",Answer).
 %Solution
 generate_solution_vector_10_3_6(Mag1,Mag2,Solution):-
 	Var1=a,
@@ -958,11 +962,57 @@ generate_solution_vector_10_3_6(Mag1,Mag2,Solution):-
 	
 	Mul is (Mag2**2-1),
 	Mul1 is (Mag2**2),
-	get_updated_coefficient([[[1,1],[Mag1,1]]],X1,_),
-	get_updated_coefficient_result(X1,N1,S1),
-	get_updated_coefficient([[[1,1],[Mul,1]]],X2,_),
-	get_updated_coefficient_result(X2,N2,S2),
-	simplify(N1,N2,M1,M2),
+	(Mag1=:=Mul->
+		(string_concatenate(["1"],"",Ans_0),
+		string_concatenate(["",Mag2,""],"",Ans_1));
+
+		get_updated_coefficient([[[1,1],[Mag1,1]]],X1,_),
+		get_updated_coefficient_result(X1,N1,S1),
+		get_updated_coefficient([[[1,1],[Mul,1]]],X2,_),
+		get_updated_coefficient_result(X2,N2,S2),
+		simplify(N1,N2,M1,M2),
+
+		(M1=:=1->
+			(S1=:=1->
+				Num is S1;
+				string_concatenate(["\\\\sqrt{",S1,"}"],"",Num)
+			);
+			(S1=:=1->
+				Num is M1*S1;
+				string_concatenate(["",M1,"\\\\sqrt{",S1,"}"],"",Num)
+			)
+		),
+
+		(M2=:=1->
+			(S2=:=1->
+				Den is S2;
+				string_concatenate(["\\\\sqrt{",S2,"}"],"",Den)
+			);
+			(S2=:=1->
+				Den is M2*S2;
+				string_concatenate(["",M2,"\\\\sqrt{",S2,"}"],"",Den)
+			)
+		),
+		string_concatenate(["\\\\frac{",Num,"}{",Den,"}"],"",Ans_0),
+		(Mag2=:=1->
+			(M1=:=1->
+				(S1=:=1->
+					Num1 is S1;
+					string_concatenate(["\\\\sqrt{",S1,"}"],"",Num1)
+				);
+				(S1=:=1->
+					Num1 is M1*S1;
+					string_concatenate(["",M1,"\\\\sqrt{",S1,"}"],"",Num1)
+				)
+			);
+			(S1=:=1->
+					Num1 is Mag2*M1;
+					M is Mag2*M1,
+					string_concatenate(["",M,"\\\\sqrt{",S1,"}"],"",Num1)
+			)
+		),
+		string_concatenate(["\\\\frac{",Num1,"}{",Den,"}"],"",Ans_1)
+	),
 
     string_concatenate(["[string(Given,latex((",Latex_str_name1," + ",Latex_str_name2,").(",Latex_str_name1," - ",Latex_str_name2,") = ",Mag1,"))"],"",Sol_0),
     string_concatenate([",string(latex(",Latex_str_name1,".",Latex_str_name1,"-",Latex_str_name1,".",Latex_str_name2,"+",Latex_str_name2,".",Latex_str_name1,"-",Latex_str_name2,".",Latex_str_name2," = ",Mag1,"))"],"",Sol_1),
@@ -971,47 +1021,12 @@ generate_solution_vector_10_3_6(Mag1,Mag2,Solution):-
     string_concatenate([",string(",Mul1,"latex(|\\\\overrightarrow{b}|^2 - |\\\\overrightarrow{b}|^2 = ",Mag1,"))"],"",Sol_4),
    	string_concatenate([",string(",Mul,"latex(|\\\\overrightarrow{b}|^2 = ",Mag1,"))"],"",Sol_5),
    	string_concatenate([",string(latex(|\\\\overrightarrow{b}|^2 = \\\\frac{",Mag1,"}{",Mul,"}))"],"",Sol_6),
-	(M1=:=1->
-		(S1=:=1->
-			Num is S1;
-			string_concatenate(["\\\\sqrt{",S1,"}"],"",Num)
-		);
-		(S1=:=1->
-			Num is M1*S1;
-			string_concatenate(["",M1,"\\\\sqrt{",S1,"}"],"",Num)
-		)
-	),
+	
 
-	(M2=:=1->
-		(S2=:=1->
-			Den is S2;
-			string_concatenate(["\\\\sqrt{",S2,"}"],"",Den)
-		);
-		(S2=:=1->
-			Den is M2*S2;
-			string_concatenate(["",M2,"\\\\sqrt{",S2,"}"],"",Den)
-		)
-	),
-	string_concatenate([",string(latex(|",Latex_str_name2,"|) = latex(\\\\frac{",Num,"}{",Den,"}))"],"",Sol_7),
+	string_concatenate([",string(latex(|",Latex_str_name2,"|) = latex(",Ans_0,"))"],"",Sol_7),
 	string_concatenate([",string(latex(|",Latex_str_name1,"|) = ",Mag2,"latex(|",Latex_str_name2,"|))"],"",Sol_8),
-	(Mag2=:=1->
-		(M1=:=1->
-			(S1=:=1->
-				Num1 is S1;
-				string_concatenate(["\\\\sqrt{",S1,"}"],"",Num1)
-			);
-			(S1=:=1->
-				Num1 is M1*S1;
-				string_concatenate(["",M1,"\\\\sqrt{",S1,"}"],"",Num1)
-			)
-		);
-		(S1=:=1->
-				Num1 is Mag2*M1;
-				M is Mag2*M1,
-				string_concatenate(["",M,"\\\\sqrt{",S1,"}"],"",Num1)
-		)
-	),
-	string_concatenate([",string(latex(|",Latex_str_name1,"|) = latex(\\\\frac{",Num1,"}{",Den,"}))]"],"",Sol_9),
+
+	string_concatenate([",string(latex(|",Latex_str_name1,"|) = latex(",Ans_1,"))]"],"",Sol_9),
 	string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3,Sol_4,Sol_5,Sol_6,Sol_7,Sol_8,Sol_9],"",Solution).
 
 
@@ -1030,10 +1045,34 @@ generate_question_vector_10_3_7(List1,List2,Question):-
 
 	string_concatenate(["[string(Evaluate the product latex((",Latex_str1,").(",Latex_str2,")))]"],"",Question).
 %Answer
-generate_answer_vector_10_3_7(List1,List2,Answer):-
+generate_answer_vector_10_3_7(List1,List2,Answer,Answer_type):-
+
+	generate_two_different_number(Temp_List1),
+	generate_two_different_number(Temp_List2),
+	generate_two_different_number(Temp_List3),
+
 	product_scalar_vector(List1,List2,Product),
 	generate_latex_product(Product,"",Product_exp),
-	string_concatenate(["[string(latex(",Product_exp,"))]"],"",Answer).
+
+	product_scalar_vector(Temp_List1,Temp_List2,Product1),
+	generate_latex_product(Product1,"",Product_exp1),
+	product_scalar_vector(Temp_List1,Temp_List3,Product2),
+	generate_latex_product(Product2,"",Product_exp2),
+
+	product_scalar_vector(Temp_List2,Temp_List3,Product3),
+
+	generate_latex_product(Product3,"",Product_exp3),
+
+	string_concatenate(["string(latex(",Product_exp1,"))"],"",Option2),
+	string_concatenate(["string(latex(",Product_exp2,"))"],"",Option3),
+	string_concatenate(["string(latex(",Product_exp3,"))"],"",Option4),
+	string_concatenate(["string(latex(",Product_exp,"))"],"",Option1),
+
+	random_between(0,3,Ans),
+	Option_list=[Option1,Option2,Option3,Option4],
+	Answer is Ans,
+
+	get_option_from_list_of_options(Option_list,Answer,Answer_type).
 %Answer
 generate_solution_vector_10_3_7(List1,List2,Solution):-
 	generate_abc(List1,[a,b],"",Latex_str1),
@@ -1069,21 +1108,24 @@ generate_answer_vector_10_3_8(Angle,Scalar_product,Answer):-
     generate_latex_vector_name(Var2,Latex_str_name2),
 	find_trig_val(1,Angle,A,B,_,_),
 	term_string(T,B),
-	Ans is truncate((Scalar_product)/(T)),
-	get_updated_coefficient([[[1,1],[Ans,1]]],X,_),
-	get_updated_coefficient_result(X,M,S),
+	(T=:=0->
+		string_concatenate(["0"],"",Answer);
+		(Ans is truncate((Scalar_product)/(T)),
+		get_updated_coefficient([[[1,1],[Ans,1]]],X,_),
+		get_updated_coefficient_result(X,M,S),
 
-	(M=:=1->
-		(S=:=1->
-			Num is S;
-			string_concatenate(["\\\\sqrt{",S,"}"],"",Num)
-		);
-		(S=:=1->
-			Num is M*S;
-			string_concatenate(["",M,"\\\\sqrt{",S,"}"],"",Num)
-		)
-	),
-    string_concatenate(["[string(latex(|)",Latex_str_name1,"latex(|) = latex(|)",Latex_str_name2,"latex(|) = latex(",Num,").)]"],"",Answer).
+		(M=:=1->
+			(S=:=1->
+				Num is S;
+				string_concatenate(["\\\\sqrt{",S,"}"],"",Num)
+			);
+			(S=:=1->
+				Num is M*S;
+				string_concatenate(["",M,"\\\\sqrt{",S,"}"],"",Num)
+			)
+		),
+	    string_concatenate(["",Num,""],"",Answer))
+	).
 %Solution
 generate_solution_vector_10_3_8(Angle,Scalar_product,Solution):-
 	Var1=a,
@@ -1202,9 +1244,12 @@ generate_answer_vector_10_3_10(List1,List2,List3,Answer):-
 
     generate_mul_vector(List2,List3,Mul2),
     generate_sum(Mul2,0,Result2),
-
-    Ans is -((Result1)/(Result2)),
-   	string_concatenate(["[string(latex(\\\\lambda = )",Ans,")]"],"",Answer).
+    simplify(Result1,Result2,Num_1,Den),
+    Num is -(Num_1),
+	(Den=:=1->
+		string_concatenate(["",Num,""],"",Answer);
+		string_concatenate(["\\\\frac{",Num,"}{",Den,"}"],"",Answer)
+	).
 %Solution
 generate_solution_vector_10_3_10(List1,List2,List3,Solution):-	
 	List1=[L1,L2,L3],
@@ -1227,7 +1272,12 @@ generate_solution_vector_10_3_10(List1,List2,List3,Solution):-
     Mul2=[X2,Y2,Z2],
     generate_sum(Mul2,0,Result2),
 
-    Ans is -((Result1)/(Result2)),
+    simplify(Result1,Result2,Num_1,Den),
+    Num is -(Num_1),
+	(Den=:=1->
+		string_concatenate(["",Num,""],"",Answer);
+		string_concatenate(["\\\\frac{",Num,"}{",Den,"}"],"",Answer)
+	),
 
 	string_concatenate(["[string(We have,)"],"",Sol_0),
 	string_concatenate([",string(",Latex_str_name1," = ",Latex_str1,", ",Latex_str_name2," = ",Latex_str2," and ",Latex_str_name3," = ",Latex_str3,")"],"",Sol_1),
@@ -1239,7 +1289,7 @@ generate_solution_vector_10_3_10(List1,List2,List3,Solution):-
 	string_concatenate([",string([(",N1,").(",L1,") + (",N2,").(",L2,") + (",N3,").(",L3,")] + latex(\\\\lambda)[(",N1,").(",M1,") + (",N2,").(",M2,") + (",N3,").(",M3,")] = 0 )"],"",Sol_7),
 	string_concatenate([",string([(",X1,") + (",Y1,") + (",Z1,")] + latex(\\\\lambda)[(",X2,") + (",Y2,") + (",Z2,")] = 0 )"],"",Sol_8),
 	string_concatenate([",string(latex(\\\\lambda = -(\\\\frac{",Result1,"}{",Result2,"})))"],"",Sol_9),
-   	string_concatenate([",string(latex(\\\\lambda = ",Ans,"))]"],"",Sol_10),
+   	string_concatenate([",string(latex(\\\\lambda = ",Answer,"))]"],"",Sol_10),
 	string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3,Sol_4,Sol_5,Sol_6,Sol_7,Sol_8,Sol_9,Sol_10],"",Solution).
 
 %------------------------------------------------------------------End of Question 10-------+--------------------------------------------------------------------------
@@ -1266,7 +1316,11 @@ generate_answer_vector_10_3_13(Mag,Answer):-
     generate_latex_vector_name(Var3,Latex_str_name3),
 	Ans0 is (Mag**2),
 	Ans is (Ans0-3),
-	string_concatenate(["[string(",Latex_str_name1,".",Latex_str_name2," + ",Latex_str_name2,".",Latex_str_name3," + ",Latex_str_name3,".",Latex_str_name1," = latex(\\\\frac{",Ans,"}{2}))]"],"",Answer).
+	simplify(Ans,2,Num,Den),
+	(Den=:=1->
+		string_concatenate(["",Num,""],"",Answer);
+		string_concatenate(["\\\\frac{",Num,"}{",Den,"}"],"",Answer)
+	).
 %Solution
 generate_solution_vector_10_3_13(Mag,Solution):-
 	Ans0 is (Mag**2),
@@ -1277,10 +1331,15 @@ generate_solution_vector_10_3_13(Mag,Solution):-
 	generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
     generate_latex_vector_name(Var3,Latex_str_name3),
+    simplify(Ans,2,Num,Den),
+	(Den=:=1->
+		string_concatenate(["",Num,""],"",Answer);
+		string_concatenate(["latex(\\\\frac{",Num,"}{",Den,"})"],"",Answer)
+	),
 	string_concatenate(["[string(latex(|\\\\overrightarrow{a}+\\\\overrightarrow{b}+\\\\overrightarrow{c}|^2 = (\\\\overrightarrow{a}+\\\\overrightarrow{b}+\\\\overrightarrow{c}).(\\\\overrightarrow{a}+\\\\overrightarrow{b}+\\\\overrightarrow{c}) = |",Mag,"|^2))"],"",Sol_0),
 	string_concatenate([",string(latex(|\\\\overrightarrow{a}|^2+|\\\\overrightarrow{b}|^2+|\\\\overrightarrow{c}|^2+2)[",Latex_str_name1,".",Latex_str_name2," + ",Latex_str_name2,".",Latex_str_name3," + ",Latex_str_name3,".",Latex_str_name1,"] = ",Ans0,")"],"",Sol_1),
 	string_concatenate([",string(1 + 1 + 1 + 2[",Latex_str_name1,".",Latex_str_name2," + ",Latex_str_name2,".",Latex_str_name3," + ",Latex_str_name3,".",Latex_str_name1,"] = ",Ans0,")"],"",Sol_2),
-	string_concatenate([",string(",Latex_str_name1,".",Latex_str_name2," + ",Latex_str_name2,".",Latex_str_name3," + ",Latex_str_name3,".",Latex_str_name1," = latex(\\\\frac{",Ans,"}{2}))]"],"",Sol_3),
+	string_concatenate([",string(",Latex_str_name1,".",Latex_str_name2," + ",Latex_str_name2,".",Latex_str_name3," + ",Latex_str_name3,".",Latex_str_name1," = ",Answer,")]"],"",Sol_3),
 	string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
 
 %------------------------------------------------------------------End of Question 13---------------------------------------------------------------------------------
@@ -1325,7 +1384,7 @@ generate_answer_vector_10_3_15(Point1,Point2,Point3,Answer):-
 			string_concatenate(["",M,"\\\\sqrt{",S,"}"],"",Den)
 		)
 	),
-	string_concatenate(["[string(latex(\\\\angle{ABC} = cos^{-1}(\\\\frac{",Result,"}{",Den,"})))]"],"",Answer).
+	string_concatenate(["cos^{-1}(\\\\frac{",Result,"}{",Den,"})"],"",Answer).
 %Solution
 generate_solution_vector_10_3_15(Point1,Point2,Point3,Solution):-
 	generate_diff_vector(Point1,Point2,Diff_1),

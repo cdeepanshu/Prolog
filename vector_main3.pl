@@ -41,7 +41,7 @@ generate_answer_vector_ex_22(List1,List2,Answer):-
 			string_concatenate(["",M,"\\\\sqrt{",S,"}"],"",Num)
 		)
 	),
-    string_concatenate(["[string(latex(|)",Latex_str_name1," X ",Latex_str_name2,"latex(|) = latex(",Num,"))]"],"",Answer).
+    string_concatenate(["",Num,""],"",Answer).
 %Solution
 generate_solution_vector_ex_22(List1,List2,Solution):-
 	Var1=a,
@@ -113,9 +113,9 @@ generate_answer_vector_ex_23(List1,List2,Answer):-
 		)
 	),
 	Pro is (M)*(S),
-	generate_latex_updated_fraction_vector_ijk(Product, [i,j,k],Num,Pro,"",Latex_frac_str),
+	generate_latex_updated_fraction_vector(Product, [i,j,k],Num,Pro,"",Frac_str),
 
-    string_concatenate(["[string(",Latex_frac_str,")]"],"",Answer).
+    string_concatenate(["",Frac_str,""],"",Answer).
 %Solution
 generate_solution_vector_ex_23(List1,List2,Solution):-
 	Var1=a,
@@ -191,7 +191,7 @@ generate_answer_vector_ex_24(List1,List2,List3,Answer):-
 			string_concatenate(["",M,"\\\\sqrt{",S,"}"],"",Num)
 		)
 	),
-    string_concatenate(["[string(Area = latex(\\\\frac{1}{2}",Num,"))]"],"",Answer).
+    string_concatenate(["\\\\frac{1}{2}",Num,""],"",Answer).
 %Solution
 generate_solution_vector_ex_24(List1,List2,List3,Solution):-
 	generate_diff_vector(List2,List1,Diff_1),
@@ -468,22 +468,22 @@ generate_answer_vector_10_4_5(List1,Mag,Answer):-
 	simplify(Lambda,A,N_L,D_L),
 	simplify(Mu,A,N_M,D_M),
 	(N_L=:=0->
-		string_concatenate(["[string(latex(\\\\lambda = 0))"],"",Ans_0);
+		string_concatenate(["0"],"",Ans_0);
 		(D_L=:=0->
-			string_concatenate(["[string(latex(\\\\lambda = 0))"],"",Ans_0);
+			string_concatenate(["0"],"",Ans_0);
 			(D_L=:=1->
-				string_concatenate(["[string(latex(\\\\lambda = ",N_L,"))"],"",Ans_0);
-				string_concatenate(["[string(latex(\\\\lambda = \\\\frac{",N_L,"}{",D_L,"}))"],"",Ans_0)
+				string_concatenate(["",N_L,""],"",Ans_0);
+				string_concatenate(["\\\\frac{",N_L,"}{",D_L,"}"],"",Ans_0)
 			)
 		)
 	),
 	(N_M=:=0->
-		string_concatenate([",string(latex(\\\\mu = 0))]"],"",Ans_1);
+		string_concatenate([",0"],"",Ans_1);
 		(D_M=:=0->
-			string_concatenate(["string(latex(\\\\mu = 0))]"],"",Ans_1);
+			string_concatenate([",0"],"",Ans_1);
 			(D_M=:=1->
-				string_concatenate([",string(latex(\\\\mu = ",N_M,"))]"],"",Ans_1);
-				string_concatenate([",string(latex(\\\\mu = \\\\frac{",N_M,"}{",D_M,"}))]"],"",Ans_1)
+				string_concatenate([",",N_M,""],"",Ans_1);
+				string_concatenate([",\\\\frac{",N_M,"}{",D_M,"}"],"",Ans_1)
 			)
 		)
 	),

@@ -30,6 +30,15 @@ cross_product : find_magnitude_of_cross_product.
 perpendicular_unit_vector : find_unit_vector_perpendicular_to_each_of_the_vector.
 cross_product_triangle_area : find_area_of_triangle_having_point_as_it_vertices.
 cross_product_to_find_variables : find_lambda_and_mu_in_the_expression.
+perpendicular_condition_and_expand_expression : find_expression_value.
+evaluate_expression : evaluate_the_quantity_mu.
+variable_in_a_unit_vector :	find_value_of_variable_x.
+parallel_vectors : find_a_vector_of_given_magnitude_and_parallel_to_resultant_of_vectors.
+unit_parallel_vector : find_a_unit_vector_parallel_to_the_vector.
+linear_equation_with_three_variables : find_a_vector_perpendicular_to_given_vectors.
+
+
+
 
 
 

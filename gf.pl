@@ -99,4 +99,22 @@ find_area_of_triangle_having_point_as_it_vertices:-
 find_lambda_and_mu_in_the_expression:-
 	setName(Result),
    assert(objectList(find_lambda_and_mu_in_the_expression(Result))).
+find_expression_value:-
+	setName(Result),
+   assert(objectList(find_expression_value(Result))).
+evaluate_the_quantity_mu:-
+	setName(Result),
+   assert(objectList(evaluate_the_quantity_mu(Result))).
+find_value_of_variable_x:-
+	setName(Result),
+   assert(objectList(find_value_of_variable_x(Result))).
+find_a_vector_of_given_magnitude_and_parallel_to_resultant_of_vectors:-
+   setName(Result),
+   assert(objectList(find_a_vector_of_given_magnitude_and_parallel_to_resultant_of_vectors(Result))).
+find_a_unit_vector_parallel_to_the_vector:-
+   setName(Result),
+   assert(objectList(find_a_unit_vector_parallel_to_the_vector(Result))).
+find_a_vector_perpendicular_to_given_vectors:-
+   setName(Result),
+   assert(objectList(find_a_vector_perpendicular_to_given_vectors(Result))).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

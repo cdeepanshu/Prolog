@@ -47,18 +47,22 @@ generate_latex_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Pro,Init_str,Latex_
     	(Pro=:=1 ->
 		    (Init_str == "" ->
 		    string_concatenate(["latex(\\\\\\\\hat{",H1,"})"],"",Str1);
-		    string_concatenate(["+latex(\\\\\\\\hat{",H1,"})"],"",Str1)
+
+		    string_concatenate(["latex(+\\\\\\\\hat{",H1,"})"],"",Str1)
+
 		    );
 		    (Init_str == "" ->
 		    string_concatenate(["latex(\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1);
-		    string_concatenate(["+latex(\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
+
+		    string_concatenate(["latex(+\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 		    )
 		);
 
 		(H=:=0  ->
 		    Str1=""; 
 		    H2 is abs(H),
-		    string_concatenate(["-latex(\\\\\\\\frac{",H2,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["latex(-\\\\\\\\frac{",H2,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
+
 		)
 	),
 
@@ -66,7 +70,72 @@ generate_latex_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Pro,Init_str,Latex_
     generate_latex_updated_fraction_vector_ijk(T,T1,Mag,Pro,Temp_str,Latex_str).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%fraction of type 1/sqrt(5)+1 i/sqrt(3) j vector latex 
+generate_updated_fraction_vector_ijk([],_,_,_,Init_str,Latex_str):-
+    Latex_str = Init_str.
+generate_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Pro,Init_str,Latex_str):-
+    (H>0 ->
+    	(Pro=:=1 ->
+		    (Init_str == "" ->
+		    string_concatenate(["\\\\\\\\hat{",H1,"}"],"",Str1);
 
+		    string_concatenate(["+\\\\\\\\hat{",H1,"}"],"",Str1)
+
+		    );
+		    (Init_str == "" ->
+		    string_concatenate(["\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"}"],"",Str1);
+
+		    string_concatenate(["+\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"}"],"",Str1)
+		    )
+		);
+
+		(H=:=0  ->
+		    Str1=""; 
+		    H2 is abs(H),
+		    string_concatenate(["-\\\\\\\\frac{",H2,"}{",Mag,"}\\\\\\\\hat{",H1,"}"],"",Str1)
+
+		)
+	),
+
+    string_concat(Init_str, Str1,Temp_str),
+    generate_updated_fraction_vector_ijk(T,T1,Mag,Pro,Temp_str,Latex_str).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%fraction of type 1/sqrt(5)+1 i/sqrt(3) j vector latex 
+generate_latex_updated_fraction_vector([],_,_,_,Init_str,Frac_str):-
+    Frac_str = Init_str.
+generate_latex_updated_fraction_vector([H|T],[H1|T1],Mag,Pro,Init_str,Frac_str):-
+    (H>0 ->
+    	(Pro=:=1 ->
+		    (Init_str == "" ->
+		    string_concatenate(["1"],"",Str);
+
+		    string_concatenate([",1"],"",Str)
+
+		    );
+		    (Init_str == "" ->
+		    string_concatenate(["\\\\\\\\frac{",H,"}{",Mag,"}"],"",Str);
+
+		    string_concatenate([",\\\\\\\\frac{",H,"}{",Mag,"}"],"",Str)
+		    )
+		);
+
+		(H=:=0  ->
+		    Str=""; 
+		    H2 is abs(H),
+		    (Init_str == "" ->
+		    	string_concatenate(["-\\\\\\\\frac{",H2,"}{",Mag,"}"],"",Str);
+		    	string_concatenate([",-\\\\\\\\frac{",H2,"}{",Mag,"}"],"",Str)
+		    )
+
+
+		)
+	),
+
+    string_concat(Init_str, Str,Temp_str),
+    generate_latex_updated_fraction_vector(T,T1,Mag,Pro,Temp_str,Frac_str).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %latex Vector Generation Function for variable likr xi+yj+zk type
 generate_latex_var_vector_ijk([],_,Init_str,Latex_str):-
@@ -192,7 +261,41 @@ generate_vector_ijk([H|T],[H1|T1],Init_str,Latex_str):-
     string_concat(Init_str, Str1,Temp_str),
     generate_vector_ijk(T,T1,Temp_str,Latex_str).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Vector Generation Function
+generate_vector([],_,Init_str,Str):-
+    Str = Init_str.
+generate_vector([H|T],[H1|T1],Init_str,Str):-
+    (H>0 ->
+    	(H=:=1 ->
+		    (Init_str == "" ->
+		    string_concatenate(["1"],"",Str1);
+		    string_concatenate([",1"],"",Str1)
+		    );
+		    (Init_str == "" ->
+		    string_concatenate(["",H,""],"",Str1);
+		    string_concatenate([",",H,""],"",Str1)
+		    )
+		);
 
+		(H=:=0 ->
+		    Str1="";
+		    H2 is abs(H),
+
+			(H2=:=1 ->
+			    (Init_str == "" ->
+			    string_concatenate(["-1"],"",Str1);
+			    string_concatenate(["-1"],"",Str1)
+			    );
+			    (Init_str == "" ->
+			    string_concatenate(["-",H2,""],"",Str1);
+			    string_concatenate([",-",H2,""],"",Str1)
+				)
+			    
+			)		
+		)
+	),
+    string_concat(Init_str, Str1,Temp_str),
+    generate_vector(T,T1,Temp_str,Str).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -343,7 +446,7 @@ generate_list(List1):-
 	List1 = [X1,X2,X3].
 
 generate_magnitude(Magnitude):-
-	random_between(1,10,M),	
+	random_between(2,10,M),	
 	Magnitude = M.
 
 generate_angle(Angle):-
@@ -368,19 +471,19 @@ generate_latex_mag_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Given_mag,Pro,I
     		(Given_mag=:=1 ->
 			    (Init_str == "" ->
 			    string_concatenate(["latex(\\\\\\\\hat{",H1,"})"],"",Str1);
-			    string_concatenate(["+latex(\\\\\\\\hat{",H1,"})"],"",Str1)
+			    string_concatenate(["latex(+\\\\\\\\hat{",H1,"})"],"",Str1)
 			    );
 
 			    (Init_str == "" ->
 			    string_concatenate(["latex(\\\\\\\\frac{",Given_mag,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1);
-		    	string_concatenate(["+latex(\\\\\\\\frac{",Given_mag,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
+		    	string_concatenate(["latex(+\\\\\\\\frac{",Given_mag,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 			    )
 			);
 		    (Init_str == "" ->
 		    H3 is Given_mag*H,
 		    string_concatenate(["latex(\\\\\\\\frac{",H3,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1);
 		    H4 is Given_mag*H,
-		    string_concatenate(["+latex(\\\\\\\\frac{",H4,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["latex(+\\\\\\\\frac{",H4,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 		    )
 		);
 
@@ -388,7 +491,7 @@ generate_latex_mag_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Given_mag,Pro,I
 		    Str1=""; 
 		    H2 is abs(H),
 		    H5 is Given_mag*H2,
-		    string_concatenate(["-latex(\\\\\\\\frac{",H5,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["latex(-\\\\\\\\frac{",H5,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 		)
 	),
 
@@ -396,7 +499,49 @@ generate_latex_mag_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Given_mag,Pro,I
     generate_latex_mag_updated_fraction_vector_ijk(T,T1,Mag,Given_mag,Pro,Temp_str,Latex_str).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%fraction of type 7*1/sqrt(5)i+(7*1)/sqrt(3) j vector latex 
+generate_latex_mag_updated_fraction_vector([],_,_,_,_,Init_str,Latex_str):-
+    Latex_str = Init_str.
+generate_latex_mag_updated_fraction_vector([H|T],[H1|T1],Mag,Given_mag,Pro,Init_str,Latex_str):-
+    (H>0 ->
+    	(Pro=:=1 ->
+    		(Given_mag=:=1 ->
+			    (Init_str == "" ->
+			    string_concatenate(["1"],"",Str1);
+			    string_concatenate([",1"],"",Str1)
+			    );
+
+			    (Init_str == "" ->
+			    string_concatenate(["\\\\\\\\frac{",Given_mag,"}{",Mag,"}"],"",Str1);
+		    	string_concatenate([",\\\\\\\\frac{",Given_mag,"}{",Mag,"}"],"",Str1)
+			    )
+			);
+		    (Init_str == "" ->
+		    H3 is Given_mag*H,
+		    string_concatenate(["\\\\\\\\frac{",H3,"}{",Mag,"}"],"",Str1);
+		    H4 is Given_mag*H,
+		    string_concatenate([",\\\\\\\\frac{",H4,"}{",Mag,"}"],"",Str1)
+		    )
+		);
+
+		(H=:=0  ->
+		    Str1=""; 
+		    H2 is abs(H),
+		    H5 is Given_mag*H2,
+			(Init_str == "" ->
+		    	string_concatenate(["-\\\\\\\\frac{",H5,"}{",Mag,"}"],"",Str1);
+		    	string_concatenate([",-\\\\\\\\frac{",H5,"}{",Mag,"}"],"",Str1)
+		    )
+
+		)
+	),
+
+    string_concat(Init_str, Str1,Temp_str),
+    generate_latex_mag_updated_fraction_vector(T,T1,Mag,Given_mag,Pro,Temp_str,Latex_str).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %fraction of type 7*1/sqrt(5)i+(7*1)/sqrt(3) j vector latex 
 generate_latex_mag_fraction_vector_ijk([],_,_,_,Init_str,Latex_str):-
     Latex_str = Init_str.
@@ -493,20 +638,20 @@ generate_direction_cosines([H|T],Mag,Init_str,Latex_str):-
     (H>0 ->
     	(Mag=:=1 ->
 		    (Init_str == "" ->
-		    string_concatenate(["latex(\\\\\\\\hat{",H,"})"],"",Str1);
-		    string_concatenate([",latex(,\\\\\\\\hat{",H,"})"],"",Str1)
+		    string_concatenate(["\\\\\\\\hat{",H,"}"],"",Str1);
+		    string_concatenate([",\\\\\\\\hat{",H,"}"],"",Str1)
 		    );
 		    (Init_str == "" ->
-		    string_concatenate(["latex(\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}})"],"",Str1);
-		    string_concatenate(["latex(,\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}})"],"",Str1)
+		    string_concatenate(["\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}}"],"",Str1);
+		    string_concatenate([",\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}}"],"",Str1)
 		    )
 		);
 
 		(H=:=0  ->
 		    Str1=",0"; 
 			(Init_str == "" ->
-		    string_concatenate(["latex(\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}})"],"",Str1);
-		    string_concatenate(["latex(,\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}})"],"",Str1)
+		    string_concatenate(["\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}}"],"",Str1);
+		    string_concatenate([",\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}}"],"",Str1)
 		    )		
 		)
 	),
@@ -549,35 +694,35 @@ generate_latex_fraction_vector([H|T],[H1|T1],Mag,Init_str,Latex_str):-
 	    		(H=:=1->
 				    (Init_str == "" ->
 				    string_concatenate(["latex(\\\\\\\\hat{",H1,"})"],"",Str1);
-				    string_concatenate(["+latex(\\\\\\\\hat{",H1,"})"],"",Str1)
+				    string_concatenate(["latex(+\\\\\\\\hat{",H1,"})"],"",Str1)
 				    );
 				    (Init_str == "" ->
 				    string_concatenate(["latex(",H,"\\\\\\\\hat{",H1,"})"],"",Str1);
-				    string_concatenate(["+latex(",H,"\\\\\\\\hat{",H1,"})"],"",Str1)
+				    string_concatenate(["latex(+",H,"\\\\\\\\hat{",H1,"})"],"",Str1)
 				    )
 				);
 
 			    (Init_str == "" ->
 			    string_concatenate(["latex(\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1);
-			    string_concatenate(["+latex(\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
+			    string_concatenate(["latex(+\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 			    )
 			);
 			Mag1 is abs(Mag),
 			(Mag1=:=1 ->
 	    		(H=:=1->
 				    (Init_str == "" ->
-				    string_concatenate(["-latex(\\\\\\\\hat{",H1,"})"],"",Str1);
-				    string_concatenate(["-latex(\\\\\\\\hat{",H1,"})"],"",Str1)
+				    string_concatenate(["latex(-\\\\\\\\hat{",H1,"})"],"",Str1);
+				    string_concatenate(["latex(-\\\\\\\\hat{",H1,"})"],"",Str1)
 				    );
 				    (Init_str == "" ->
-				    string_concatenate(["-latex(",H,"\\\\\\\\hat{",H1,"})"],"",Str1);
-				    string_concatenate(["-latex(",H,"\\\\\\\\hat{",H1,"})"],"",Str1)
+				    string_concatenate(["latex(-",H,"\\\\\\\\hat{",H1,"})"],"",Str1);
+				    string_concatenate(["latex(-",H,"\\\\\\\\hat{",H1,"})"],"",Str1)
 				    )
 				);
 
 			    (Init_str == "" ->
-			    string_concatenate(["-latex(\\\\\\\\frac{",H,"}{",Mag1,"}\\\\\\\\hat{",H1,"})"],"",Str1);
-			    string_concatenate(["-latex(\\\\\\\\frac{",H,"}{",Mag1,"}\\\\\\\\hat{",H1,"})"],"",Str1)
+			    string_concatenate(["latex(-\\\\\\\\frac{",H,"}{",Mag1,"}\\\\\\\\hat{",H1,"})"],"",Str1);
+			    string_concatenate(["latex(-\\\\\\\\frac{",H,"}{",Mag1,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 			    )
 
 			)
@@ -590,18 +735,18 @@ generate_latex_fraction_vector([H|T],[H1|T1],Mag,Init_str,Latex_str):-
 			    (Mag=:=1 ->
 		    		(H=:=1->
 					    (Init_str == "" ->
-					    string_concatenate(["-latex(\\\\\\\\hat{",H1,"})"],"",Str1);
-					    string_concatenate(["-latex(\\\\\\\\hat{",H1,"})"],"",Str1)
+					    string_concatenate(["latex(-\\\\\\\\hat{",H1,"})"],"",Str1);
+					    string_concatenate(["latex(-\\\\\\\\hat{",H1,"})"],"",Str1)
 					    );
 					    (Init_str == "" ->
-					    string_concatenate(["-latex(",H2,"\\\\\\\\hat{",H1,"})"],"",Str1);
-					    string_concatenate(["-latex(",H2,"\\\\\\\\hat{",H1,"})"],"",Str1)
+					    string_concatenate(["latex(-",H2,"\\\\\\\\hat{",H1,"})"],"",Str1);
+					    string_concatenate(["latex(-",H2,"\\\\\\\\hat{",H1,"})"],"",Str1)
 					    )
 					);
 
 				    (Init_str == "" ->
-				    string_concatenate(["-latex(\\\\\\\\frac{",H2,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1);
-				    string_concatenate(["-latex(\\\\\\\\frac{",H2,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
+				    string_concatenate(["latex(-\\\\\\\\frac{",H2,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1);
+				    string_concatenate(["latex(-\\\\\\\\frac{",H2,"}{",Mag,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 				    )
 				);
 				Mag1 is abs(Mag),
@@ -609,17 +754,17 @@ generate_latex_fraction_vector([H|T],[H1|T1],Mag,Init_str,Latex_str):-
 		    		(H=:=1->
 					    (Init_str == "" ->
 					    string_concatenate(["latex(\\\\\\\\hat{",H1,"})"],"",Str1);
-					    string_concatenate(["+latex(\\\\\\\\hat{",H1,"})"],"",Str1)
+					    string_concatenate(["latex(+\\\\\\\\hat{",H1,"})"],"",Str1)
 					    );
 					    (Init_str == "" ->
 					    string_concatenate(["latex(",H2,"\\\\\\\\hat{",H1,"})"],"",Str1);
-					    string_concatenate(["+latex(",H2,"\\\\\\\\hat{",H1,"})"],"",Str1)
+					    string_concatenate(["+latex(+",H2,"\\\\\\\\hat{",H1,"})"],"",Str1)
 					    )
 					);
 
 				    (Init_str == "" ->
 				    string_concatenate(["latex(\\\\\\\\frac{",H2,"}{",Mag1,"}\\\\\\\\hat{",H1,"})"],"",Str1);
-				    string_concatenate(["+latex(\\\\\\\\frac{",H2,"}{",Mag1,"}\\\\\\\\hat{",H1,"})"],"",Str1)
+				    string_concatenate(["latex(+\\\\\\\\frac{",H2,"}{",Mag1,"}\\\\\\\\hat{",H1,"})"],"",Str1)
 				    )
 
 				)
@@ -632,6 +777,97 @@ generate_latex_fraction_vector([H|T],[H1|T1],Mag,Init_str,Latex_str):-
     generate_latex_fraction_vector(T,T1,Mag,Temp_str,Latex_str).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%fraction of type 1/5,1/5,6/8 
+generate_fraction_vector([],_,_,Init_str,Latex_str):-
+    Latex_str = Init_str.
+generate_fraction_vector([H|T],[H1|T1],Mag,Init_str,Latex_str):-
+    (H>0 ->
+    	(Mag>0 ->
+	    	(Mag=:=1 ->
+	    		(H=:=1->
+				    (Init_str == "" ->
+				    string_concatenate(["1"],"",Str1);
+				    string_concatenate([",1"],"",Str1)
+				    );
+				    (Init_str == "" ->
+				    string_concatenate(["",H,""],"",Str1);
+				    string_concatenate([",",H,""],"",Str1)
+				    )
+				);
+
+			    (Init_str == "" ->
+			    string_concatenate(["\\\\\\\\frac{",H,"}{",Mag,"}"],"",Str1);
+			    string_concatenate([",\\\\\\\\frac{",H,"}{",Mag,"}"],"",Str1)
+			    )
+			);
+			Mag1 is abs(Mag),
+			(Mag1=:=1 ->
+	    		(H=:=1->
+				    (Init_str == "" ->
+				    string_concatenate(["-1"],"",Str1);
+				    string_concatenate([",-1"],"",Str1)
+				    );
+				    (Init_str == "" ->
+				    string_concatenate(["-",H,""],"",Str1);
+				    string_concatenate([",-",H,""],"",Str1)
+				    )
+				);
+
+			    (Init_str == "" ->
+			    string_concatenate(["-\\\\\\\\frac{",H,"}{",Mag1,"}"],"",Str1);
+			    string_concatenate([",-\\\\\\\\frac{",H,"}{",Mag1,"}"],"",Str1)
+			    )
+
+			)
+		);
+
+		(H=:=0  ->
+		    Str1=""; 
+		    H2 is abs(H),
+		    (Mag>0 ->
+			    (Mag=:=1 ->
+		    		(H=:=1->
+					    (Init_str == "" ->
+					    string_concatenate(["-1"],"",Str1);
+					    string_concatenate([",-1"],"",Str1)
+					    );
+					    (Init_str == "" ->
+					    string_concatenate(["-",H2,""],"",Str1);
+					    string_concatenate([",-",H2,""],"",Str1)
+					    )
+					);
+
+				    (Init_str == "" ->
+				    string_concatenate(["-\\\\\\\\frac{",H2,"}{",Mag,"}"],"",Str1);
+				    string_concatenate([",-\\\\\\\\frac{",H2,"}{",Mag,"}"],"",Str1)
+				    )
+				);
+				Mag1 is abs(Mag),
+				(Mag1=:=1 ->
+		    		(H=:=1->
+					    (Init_str == "" ->
+					    string_concatenate(["1"],"",Str1);
+					    string_concatenate([",1"],"",Str1)
+					    );
+					    (Init_str == "" ->
+					    string_concatenate(["",H2,""],"",Str1);
+					    string_concatenate([",",H2,""],"",Str1)
+					    )
+					);
+
+				    (Init_str == "" ->
+				    string_concatenate(["\\\\\\\\frac{",H2,"}{",Mag1,"}"],"",Str1);
+				    string_concatenate([",\\\\\\\\frac{",H2,"}{",Mag1,"}"],"",Str1)
+				    )
+
+				)
+			)
+
+		)
+	),
+
+    string_concat(Init_str, Str1,Temp_str),
+    generate_fraction_vector(T,T1,Mag,Temp_str,Latex_str).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -639,8 +875,14 @@ generate_latex_fraction_vector([H|T],[H1|T1],Mag,Init_str,Latex_str):-
 check_collinear([],[],[]).
 check_collinear([H|T],[H1|T1],[C_H|C_T]):-
 	(abs(H)>abs(H1)->
-		C_H is (H)/(H1);
-		C_H is (H1)/(H)
+		(H1=:=0->
+			C_H is 0;
+			C_H is (H)/(H1)
+		);
+		(H=:=0->
+			C_H is 0;
+		 	C_H is (H1)/(H)
+		)
 	),
 	check_collinear(T,T1,C_T).
 
@@ -679,8 +921,14 @@ generate_vector_component([H|T],[H1|T1],Init_str,Latex_str):-
 
    find_lanbda([H|_],[H1|_],Lam):-
 	(abs(H)>abs(H1)->
-		Lam is (H)/(H1);
-		Lam is (H1)/(H)
+		(H1=:=0->
+			Lam is 0;
+			Lam is (H)/(H1)
+		);
+		(H=:=0->
+			Lam is 0;
+			Lam is (H1)/(H)
+		)
 	).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -878,4 +1126,94 @@ generate_list_with_condition(List1,List2,List3):-
 		List2 = L2,
 		List3 = L3)
 	).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Multiple choice questtion
+
+get_option_from_list_of_options(List,Ans,Answer_type_str):-
+List=[Option,Option1,Option2,Option3],
+Final_result is Ans,
+string_concatenate(["objective_answer_types(["],"",Answer_type1),
+(Final_result == 0 ->
+string_concatenate([Answer_type1,"[string(A),type(continuous(",Option,"))],[string(B),type(continuous(",Option1,"))],[sting(C),type(continuous(",Option2,"))],[string(D),type(continuous(",Option3,"))]])"],"",Answer_type_str)
+;
+(Final_result == 1 ->
+string_concatenate([Answer_type1,"[string(A),type(continuous(",Option1,"))],[string(B),type(continuous(",Option,"))],[string(C),type(continuous(",Option2,"))],[string(D),type(continuous(",Option3,"))]])"],"",Answer_type_str)
+;
+(Final_result == 2 ->
+string_concatenate([Answer_type1,"[string(A),type(continuous(",Option1,"))],[string(B),type(continuous(",Option2,"))],[string(C),type(continuous(",Option,"))],[string(D),type(continuous(",Option3,"))]])"],"",Answer_type_str)
+;
+(Final_result == 3 ->
+string_concatenate([Answer_type1,"[string(A),type(continuous(",Option1,"))],[string(B),type(continuous(",Option3,"))],[string(C),type(continuous(",Option2,"))],[string(D),type(continuous(",Option,"))]])"],"",Answer_type_str)
+;
+write("wrong answer in gfs"),nl)))).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+generate_two_different_number(List):-
+	random_between(-10,10,X1),
+	random_between(-10,10,X2),
+    (X1=:=X2->
+    	generate_two_different_number(List);
+    	List = [X1,X2]
+    ).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Function to genertate one equal list
+generate_equal_list(List):-
+	generate_list(L1),
+	check_list(L1,Check_result),
+	(Check_result=="Not Equal"->
+		generate_equal_list(List);
+		List = L1
+	).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+generate_random_list_equal_or_unequal(List):-
+	random_between(0,1,X),
+	(X=:=0->
+		generate_equal_list(List);
+		generate_list(List)
+	).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Function to genertate collinear vector list
+
+generate_collinear_list(List1,List2):-
+	generate_list(L1),
+	generate_list(L2),
+	check_collinear(L1,L2,Coll),
+	check_list(Coll,Check_result),
 	
+	(Check_result=="Not Equal"->
+		generate_collinear_list(List1,List2);
+		List1 = L1,
+		List2 = L2
+	).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+generate_random_list_collinear_or_non_collinear(List1,List2):-
+	random_between(0,1,X),
+	(X=:=0->
+		generate_collinear_list(List1,List2);
+		generate_list(List1),
+		generate_list(List2)
+	).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Function to genertate two equal list
+generate_two_equal_list(List1,List2):-
+	generate_list(L1),
+	generate_list(L2),
+	compare_vectors(L1,L2,Comp_result),
+	(Comp_result=="Not Equal"->
+		generate_two_equal_list(List1,List2);
+		List1 = L1,
+		List2 = L2
+	).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+generate_random_list_equal_or_unequal_vectors(List1,List2):-
+	random_between(0,1,X),
+	(X=:=0->
+		generate_two_equal_list(List1,List2);
+		generate_list(List1),
+		generate_list(List2)
+	).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
