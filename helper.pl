@@ -891,32 +891,59 @@ check_collinear([H|T],[H1|T1],[C_H|C_T]):-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %latex Vector Generation Function
+generate_latex_vector_component([],_,Init_str,Latex_str):-
+    Latex_str = Init_str.
+generate_latex_vector_component([H|T],[H1|T1],Init_str,Latex_str):-
+    (H>0 ->
+    	(H=:=1 ->
+		    (Init_str == "" ->
+		    string_concatenate(["\\\\\\\\hat{",H1,"}"],"",Str1);
+		    string_concatenate([",\\\\\\\\hat{",H1,"}"],"",Str1)
+		    );
+		    (Init_str == "" ->
+		    string_concatenate(["",H,"\\\\\\\\hat{",H1,"}"],"",Str1);
+		    string_concatenate([",",H,"\\\\\\\\hat{",H1,"}"],"",Str1)
+		    )
+		);
+		(H=:=0 ->
+		    Str1=""; 
+			(Init_str == "" ->
+			string_concatenate(["",H,"\\\\\\\\hat{",H1,"}"],"",Str1);
+			string_concatenate([",",H,"\\\\\\\\hat{",H1,"}"],"",Str1)
+			)
+		)
+	),
+
+    string_concat(Init_str, Str1,Temp_str),
+   generate_latex_vector_component(T,T1,Temp_str,Latex_str).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%latex Vector Generation Function
 generate_vector_component([],_,Init_str,Latex_str):-
     Latex_str = Init_str.
 generate_vector_component([H|T],[H1|T1],Init_str,Latex_str):-
     (H>0 ->
     	(H=:=1 ->
 		    (Init_str == "" ->
-		    string_concatenate(["latex(\\\\\\\\hat{",H1,"})"],"",Str1);
-		    string_concatenate(["latex(,\\\\\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["1"],"",Str1);
+		    string_concatenate([",1"],"",Str1)
 		    );
 		    (Init_str == "" ->
-		    string_concatenate(["latex(",H,"\\\\\\\\hat{",H1,"})"],"",Str1);
-		    string_concatenate(["latex(,",H,"\\\\\\\\hat{",H1,"})"],"",Str1)
+		    string_concatenate(["",H,""],"",Str1);
+		    string_concatenate([",",H,""],"",Str1)
 		    )
 		);
-
 		(H=:=0 ->
 		    Str1=""; 
-		    string_concatenate(["latex(,",H,"\\\\\\\\hat{",H1,"})"],"",Str1)
+			(Init_str == "" ->
+			string_concatenate(["",H,""],"",Str1);
+			string_concatenate([",",H,""],"",Str1)
+			)
 		)
 	),
 
     string_concat(Init_str, Str1,Temp_str),
    generate_vector_component(T,T1,Temp_str,Latex_str).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
    find_lanbda([H|_],[H1|_],Lam):-
@@ -1131,6 +1158,7 @@ generate_list_with_condition(List1,List2,List3):-
 %Multiple choice questtion
 
 get_option_from_list_of_options(List,Ans,Answer_type_str):-
+
 List=[Option,Option1,Option2,Option3],
 Final_result is Ans,
 string_concatenate(["objective_answer_types(["],"",Answer_type1),
@@ -1166,7 +1194,7 @@ generate_equal_list(List):-
 		generate_equal_list(List);
 		List = L1
 	).
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 generate_random_list_equal_or_unequal(List):-
 	random_between(0,1,X),
 	(X=:=0->
@@ -1188,7 +1216,6 @@ generate_collinear_list(List1,List2):-
 		List1 = L1,
 		List2 = L2
 	).
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 generate_random_list_collinear_or_non_collinear(List1,List2):-
 	random_between(0,1,X),
 	(X=:=0->
@@ -1208,7 +1235,6 @@ generate_two_equal_list(List1,List2):-
 		List1 = L1,
 		List2 = L2
 	).
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 generate_random_list_equal_or_unequal_vectors(List1,List2):-
 	random_between(0,1,X),
 	(X=:=0->
@@ -1216,4 +1242,46 @@ generate_random_list_equal_or_unequal_vectors(List1,List2):-
 		generate_list(List1),
 		generate_list(List2)
 	).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Funtion for unit vector
+
+generate_unit_vector_list(List,Mag):-
+	generate_magnitude(M1),
+	generate_list(L1),
+	list_power_sum(L1,2,0,Pow_sum),
+	Pow_mag is (M1**2),
+	(Pow_sum=\=Pow_mag->
+		generate_unit_vector_list(List,Mag);
+		List=L1,
+		Mag=M1
+	).
+generate_random_list_magnitude_for_unit_vector(List,Mag):-
+	random_between(0,1,X),
+	(X=:=0->
+		generate_unit_vector_list(List,Mag);
+		generate_list(List),
+		generate_magnitude(Mag)
+	).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Funtion for mutually perpendicular vector
+
+generate_mutually_perpendicular_vector_list(List1,List2):-
+	generate_list(L1),
+	generate_list(L2),
+	generate_mul_vector(L1,L2,Mul),
+    generate_sum(Mul,0,Result),
+	(Result=\=0->
+		generate_mutually_perpendicular_vector_list(List1,List2);
+		List1=L1,
+		List2=L2
+	).
+generate_random_list_for_mutually_perpendicular_vector(List1,List2):-
+	random_between(0,1,X),
+	(X=:=0->
+		generate_mutually_perpendicular_vector_list(List1,List2);
+		generate_list(List1),
+		generate_list(List2)
+	).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

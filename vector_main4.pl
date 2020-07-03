@@ -298,7 +298,7 @@ generate_answer_vector_Mis_5(List,Answer):-
 			string_concatenate(["",M,"\\\\sqrt{",S,"}"],"",Ans)
 		)
 	),
-	string_concatenate(["[string(latex(x = \\\\pm\\\\frac{1}{",Ans,"}).)]"],"",Answer).
+	string_concatenate(["\\\\pm\\\\frac{1}{",Ans,"}"],"",Answer).
 %Solution
 generate_solution_vector_Mis_5(List,Solution):-
 	generate_vector_ijk(List, [i,j,k],"",Latex_str),
@@ -354,8 +354,8 @@ generate_answer_vector_Mis_6(List1,List2,Mag,Answer):-
 		)
 	),
 	Pro is (M*S),
-	generate_latex_mag_updated_fraction_vector_ijk(Sum,[i,j,k],Ans,Mag,Pro,"",Latex_frac_sum),
-	string_concatenate(["[string(",Latex_frac_sum,")]"],"",Answer).
+	generate_latex_mag_updated_fraction_vector(Sum,[i,j,k],Ans,Mag,Pro,"",Latex_frac_sum),
+	string_concatenate(["",Latex_frac_sum,""],"",Answer).
 %Solution
 generate_solution_vector_Mis_6(List1,List2,Mag,Solution):-
 	Var1=a,
@@ -439,8 +439,8 @@ generate_answer_vector_Mis_7(List1,List2,List3,List4,Answer):-
 		)
 	),
 	Pro is (M*S),
-	generate_latex_updated_fraction_vector_ijk(Sum,[i,j,k],Ans,Pro,"",Latex_frac_sum),
-	string_concatenate(["[string(",Latex_frac_sum,")]"],"",Answer).
+	generate_latex_updated_fraction_vector(Sum,[i,j,k],Ans,Pro,"",Latex_frac_sum),
+	string_concatenate(["",Latex_frac_sum,""],"",Answer).
 %Solution
 generate_solution_vector_Mis_7(List1,List2,List3,List4,Solution):-
 	Var1=a,
@@ -480,7 +480,7 @@ generate_solution_vector_Mis_7(List1,List2,List3,List4,Solution):-
 		)
 	),
 	Pro is (M*S),
-	generate_latex_updated_fraction_vector_ijk(Sum,[i,j,k],Ans,Pro,"",Latex_frac_sum),
+	generate_updated_fraction_vector_ijk(Sum,[i,j,k],Ans,Pro,"",Latex_frac_sum),
 
 
 	string_concatenate(["[string(Given ",Latex_str_name1," = ",Latex_str1,", ",Latex_str_name2," = ",Latex_str2," and ",Latex_str_name3," = ",Latex_str3,")"],"",Sol_0),
@@ -489,7 +489,7 @@ generate_solution_vector_Mis_7(List1,List2,List3,List4,Solution):-
 	string_concatenate([",string(latex(",Latex_str4,") = latex(",Latex_sum,"))"],"",Sol_3),
 	string_concatenate([",string(latex(|",Latex_str4,"|) = ",Latex_mag_exp," = latex(",Ans,"))"],"",Sol_4),
 	string_concatenate([",string(So the required vector is)"],"",Sol_5),
-	string_concatenate([",string(latex(\\\\frac{",Latex_sum,"}{",Ans,"} = ) ",Latex_frac_sum,")]"],"",Sol_6),
+	string_concatenate([",string(latex(\\\\frac{",Latex_sum,"}{",Ans,"} = ) latex(",Latex_frac_sum,"))]"],"",Sol_6),
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3,Sol_4,Sol_5,Sol_6],"",Solution).
 %------------------------------------------------------------------End of Question 7--------------------------------------------------------------------------------
 
@@ -864,11 +864,11 @@ generate_answer_vector_Mis_12(List1,List2,List3,Mag,Answer):-
 	Den_X is A1*D_Y*D_Z,
 	simplify(Num_X,Den_X,N_X,D_X),
 	
-	generate_latex_fraction_vector([N_X],[i],D_X,"",Latex_X),
-	generate_latex_fraction_vector([N_Y],[j],D_Y,"",Latex_Y),
-	generate_latex_fraction_vector([N_Z],[k],D_Z,"",Latex_Z),
+	generate_fraction_vector([N_X],[i],D_X,"",Latex_X),
+	generate_fraction_vector([N_Y],[j],D_Y,"",Latex_Y),
+	generate_fraction_vector([N_Z],[k],D_Z,"",Latex_Z),
 
-	string_concatenate(["[string(",Latex_str_name1," = ",Latex_X,Latex_Y,Latex_Z,")]"],"",Answer).
+	string_concatenate(["",Latex_X,",",Latex_Y,",",Latex_Z,""],"",Answer).
 %Answer
 generate_solution_vector_Mis_12(List1,List2,List3,Mag,Solution):- 	
 	Var1=a,

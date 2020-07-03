@@ -27,7 +27,7 @@ generate_answer_vector_ex_13(Mag1,Mag2,Mag3,Answer):-
 	Num is Mag3,
 	string_concatenate([Num,"/",Den],"",Term),
 	trignometric_inverse_function(1,Term,Angle),
-	string_concatenate(["[string(latex(",Angle,"))]"],"",Answer).
+	string_concatenate(["",Angle,""],"",Answer).
 %Solution
 generate_solution_vector_ex_13(Mag1,Mag2,Mag3,Solution):-
 	Var1=a,
@@ -443,18 +443,50 @@ generate_answer_vector_ex_21(Point1,Point2,Point3,Answer):-
 	
 	get_updated_coefficient([[[1,1],[Diff_3_magnitude,1]]],X3,_),
 	get_updated_coefficient_result(X3,M3,S3),
+	(M1=:=1->
+		(S1=:=1->
+			Num1 is S1;
+			string_concatenate(["\\\\sqrt{",S1,"}"],"",Num1)
+		);
+		(S1=:=1->
+			Num1 is M1*S1;
+			string_concatenate(["",M1,"\\\\sqrt{",S1,"}"],"",Num1)
+		)
+	),
+
+	(M2=:=1->
+		(S2=:=1->
+			Num2 is S2;
+			string_concatenate(["\\\\sqrt{",S2,"}"],"",Num2)
+		);
+		(S2=:=1->
+			Num2 is M2*S2;
+			string_concatenate(["",M2,"\\\\sqrt{",S2,"}"],"",Num2)
+		)
+	),
+
+	(M3=:=1->
+		(S3=:=1->
+			Num3 is S3;
+			string_concatenate(["\\\\sqrt{",S3,"}"],"",Num3)
+		);
+		(S3=:=1->
+			Num3 is M3*S3;
+			string_concatenate(["",M3,"\\\\sqrt{",S3,"}"],"",Num3)
+		)
+	),
 
 	(S1=\=S2->
-		Answer is 0;
+    	string_concatenate(["0,",Num1,",",Num2,",",Num3,""],"",Answer);
     	(S2=\=S3->
-			Answer is 0;
+    		string_concatenate(["0,",Num1,",",Num2,",",Num3,""],"",Answer);
 			(M3=:=M1+M2->
-				Answer is 1;
+    			string_concatenate(["1,",Num1,",",Num2,",",Num3,""],"",Answer);
 	    	    (M2=:=M3+M1->
-					Answer is 1;
+    				string_concatenate(["1,",Num1,",",Num2,",",Num3,""],"",Answer);
 	     			(M1=:=M3+M2->
-					Answer is 1;
-					Answer is 0
+    					string_concatenate(["1,",Num1,",",Num2,",",Num3,""],"",Answer);
+    					string_concatenate(["0,",Num1,",",Num2,",",Num3,""],"",Answer)
 					)
 				)
     		)
@@ -492,31 +524,43 @@ generate_solution_vector_ex_21(Point1,Point2,Point3,Solution):-
 	string_concatenate([",string(latex(\\\\overrightarrow{AB}) = ",Latex_diff_exp_1," = ",Latex_Diff_1,")"],"",Sol_1),
 	string_concatenate([",string(latex(\\\\overrightarrow{BC}) = ",Latex_diff_exp_2," = ",Latex_Diff_2,")"],"",Sol_2),
 	string_concatenate([",string(latex(\\\\overrightarrow{CA}) = ",Latex_diff_exp_3," = ",Latex_Diff_3,")"],"",Sol_3),
-
 	(M1=:=1->
-		string_concatenate([",string(latex(|\\\\overrightarrow{AB}| = \\\\sqrt{",S1,"}) )"],"",Sol_4);
 		(S1=:=1->
-			string_concatenate([",string(latex(|\\\\overrightarrow{AB}| = ",M1,") )"],"",Sol_4);
-			string_concatenate([",string(latex(|\\\\overrightarrow{AB}| = ",M1,"\\\\sqrt{",S1,"}) )"],"",Sol_4)
+			Num1 is S1;
+			string_concatenate(["\\\\sqrt{",S1,"}"],"",Num1)
+		);
+		(S1=:=1->
+			Num1 is M1*S1;
+			string_concatenate(["",M1,"\\\\sqrt{",S1,"}"],"",Num1)
 		)
 	),
 
-
 	(M2=:=1->
-		string_concatenate([",string(latex(|\\\\overrightarrow{BC}| = \\\\sqrt{",S2,"}) )"],"",Sol_5);
 		(S2=:=1->
-			string_concatenate([",string(latex(|\\\\overrightarrow{BC}| = ",M2,") )"],"",Sol_5);
-			string_concatenate([",string(latex(|\\\\overrightarrow{BC}| = ",M2,"\\\\sqrt{",S2,"}) )"],"",Sol_5)
+			Num2 is S2;
+			string_concatenate(["\\\\sqrt{",S2,"}"],"",Num2)
+		);
+		(S2=:=1->
+			Num2 is M2*S2;
+			string_concatenate(["",M2,"\\\\sqrt{",S2,"}"],"",Num2)
 		)
 	),
 
 	(M3=:=1->
-		string_concatenate([",string(latex(|\\\\overrightarrow{AC}| = \\\\sqrt{",S3,"}) )"],"",Sol_6);
 		(S3=:=1->
-			string_concatenate([",string(latex(|\\\\overrightarrow{AC}| = ",M3,") )"],"",Sol_6);
-			string_concatenate([",string(latex(|\\\\overrightarrow{AC}| = ",M3,"\\\\sqrt{",S3,"}) )"],"",Sol_6)
+			Num3 is S3;
+			string_concatenate(["\\\\sqrt{",S3,"}"],"",Num3)
+		);
+		(S3=:=1->
+			Num3 is M3*S3;
+			string_concatenate(["",M3,"\\\\sqrt{",S3,"}"],"",Num3)
 		)
 	),
+	string_concatenate([",string(latex(|\\\\overrightarrow{AB}| = ",Num1,") )"],"",Sol_4),
+	string_concatenate([",string(latex(|\\\\overrightarrow{BC}| = ",Num2,") )"],"",Sol_5),
+	string_concatenate([",string(latex(|\\\\overrightarrow{AC}| = ",Num3,") )"],"",Sol_6),
+
+
 
 	(S1=\=S2->
     	string_concatenate([",string(Hence The points A, B and C are not collinear.)]"],"",Sol_7),
@@ -752,9 +796,60 @@ generate_solution_vector_10_3_3(List1,List2,Solution):-
 	string_concatenate([Sol_0,Sol_1],"",Solution).
 %------------------------------------------------------------------End of Question 3 and 4---------------------------------------------------------------------------------
 
-%------------------------------------------------------------------Question 5---------------------------------------------------------------------------------
+%------------------------------------------------------------------Question 5_1---------------------------------------------------------------------------------
 %Question
-generate_question_vector_10_3_5(Mag1,Mag2,Mag3,List1,List2,List3,Question):-
+generate_question_vector_10_3_5_1(Mag1,List1,Question):-
+	%generate_random_list_magnitude_for_unit_vector(List1,Mag1),
+	/*generate_magnitude(Mag1),
+	generate_magnitude(Mag2),
+	generate_magnitude(Mag3),
+
+	generate_list(List1),
+	generate_list(List2),
+	generate_list(List3),*/
+
+	generate_vector_ijk(List1, [i,j,k],"",Latex_str1),
+    string_concatenate(["[string(Given a vectors is it a unit vector or not : )"],"",Sol_0),
+    string_concatenate([",string(latex(\\\\\\\\frac{1}{",Mag1,"}(",Latex_str1,")) )]"],"",Sol_1),
+	string_concatenate([Sol_0,Sol_1],"",Question).
+
+%Answer
+generate_answer_vector_10_3_5_1(Mag1,List1,Answer):-
+	list_power_sum(List1,2,0,Pow_sum1),
+	Pow_mag1 is (Mag1**2),
+	simplify(Pow_sum1,Pow_mag1,Num,Den),
+	(Pow_sum1=:=Pow_mag1->
+		string_concatenate(["1,1"],"",Answer);
+		(Den=:=1->
+			string_concatenate(["0,",Num,""],"",Answer);
+			string_concatenate(["0,\\\\frac{",Num,"}{",Den,"}"],"",Answer)
+		)		
+	).
+%Solution
+generate_solution_vector_10_3_5_1(Mag1,List1,Solution):-
+	Var1=a,
+	generate_latex_vector_name(Var1,Latex_str_name1),
+	generate_vector_ijk(List1, [i,j,k],"",Latex_str1),
+    generate_magnitude_den_expression_ijk(List1,Mag1,"",Mag_den_expression_1),
+    list_power_sum(List1,2,0,Pow_sum1),
+	Pow_mag1 is (Mag1**2),
+	simplify(Pow_sum1,Pow_mag1,Num,Den),
+	string_concatenate(["[string(Given ",Latex_str_name1," = latex(\\\\frac{1}{",Mag1,"}(",Latex_str1,") ))"],"",Sol_0),
+	(Den=:=1->
+		string_concatenate([",string(latex(|\\\\overrightarrow{a}| = ",Mag_den_expression_1," = ",Num,"))"],"",Sol_1);
+		string_concatenate([",string(latex(|\\\\overrightarrow{a}| = ",Mag_den_expression_1," = \\\\frac{",Num,"}{",Den,"}))"],"",Sol_1)
+	),
+	(Pow_sum1=:=Pow_mag1->
+		string_concatenate([",string(So,Given vector is unit vector.)]"],"",Sol_2);
+		string_concatenate([",string(So,Given vector is not a unit vector.)]"],"",Sol_2)
+	),
+	string_concatenate([Sol_0,Sol_1,Sol_2],"",Solution).
+
+%------------------------------------------------------------------End of Question 5_1---------------------------------------------------------------------------------
+%------------------------------------------------------------------Question 5_2---------------------------------------------------------------------------------
+%Question
+generate_question_vector_10_3_5_2(Mag1,Mag2,List1,List2,Question):-
+	%generate_random_list_for_mutually_perpendicular_vector(List1,List2),
 	/*generate_magnitude(Mag1),
 	generate_magnitude(Mag2),
 	generate_magnitude(Mag3),
@@ -765,124 +860,56 @@ generate_question_vector_10_3_5(Mag1,Mag2,Mag3,List1,List2,List3,Question):-
 
 	generate_vector_ijk(List1, [i,j,k],"",Latex_str1),
     generate_vector_ijk(List2, [i,j,k],"",Latex_str2),
-    generate_vector_ijk(List3, [i,j,k],"",Latex_str3),
-    string_concatenate(["[string(Given three given vectors are unit vector or not: )"],"",Sol_0),
-    string_concatenate([",string(latex(\\\\\\\\frac{1}{",Mag1,"}(",Latex_str1,"),\\\\\\\\frac{1}{",Mag2,"}(",Latex_str2,"), \\\\\\\\frac{1}{",Mag3,"}(",Latex_str3,")) )"],"",Sol_1),
-    string_concatenate([",string(Also determine whether they are mutually perpendicular to each other or not)]"],"",Sol_2),
-	string_concatenate([Sol_0,Sol_1,Sol_2],"",Question).
-
+    string_concatenate(["[string(Given two vectors are they are mutually perpendicular to each other or not: )"],"",Sol_0),
+    string_concatenate([",string(latex(\\\\\\\\frac{1}{",Mag1,"}(",Latex_str1,"),\\\\\\\\frac{1}{",Mag2,"}(",Latex_str2,")))]"],"",Sol_1),
+	string_concatenate([Sol_0,Sol_1],"",Question).
 %Answer
-generate_answer_vector_10_3_5(Mag1,Mag2,Mag3,List1,List2,List3,Answer):-
-	list_power_sum(List1,2,0,Pow_sum1),
-	list_power_sum(List2,2,0,Pow_sum2),
-	list_power_sum(List3,2,0,Pow_sum3),
+generate_answer_vector_10_3_5_2(Mag1,Mag2,List1,List2,Answer):-
 
-	Pow_mag1 is (Mag1**2),
-	Pow_mag2 is (Mag2**2),
-	Pow_mag3 is (Mag3**2),
-
-	(Pow_sum1=:=Pow_mag1->
-		(Pow_sum2=:=Pow_mag2->
-			(Pow_sum3=:=Pow_mag3->
-				string_concatenate(["[string(Given three vectors are unit vectors.)"],"",Ans_0);
-				string_concatenate(["[string(Given three vectors are not unit vectors.)"],"",Ans_0)
-			);
-			string_concatenate(["[string(Given three vectors are not unit vectors.)"],"",Ans_0)
-		);
-		string_concatenate(["[string(Given three vectors are not unit vectors.)"],"",Ans_0)
-	),
 	generate_mul_vector(List1,List2,Mul1),
-    generate_sum(Mul1,0,Result1),
-
-    generate_mul_vector(List2,List3,Mul2),
-    generate_sum(Mul2,0,Result2),
-
-    generate_mul_vector(List1,List3,Mul3),
-    generate_sum(Mul3,0,Result3),
-	
-	(Result1=:=0->
-		(Result2=:=0->
-			(Result3=:=0->
-				string_concatenate([",string(Given three vectors are mutually perpendicular to each other.)]"],"",Ans_1);
-				string_concatenate([",string(Given three vectors are not mutually perpendicular to each other.)]"],"",Ans_1)
-			);
-				string_concatenate([",string(Given three vectors are not mutually perpendicular to each other.)]"],"",Ans_1)
-		);
-				string_concatenate([",string(Given three vectors are not mutually perpendicular to each other.)]"],"",Ans_1)
-	),
-	string_concatenate([Ans_0,Ans_1],"",Answer).
+    generate_sum(Mul1,0,Result),	
+    Product is ((Mag1)*(Mag2)),    
+	(Result=:=0->
+		string_concatenate(["1,0"],"",Answer);
+		simplify(Result,Product,Num,Den),
+		(Den=:=1->
+			string_concatenate(["0,",Num,""],"",Answer);
+			string_concatenate(["0,\\\\frac{",Num,"}{",Den,"}"],"",Answer)
+		)
+	).
 
 %Solution
-generate_solution_vector_10_3_5(Mag1,Mag2,Mag3,List1,List2,List3,Solution):-
+generate_solution_vector_10_3_5_2(Mag1,Mag2,List1,List2,Solution):-
 	Var1=a,
 	Var2=b,
-	Var3=c,
 	generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
-    generate_latex_vector_name(Var3,Latex_str_name3),
+
 
 	generate_vector_ijk(List1, [i,j,k],"",Latex_str1),
     generate_vector_ijk(List2, [i,j,k],"",Latex_str2),
-    generate_vector_ijk(List3, [i,j,k],"",Latex_str3),
 
-    generate_magnitude_den_expression_ijk(List1,Mag1,"",Mag_den_expression_1),
-    generate_magnitude_den_expression_ijk(List2,Mag2,"",Mag_den_expression_2),
-    generate_magnitude_den_expression_ijk(List3,Mag3,"",Mag_den_expression_3),
-
-    list_power_sum(List1,2,0,Pow_sum1),
-	list_power_sum(List2,2,0,Pow_sum2),
-	list_power_sum(List3,2,0,Pow_sum3),
-
-	Pow_mag1 is (Mag1**2),
-	Pow_mag2 is (Mag2**2),
-	Pow_mag3 is (Mag3**2),
-
-	Unit_result_1 is (Pow_sum1/Pow_mag1),
-	Unit_result_2 is (Pow_sum2/Pow_mag2),
-	Unit_result_3 is (Pow_sum3/Pow_mag3),
-
-	generate_mul_vector(List1,List2,Mul1),
-    generate_sum(Mul1,0,Result1),
-
-    generate_mul_vector(List2,List3,Mul2),
-    generate_sum(Mul2,0,Result2),
-
-    generate_mul_vector(List1,List3,Mul3),
-    generate_sum(Mul3,0,Result3),
-
-	string_concatenate(["[string(",Latex_str_name1," = latex(\\\\frac{1}{",Mag1,"}(",Latex_str1,") ))"],"",Sol_0),
+	generate_mul_vector(List1,List2,Mul),
+    generate_sum(Mul,0,Result),
+    Product is ((Mag1)*(Mag2)),  
+    simplify(Result,Product,Num,Den),
+  	string_concatenate(["[string(",Latex_str_name1," = latex(\\\\frac{1}{",Mag1,"}(",Latex_str1,") ))"],"",Sol_0),
 	string_concatenate([",string(",Latex_str_name2," = latex(\\\\frac{1}{",Mag2,"}(",Latex_str2,") ))"],"",Sol_1),
-	string_concatenate([",string(",Latex_str_name3," = latex(\\\\frac{1}{",Mag3,"}(",Latex_str3,") ))"],"",Sol_2),
-	string_concatenate([",string(latex(|\\\\overrightarrow{a}| = ",Mag_den_expression_1," = ",Unit_result_1,"))"],"",Sol_3),
-	string_concatenate([",string(latex(|\\\\overrightarrow{b}| = ",Mag_den_expression_2," = ",Unit_result_2,"))"],"",Sol_4),
-	string_concatenate([",string(latex(|\\\\overrightarrow{c}| = ",Mag_den_expression_3," = ",Unit_result_3,"))"],"",Sol_5),
-	(Pow_sum1=:=Pow_mag1->
-		(Pow_sum2=:=Pow_mag2->
-			(Pow_sum3=:=Pow_mag3->
-				string_concatenate([",string(So,Given three vectors are unit vectors.)"],"",Sol_6);
-				string_concatenate([",string(So,Given three vectors are not unit vectors.)"],"",Sol_6)
-			);
-			string_concatenate([",string(So,Given three vectors are not unit vectors.)"],"",Sol_6)
-		);
-		string_concatenate([",string(So,Given three vectors are not unit vectors.)"],"",Sol_6)
-	),
-	string_concatenate([",string(latex(\\\\overrightarrow{a}.\\\\overrightarrow{b} = \\\\frac{1}{",Mag1,"})latex( (",Latex_str1,") ) . latex(\\\\frac{1}{",Mag2,"})latex((",Latex_str2,")) = ",Result1,")"],"",Sol_7),
-	string_concatenate([",string(latex(\\\\overrightarrow{b}.\\\\overrightarrow{c} = \\\\frac{1}{",Mag2,"})latex( (",Latex_str2,") ) . latex(\\\\frac{1}{",Mag3,"})latex((",Latex_str3,")) = ",Result2,")"],"",Sol_8),
-	string_concatenate([",string(latex(\\\\overrightarrow{a}.\\\\overrightarrow{c} = \\\\frac{1}{",Mag1,"})latex( (",Latex_str1,") ) . latex(\\\\frac{1}{",Mag3,"})latex((",Latex_str3,")) = ",Result3,")"],"",Sol_9),
-	(Result1=:=0->
-		(Result2=:=0->
-			(Result3=:=0->
-				string_concatenate([",string(So,Given three vectors are mutually perpendicular to each other.)]"],"",Sol_10);
-				string_concatenate([",string(So,Given three vectors are not mutually perpendicular to each other.)]"],"",Sol_10)
-			);
-				string_concatenate([",string(So,Given three vectors are not mutually perpendicular to each other.)]"],"",Sol_10)
-		);
-				string_concatenate([",string(So,Given three vectors are not mutually perpendicular to each other.)]"],"",Sol_10)
-	),
-	string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3,Sol_4,Sol_5,Sol_6,Sol_7,Sol_8,Sol_9,Sol_10],"",Solution).
+	
+	(Result=:=0->
+			string_concatenate([",string(latex(\\\\overrightarrow{a}.\\\\overrightarrow{b} = \\\\frac{1}{",Mag1,"})latex( (",Latex_str1,") ) . latex(\\\\frac{1}{",Mag2,"})latex((",Latex_str2,")) = 0)"],"",Sol_2),
+			string_concatenate([",string(So,Given three vectors are mutually perpendicular to each other.)]"],"",Sol_3);
+			(Den=:=1->
+				string_concatenate([",string(latex(\\\\overrightarrow{a}.\\\\overrightarrow{b} = \\\\frac{1}{",Mag1,"})latex( (",Latex_str1,") ) . latex(\\\\frac{1}{",Mag2,"})latex((",Latex_str2,")) = ",Num,")"],"",Sol_2),
+				string_concatenate([",string(So,Given three vectors are not mutually perpendicular to each other.)]"],"",Sol_3);
 
-%------------------------------------------------------------------End of Question 5---------------------------------------------------------------------------------
+				string_concatenate([",string(latex(\\\\overrightarrow{a}.\\\\overrightarrow{b} = \\\\frac{1}{",Mag1,"})latex( (",Latex_str1,") ) . latex(\\\\frac{1}{",Mag2,"})latex((",Latex_str2,")) = latex(\\\\frac{",Num,"}{",Den,"}))"],"",Sol_2),
+				string_concatenate([",string(So,Given three vectors are not mutually perpendicular to each other.)]"],"",Sol_3)
+			)
+	),
+	string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
 
+%------------------------------------------------------------------End of Question 5_2---------------------------------------------------------------------------------
 %------------------------------------------------------------------Question 6---------------------------------------------------------------------------------
 %Question
 generate_question_vector_10_3_6(Mag1,Mag2,Question):-

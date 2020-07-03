@@ -59,8 +59,8 @@ generate_question_vector_ex_5(List1,List2,Question):-
 	%generate_random_list_equal_or_unequal_vectors(List1,List2),
 	Var1=a,
 	Var2=b,
-    generate_latex_vector_ijk(List1, [i,j],"",Latex_str1),
-    generate_latex_vector_ijk(List2, [i,j],"",Latex_str2),
+    generate_latex_vector_ijk(List1, [i,j,k],"",Latex_str1),
+    generate_latex_vector_ijk(List2, [i,j,k],"",Latex_str2),
     generate_latex_vector_name(Var1,Latex_str_name1),
     generate_latex_vector_name(Var2,Latex_str_name2),
     string_concatenate(["[string(Let ",Latex_str_name1," = ",Latex_str1," and ",Latex_str_name2," = ",Latex_str2," Is latex(|)",Latex_str_name1,"latex(|) = latex(|)",Latex_str_name2,"latex(|) ?. Are the vectors ",Latex_str_name1," and ",Latex_str_name2," equal ?.)]"],"",Question).
@@ -68,6 +68,7 @@ generate_question_vector_ex_5(List1,List2,Question):-
 
 %Answer
 generate_answer_vector_ex_5(List1,List2,Answer,Answer_type):-
+
 	Var1=a,
 	Var2=b,
  	generate_latex_vector_name(Var1,Latex_str_name1),
@@ -75,16 +76,50 @@ generate_answer_vector_ex_5(List1,List2,Answer,Answer_type):-
 	generate_magnitude(List1,0,List1_magnitude),
     generate_magnitude(List2,0,List2_magnitude),
     (List1_magnitude=:=List2_magnitude->
-		(string_concatenate(["string(|",Latex_str_name1,"| = |",Latex_str_name2,"| )"],"",Ans_0));
-		(string_concatenate(["string(|",Latex_str_name1,"| latex(\\\\\\\\neq) |",Latex_str_name2,"|.)"],"",Ans_0))
+    	P is 0;
+		P is 1
 	),
 	compare_vectors(List1,List2,Comp_result),
 	(Comp_result=="Equal"->
-		string_concatenate([",string(",Latex_str_name1," and ",Latex_str_name2,"are equal )" ],"",Ans_1),
-		string_concatenate([Ans_0,Ans_1],"",Answer);
-		string_concatenate([",string(",Latex_str_name1," and ",Latex_str_name2,"are not equal )" ],"",Ans_1),
-		string_concatenate([Ans_0,Ans_1],"",Answer)
-	).
+		Q is 0;
+		Q is 1
+	),
+	string_concatenate(["|",Latex_str_name1,"| = |",Latex_str_name2,"| "],"",Str_A_0),
+	string_concatenate(["|",Latex_str_name1,"| latex(\\\\\\\\neq) |",Latex_str_name2,"|"],"",Str_A_1),
+	string_concatenate(["and ",Latex_str_name1," and ",Latex_str_name2,"are equal" ],"",Str_B_0),
+	string_concatenate(["and ",Latex_str_name1," and ",Latex_str_name2,"are not equal" ],"",Str_B_1),
+
+
+	(P=:=0->
+		(Q=:=0->
+
+			string_concatenate(["string(",Str_A_0,"",Str_B_0,")"],"",Option1),
+			string_concatenate(["string(",Str_A_0,"",Str_B_1,")"],"",Option2),
+			string_concatenate(["string(",Str_A_1,"",Str_B_0,")"],"",Option3),
+			string_concatenate(["string(",Str_A_1,"",Str_B_1,")"],"",Option4)
+			;
+			string_concatenate(["string(",Str_A_0,"",Str_B_1,")"],"",Option1),
+			string_concatenate(["string(",Str_A_0,"",Str_B_0,")"],"",Option2),
+			string_concatenate(["string(",Str_A_1,"",Str_B_0,")"],"",Option3),
+			string_concatenate(["string(",Str_A_1,"",Str_B_1,")"],"",Option4)
+		);
+		(Q=:=0->
+			string_concatenate(["string(",Str_A_1,"",Str_B_0,")"],"",Option1),
+			string_concatenate(["string(",Str_A_0,"",Str_B_1,")"],"",Option2),
+			string_concatenate(["string(",Str_A_0,"",Str_B_0,")"],"",Option3),
+			string_concatenate(["string(",Str_A_1,"",Str_B_1,")"],"",Option4)
+			;
+			string_concatenate(["string(",Str_A_1,"",Str_B_1,")"],"",Option1),
+			string_concatenate(["string(",Str_A_0,"",Str_B_0,")"],"",Option2),
+			string_concatenate(["string(",Str_A_1,"",Str_B_0,")"],"",Option3),
+			string_concatenate(["string(",Str_A_0,"",Str_B_0,")"],"",Option4)
+		)
+	),
+
+	random_between(0,3,Ans),
+	Option_list=[Option1,Option2,Option3,Option4],
+	Answer is Ans,
+	get_option_from_list_of_options(Option_list,Answer,Answer_type).
 %Solution
 generate_solution_vector_ex_5(List1,List2,Solution):-
 	Var1=a,
@@ -399,12 +434,9 @@ generate_solution_vector_ex_10(Point_list_1,Point_list_2,Solution):-
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
 
 %---------------------------------------------------------------End of Example 10-----------------------------------------------------------------------------------------
-
-
-%------------------------------------------------------------------Example 11---------------------------------------------------------------------------------
-
+%------------------------------------------------------------------Example 11_1---------------------------------------------------------------------------------
 %Question
-generate_question_vector_ex_11(Point1,Point2,Ratio1,Ratio2,Question):-
+generate_question_vector_ex_11_1(Point1,Point2,Ratio1,Ratio2,Question):-
 	
 	/*generate_list(Point1),
 	generate_list(Point2),
@@ -416,51 +448,63 @@ generate_question_vector_ex_11(Point1,Point2,Ratio1,Ratio2,Question):-
     generate_latex_vector_ijk(Point2, [i,j,k],"",Latex_str2),
 
 	string_concatenate(["[string(Find the position vector of a point R which divides the lines joining two points P ans Q whose position vectrs are )"],"",Sol_0),
-	string_concatenate([",string(",Latex_str1," and ",Latex_str2," respectively in the ratio ",Ratio1," : ",Ratio2,")"],"",Sol_1),
-	string_concatenate([",string((i). internally)"],"",Sol_2),
-	string_concatenate([",string((ii). externally)]"],"",Sol_3),
-
-    string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Question).
-
-
+	string_concatenate([",string(",Latex_str1," and ",Latex_str2," respectively internally in the ratio latex(",Ratio1," \\\\\\\\colon ",Ratio2,"))]"],"",Sol_1),
+	string_concatenate([Sol_0,Sol_1],"",Question).
 %Answer
-generate_answer_vector_ex_11(Point1,Point2,Ratio1,Ratio2,Answer):-
+generate_answer_vector_ex_11_1(Point1,Point2,Ratio1,Ratio2,Answer):-
 	divide_internally(Point2,Point1,Ratio1,Ratio2,Div_internally),
-	divide_externally(Point2,Point1,Ratio1,Ratio2,Div_externally),
-
 	Internally is Ratio1+Ratio2,
-	Externally is Ratio1-Ratio2,
-
-	generate_latex_fraction_vector(Div_internally,[i,j,k],Internally,"",Latex_ratio_1),
-	generate_latex_fraction_vector(Div_externally,[i,j,k],Externally,"",Latex_ratio_2),
-
-	string_concatenate(["[string(Internally: ",Latex_ratio_1,")"],"",Ans_0),
-	string_concatenate([",string(Externally: ",Latex_ratio_2,")]"],"",Ans_1),
-    string_concatenate([Ans_0,Ans_1],"",Answer).
-
-
+	generate_fraction_vector(Div_internally,[i,j,k],Internally,"",Latex_ratio_1),
+	string_concatenate(["",Latex_ratio_1,""],"",Answer).
 %Solution
-generate_solution_vector_ex_11(Point1,Point2,Ratio1,Ratio2,Solution):-
+generate_solution_vector_ex_11_1(Point1,Point2,Ratio1,Ratio2,Solution):-
 	
 	generate_vector_ijk(Point1, [i,j,k],"",Latex_str1),
     generate_vector_ijk(Point2, [i,j,k],"",Latex_str2),
 	divide_internally(Point2,Point1,Ratio1,Ratio2,Div_internally),
-	divide_externally(Point2,Point1,Ratio1,Ratio2,Div_externally),
-
 	Internally is Ratio1+Ratio2,
-	Externally is Ratio1-Ratio2,
-
 	generate_latex_fraction_vector(Div_internally,[i,j,k],Internally,"",Latex_ratio_1),
+
+	string_concatenate(["[string(The position vector of the point R dividing the join of P and Q intenally in the ratio",Ratio1," : ",Ratio2," is )"],"",Sol_0),
+	string_concatenate([",string(latex(\\\\\\\\overrightarrow{OR}) = latex(\\\\\\\\frac{",Ratio1,"(",Latex_str2,") + ",Ratio2,"(",Latex_str1,")}{",Ratio1," + ",Ratio2,"}) = ",Latex_ratio_1,")]"],"",Sol_1),
+    string_concatenate([Sol_0,Sol_1],"",Solution).
+
+%---------------------------------------------------------------End of Example 11_1-----------------------------------------------------------------------------------------
+%------------------------------------------------------------------Example 11_2---------------------------------------------------------------------------------
+
+%Question
+generate_question_vector_ex_11_2(Point1,Point2,Ratio1,Ratio2,Question):-
+	
+	/*generate_list(Point1),
+	generate_list(Point2),
+
+	generate_magnitude(Ratio1),
+	generate_magnitude(Ratio2),*/
+
+	generate_latex_vector_ijk(Point1, [i,j,k],"",Latex_str1),
+    generate_latex_vector_ijk(Point2, [i,j,k],"",Latex_str2),
+
+	string_concatenate(["[string(Find the position vector of a point R which divides the lines joining two points P ans Q whose position vectrs are )"],"",Sol_0),
+	string_concatenate([",string(",Latex_str1," and ",Latex_str2," respectively extenally in the ratio latex(",Ratio1," \\\\\\\\colon ",Ratio2,"))]"],"",Sol_1),
+	string_concatenate([Sol_0,Sol_1],"",Question).
+%Answer
+generate_answer_vector_ex_11_2(Point1,Point2,Ratio1,Ratio2,Answer):-
+	divide_externally(Point2,Point1,Ratio1,Ratio2,Div_externally),
+	Externally is Ratio1-Ratio2,
+	generate_fraction_vector(Div_externally,[i,j,k],Externally,"",Latex_ratio_2),
+	string_concatenate(["",Latex_ratio_2,""],"",Answer).
+%Solution
+generate_solution_vector_ex_11_2(Point1,Point2,Ratio1,Ratio2,Solution):-
+	generate_vector_ijk(Point1, [i,j,k],"",Latex_str1),
+    generate_vector_ijk(Point2, [i,j,k],"",Latex_str2),
+	divide_externally(Point2,Point1,Ratio1,Ratio2,Div_externally),
+	Externally is Ratio1-Ratio2,
 	generate_latex_fraction_vector(Div_externally,[i,j,k],Externally,"",Latex_ratio_2),
+	string_concatenate(["[string(The position vector of the point R dividing the join of P and Q extenally in the ratio",Ratio1," : ",Ratio2," is )"],"",Sol_0),
+	string_concatenate([",string(latex(\\\\\\\\overrightarrow{OR}) = latex(\\\\\\\\frac{",Ratio1,"(",Latex_str2,") - ",Ratio2,"(",Latex_str1,")}{",Ratio1," - ",Ratio2,"}) = ",Latex_ratio_2,")]"],"",Sol_1),
+    string_concatenate([Sol_0,Sol_1],"",Solution).
 
-	string_concatenate(["[string((i) The position vector of the point R dividing the join of P and Q intenally in the ratio",Ratio1," : ",Ratio2," is )"],"",Sol_0),
-	string_concatenate([",string(latex(\\\\\\\\overrightarrow{OR}) = latex(\\\\\\\\frac{",Ratio1,"(",Latex_str2,") + ",Ratio2,"(",Latex_str1,")}{",Ratio1," + ",Ratio2,"}) = ",Latex_ratio_1,")"],"",Sol_1),
-	string_concatenate([",string((ii) The position vector of the point R dividing the join of P and Q extenally in the ratio",Ratio1," : ",Ratio2," is )"],"",Sol_2),
-	string_concatenate([",string(latex(\\\\\\\\overrightarrow{OR}) = latex(\\\\\\\\frac{",Ratio1,"(",Latex_str2,") - ",Ratio2,"(",Latex_str1,")}{",Ratio1," - ",Ratio2,"}) = ",Latex_ratio_2,")]"],"",Sol_3),
-    string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
-
-%---------------------------------------------------------------End of Example 11-----------------------------------------------------------------------------------------
-
+%---------------------------------------------------------------End of Example 11_2-----------------------------------------------------------------------------------------
 
 %------------------------------------------------------------------Example 12---------------------------------------------------------------------------------
 
@@ -653,50 +697,71 @@ generate_solution_vector_q_4(Var1,Var2,List1,List2,_):-
 
 %------------------------------------------------------------------End of Question 4---------------------------------------------------------------------------------
 
-%------------------------------------------------------------------Question 5---------------------------------------------------------------------------------
+%------------------------------------------------------------------Question 5_1---------------------------------------------------------------------------------
 
 %Question:
-generate_question_vector_q_5(Point_list_1,Point_list_2,Question):-
+generate_question_vector_q_5_1(Point_list_1,Point_list_2,Question):-
 	
 	%generate_list(Point1),
 	%generate_list(Point2),
     convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
     convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
-
-
-    string_concatenate(["[string(Find the scalar and vector components of the vector with initial point latex(",Point_list_string_1,") and terminal point latex(",Point_list_string_1,").)]"],"",Question).
-
-
+    string_concatenate(["[string(Find the scalar components of the vector with initial point latex(",Point_list_string_1,") and terminal point latex(",Point_list_string_2,").)]"],"",Question).
 %Answer
-generate_answer_vector_q_5(Point_list_1,Point_list_2,Answer):-
-	generate_diff_vector(Point_list_1,Point_list_2,Diff),
-	generate_vector_component(Diff, [i,j,k],"",Latex_Diff),
-
-	string_concatenate(["string(Scalar components : ",Diff,")"],"",Ans_0),
-	string_concatenate([",string(Vector components : ",Latex_Diff,")"],"",Ans_1),
-
-	string_concatenate([Ans_0,Ans_1],"",Answer).
-
+generate_answer_vector_q_5_1(Point_list_1,Point_list_2,Answer):-
+	generate_diff_vector(Point_list_2,Point_list_1,Diff),
+	term_string(Diff,Diff_string),
+	sub_string(Diff_string, _,_,Z,"["),
+	New is Z-1,
+	sub_string(Diff_string, 1,New,_,Diff_brackets_remove),
+	string_concatenate(["",Diff_brackets_remove,""],"",Answer).
 %Solution
-generate_solution_vector_q_5(Point_list_1,Point_list_2,Solution):-
+generate_solution_vector_q_5_1(Point_list_1,Point_list_2,Solution):-
 	generate_latex_diff_exp_ijk(Point_list_2,Point_list_1,[i,j,k],"",Latex_diff_exp),
 	generate_diff_vector(Point_list_2,Point_list_1,Diff),
 	generate_latex_vector_ijk(Diff, [i,j,k],"",Latex_Diff),
-	generate_vector_component(Diff, [i,j,k],"",Latex_vector_Diff),
 	convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
     convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
-    
     convert_square_brackets_to_round_brackets(Diff,Diff_string),
 
 	string_concatenate(["[string(The vector with the initial point P latex(",Point_list_string_1,") and terminal point Q latex(",Point_list_string_2,") is given by)"],"",Sol_0),
     string_concatenate([",string(latex(\\\\\\\\overrightarrow{PQ}) = ",Latex_diff_exp,")"],"",Sol_1),
 	string_concatenate([",string(latex(\\\\\\\\overrightarrow{PQ}) = ",Latex_Diff,")"],"",Sol_2),
-	string_concatenate([",string(Hence, the required scalar components are latex(",Diff_string,") while the vector components are ",Latex_vector_Diff,".)]"],"",Sol_3),
-
-
+	string_concatenate([",string(Hence, the required scalar components are latex(",Diff_string,"))]"],"",Sol_3),
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
 
-%------------------------------------------------------------------End of Question 5---------------------------------------------------------------------------------
+%------------------------------------------------------------------End of Question 5_1---------------------------------------------------------------------------------
+
+%------------------------------------------------------------------Question 5_2---------------------------------------------------------------------------------
+%Question:
+generate_question_vector_q_5_2(Point_list_1,Point_list_2,Question):-
+	
+	%generate_list(Point1),
+	%generate_list(Point2),
+    convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
+    convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
+    string_concatenate(["[string(Find the vector components of the vector with initial point latex(",Point_list_string_1,") and terminal point latex(",Point_list_string_2,").)]"],"",Question).
+%Answer
+generate_answer_vector_q_5_2(Point_list_1,Point_list_2,Answer):-
+	generate_diff_vector(Point_list_2,Point_list_1,Diff),
+	generate_vector_component(Diff, [i,j,k],"",Latex_vector_Diff),
+	string_concatenate(["",Latex_vector_Diff,""],"",Answer).
+
+%Solution
+generate_solution_vector_q_5_2(Point_list_1,Point_list_2,Solution):-
+	generate_latex_diff_exp_ijk(Point_list_2,Point_list_1,[i,j,k],"",Latex_diff_exp),
+	generate_diff_vector(Point_list_2,Point_list_1,Diff),
+	generate_latex_vector_ijk(Diff, [i,j,k],"",Latex_Diff),
+	generate_latex_vector_component(Diff, [i,j,k],"",Latex_vector_Diff),
+	convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
+    convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
+	string_concatenate(["[string(The vector with the initial point P latex(",Point_list_string_1,") and terminal point Q latex(",Point_list_string_2,") is given by)"],"",Sol_0),
+    string_concatenate([",string(latex(\\\\\\\\overrightarrow{PQ}) = ",Latex_diff_exp,")"],"",Sol_1),
+	string_concatenate([",string(latex(\\\\\\\\overrightarrow{PQ}) = ",Latex_Diff,")"],"",Sol_2),
+	string_concatenate([",string(Hence, the required vector components are latex((",Latex_vector_Diff,")))]"],"",Sol_3),
+    string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
+
+%------------------------------------------------------------------End of Question 5_2---------------------------------------------------------------------------------
 
 %------------------------------------------------------------------Question 6---------------------------------------------------------------------------------
 

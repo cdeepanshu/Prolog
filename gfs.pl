@@ -15,11 +15,13 @@ eof2 ==> write('exercise'),nl,handle_include_for_cqt([vector_algebra]).
     find_vector_in_direction_of_vector_that_has_magnitude1/1,
     calculate_direction_cosines1/1,
     find_the_vector_joining_two_points1/1,
-    find_position_vector_of_a_point_which_divide_line_segment1/1,
-    find_given_points_are_vertices_of_a_right_angle_triangle_or_not1/1,
+    find_position_vector_of_a_point_which_divide_line_segment_internally1/1,
+    find_position_vector_of_a_point_which_divide_line_segment_externally1/1,
+	find_given_points_are_vertices_of_a_right_angle_triangle_or_not1/1,
     compute_magnitude_of_vector1/1,
-    find_scalar_and_vector_components1/1,
-    find_sum_of_vector1/1,
+    find_scalar_components1/1,
+    find_vector_components1/1,
+	find_sum_of_vector1/1,
     find_unit_vector_in_diection_of_the_sum_of_vectors1/1,
     check_whether_two_vectors_are_collinear_or_not1/1,
     check_whether_vectors_is_equally_inclined_to_the_axes_or_not1/1,
@@ -31,8 +33,9 @@ eof2 ==> write('exercise'),nl,handle_include_for_cqt([vector_algebra]).
     find_magnitude_of_differnce_of_vectors1/1,
     given_a_unit_vector_and_equation_find_magnitude_of_variable1/1,
     check_whether_points_are_collinear_or_not1/1,
-    check_for_unit_vector_and_mutually_perpendicular1/1,
-    find_variable_magnitude1/1,
+    check_for_unit_vector1/1,
+    check_for_mutually_perpendicular_vector1/1,
+	find_variable_magnitude1/1,
     evaluate_the_product1/1,
     find_magnitude_of_vectors_given_magnitude_angle_scalar_product1/1,
     find_value_of_lambda1/1,
@@ -68,8 +71,11 @@ assert(is_fact_exists(calculate_direction_cosines1(Result))).
 find_the_vector_joining_two_points1(Result)==>check_fact_exists(find_the_vector_joining_two_points1(Result))|
 assert(is_fact_exists(find_the_vector_joining_two_points1(Result))).
 
-find_position_vector_of_a_point_which_divide_line_segment1(Result)==>check_fact_exists( find_position_vector_of_a_point_which_divide_line_segment1(Result))|
-assert(is_fact_exists( find_position_vector_of_a_point_which_divide_line_segment1(Result))).
+find_position_vector_of_a_point_which_divide_line_segment_internally1(Result)==>check_fact_exists(find_position_vector_of_a_point_which_divide_line_segment_internally1(Result))|
+assert(is_fact_exists( find_position_vector_of_a_point_which_divide_line_segment_internally1(Result))).
+
+find_position_vector_of_a_point_which_divide_line_segment_externally1(Result)==>check_fact_exists(find_position_vector_of_a_point_which_divide_line_segment_externally1(Result))|
+assert(is_fact_exists(find_position_vector_of_a_point_which_divide_line_segment_externally1(Result))).
 
 find_given_points_are_vertices_of_a_right_angle_triangle_or_not1(Result)==>check_fact_exists( find_given_points_are_vertices_of_a_right_angle_triangle_or_not1(Result))|
 assert(is_fact_exists( find_given_points_are_vertices_of_a_right_angle_triangle_or_not1(Result))).
@@ -77,8 +83,11 @@ assert(is_fact_exists( find_given_points_are_vertices_of_a_right_angle_triangle_
 compute_magnitude_of_vector1(Result)==>check_fact_exists( compute_magnitude_of_vector1(Result))|
 assert(is_fact_exists( compute_magnitude_of_vector1(Result))).
 
-find_scalar_and_vector_components1(Result)==>check_fact_exists( find_scalar_and_vector_components1(Result))|
-assert(is_fact_exists( find_scalar_and_vector_components1(Result))).
+find_scalar_components1(Result)==>check_fact_exists(find_scalar_components1(Result))|
+assert(is_fact_exists(find_scalar_components1(Result))).
+
+find_vector_components1(Result)==>check_fact_exists(find_vector_components1(Result))|
+assert(is_fact_exists(find_vector_components1(Result))).
 
 find_sum_of_vector1(Result)==>check_fact_exists( find_sum_of_vector1(Result))|
 assert(is_fact_exists( find_sum_of_vector1(Result))).
@@ -116,8 +125,11 @@ assert(is_fact_exists(given_a_unit_vector_and_equation_find_magnitude_of_variabl
 check_whether_points_are_collinear_or_not1(Result)==>check_fact_exists(check_whether_points_are_collinear_or_not1(Result))|
 assert(is_fact_exists(check_whether_points_are_collinear_or_not1(Result))).
 
-check_for_unit_vector_and_mutually_perpendicular1(Result)==>check_fact_exists(check_for_unit_vector_and_mutually_perpendicular1(Result))|
-assert(is_fact_exists(check_for_unit_vector_and_mutually_perpendicular1(Result))).
+check_for_unit_vector1(Result)==>check_fact_exists(check_for_unit_vector1(Result))|
+assert(is_fact_exists(check_for_unit_vector1(Result))).
+
+check_for_mutually_perpendicular_vector1(Result)==>check_fact_exists(check_for_mutually_perpendicular_vector1(Result))|
+assert(is_fact_exists(check_for_mutually_perpendicular_vector1(Result))).
 
 find_variable_magnitude1(Result)==>check_fact_exists(find_variable_magnitude1(Result))|
 assert(is_fact_exists(find_variable_magnitude1(Result))).
@@ -172,12 +184,10 @@ assert(is_fact_exists(find_a_vector_perpendicular_to_given_vectors1(Result))).
 /*****************************check_whether_given_two_vectors_are_equal_or_not1***************/
 eof1,check_whether_given_two_vectors_are_equal_or_not1(Result)==> check_fact_exists(term1(Result,_))|
 
-%write(0),nl,read(_),
-
 generate_random_list_equal_or_unequal_vectors(List1,List2),
 generate_question_vector_ex_5(List1,List2,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
-generate_question_vector_ex_5(List1,List2,Ans,Answer_type_str),
+generate_answer_vector_ex_5(List1,List2,Ans,Answer_type_str),
 generate_solution_vector_ex_5(List1,List2,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
 term1(Result,Ans),
@@ -360,8 +370,8 @@ get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
 complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
 Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
 
-/*****************************find_position_vector_of_a_point_which_divide_line_segment***************/
-eof1,find_position_vector_of_a_point_which_divide_line_segment1(Result)==> check_fact_exists(term1(Result,_))|
+/*****************************find_position_vector_of_a_point_which_divide_line_segment_internally***************/
+eof1,find_position_vector_of_a_point_which_divide_line_segment_internally1(Result)==> check_fact_exists(term1(Result,_))|
 
 %write(0),nl,read(_),
 generate_list(Point_list_1),
@@ -369,26 +379,61 @@ generate_list(Point_list_2),
 
 generate_magnitude(Ratio1),
 generate_magnitude(Ratio2),
-generate_question_vector_ex_11(Point_list_1,Point_list_2,Ratio1,Ratio2,Question),
+generate_question_vector_ex_11_1(Point_list_1,Point_list_2,Ratio1,Ratio2,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
-
-%generate_answer_vector_ex_11(Point_list_1,Point_list_2,Ratio1,Ratio2,Ans),
-
-generate_solution_vector_ex_11(Point_list_1,Point_list_2,Ratio1,Ratio2,Solution),
+generate_answer_vector_ex_11_1(Point_list_1,Point_list_2,Ratio1,Ratio2,Ans),
+term_string(Ans,Temp_ans),
+generate_solution_vector_ex_11_1(Point_list_1,Point_list_2,Ratio1,Ratio2,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,Temp_ans),
 
-term1(Result,1),
-
-New_element_formed = term(Result,1),
+New_element_formed = term(Result,Temp_ans),
 Reasoning_list = [],
 
-New_reasoning_list =[find_position_vector_of_a_point_which_divide_line_segment(Result)],
+New_reasoning_list =[find_position_vector_of_a_point_which_divide_line_segment_internally(Result)],
 Current_config = New_reasoning_list,
-Concept = section_formula,
+Concept = section_formula_internally,
 Main_predicate = New_element_formed,
-string_concatenate(["answer_types([[string(Vector is = ),type(textbox)]])"],"",Answer_type_str),
+string_concatenate(["answer_types([[string(latex(a\\\\hat{i} + b\\\\hat{j} + c\\\\hat{k}=)),type(algebra_form),placeholder(string(Enter the values of a,b,c in radical form and separated by comma)),unit()]])"],"",Answer_type_str),
 Answer_type =  [Answer_type_str],
-Answer = [[1]],
+Answer = [3,[Ans]],
+string_concatenate(["[string(Use section formula.)]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
+
+/*****************************find_position_vector_of_a_point_which_divide_line_segment_externally***************/
+eof1,find_position_vector_of_a_point_which_divide_line_segment_externally1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(0),nl,read(_),
+generate_list(Point_list_1),
+generate_list(Point_list_2),
+generate_magnitude(Ratio1),
+generate_magnitude(Ratio2),
+generate_question_vector_ex_11_2(Point_list_1,Point_list_2,Ratio1,Ratio2,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+generate_answer_vector_ex_11_2(Point_list_1,Point_list_2,Ratio1,Ratio2,Ans),
+term_string(Ans,Temp_ans),
+generate_solution_vector_ex_11_2(Point_list_1,Point_list_2,Ratio1,Ratio2,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
+Reasoning_list = [],
+New_reasoning_list =[find_position_vector_of_a_point_which_divide_line_segment_externally(Result)],
+Current_config = New_reasoning_list,
+Concept = section_formula_externally,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(latex(a\\\\hat{i} + b\\\\hat{j} + c\\\\hat{k}=)),type(algebra_form),placeholder(string(Enter the values of a,b,c in radical form and separated by comma)),unit()]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [3,[Ans]],
 string_concatenate(["[string(Use section formula.)]"],"",Hint_str),
 Hint = [Hint_str],
 %string_concatenate([],"",Solution_steps),
@@ -477,41 +522,68 @@ get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
 complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
 Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
 
-/*****************************find_scalar_and_vector_components***************/
-eof1,find_scalar_and_vector_components1(Result)==> check_fact_exists(term1(Result,_))|
+/*****************************find_scalar_components***************/
+eof1,find_scalar_components1(Result)==> check_fact_exists(term1(Result,_))|
 
 %write(2),nl,read(_),
 generate_list(Point_list_1),
 generate_list(Point_list_2),
-generate_question_vector_q_5(Point_list_1,Point_list_2,Question),
+generate_question_vector_q_5_1(Point_list_1,Point_list_2,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
-
-%generate_answer_vector_q_5(Point_list_1,Point_list_2,Ans),
-
-generate_solution_vector_q_5(Point_list_1,Point_list_2,Solution),
+generate_answer_vector_q_5_1(Point_list_1,Point_list_2,Ans),
+term_string(Ans,Temp_ans),
+generate_solution_vector_q_5_1(Point_list_1,Point_list_2,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
-
-term1(Result,1),
-
-New_element_formed = term(Result,1),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
 Reasoning_list = [],
-
-New_reasoning_list =[find_scalar_and_vector_components(Result)],
+New_reasoning_list =[find_scalar_components(Result)],
 Current_config = New_reasoning_list,
-Concept = scalar_vector_components,
+Concept = scalar_components,
 Main_predicate = New_element_formed,
-string_concatenate(["answer_types([[string(),type(continuous(string(Scalar Componenet :),input(string(),type(textbox)) ))]]),answer_types([[string(),type(continuous(string(Vector Componenet :),input(string(),type(textbox)) ))]])"],"",Answer_type_str),
+string_concatenate(["answer_types([[string(Scalar Components(a,b,c) = ),type(algebra_form),placeholder(string(Enter the values of a,b,c and separated by comma)),unit()]])"],"",Answer_type_str),
 Answer_type =  [Answer_type_str],
-Answer = [[1]],
-string_concatenate(["[string(Magnitude of a = latex(|a|).)]"],"",Hint_str),
+Answer = [3,[Ans]],
+string_concatenate(["[string(Find Position vector PQ)]"],"",Hint_str),
 Hint = [Hint_str],
 %string_concatenate([],"",Solution_steps),
 Steps = Solution_steps,
-
 Q1_side_part = "",
 Added_solution_step1 = "",
 Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
 
+/*****************************find_vector_components***************/
+eof1,find_vector_components1(Result)==> check_fact_exists(term1(Result,_))|
+
+%write(2),nl,read(_),
+generate_list(Point_list_1),
+generate_list(Point_list_2),
+generate_question_vector_q_5_2(Point_list_1,Point_list_2,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+generate_answer_vector_q_5_2(Point_list_1,Point_list_2,Ans),
+term_string(Ans,Temp_ans),
+generate_solution_vector_q_5_2(Point_list_1,Point_list_2,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
+Reasoning_list = [],
+New_reasoning_list =[find_vector_components(Result)],
+Current_config = New_reasoning_list,
+Concept = vector_components,
+Main_predicate = New_element_formed,
+string_concatenate(["answer_types([[string(Vector Componentslatex(a\\\\hat{i},b\\\\hat{j},c\\\\hat{k}=)),type(algebra_form),placeholder(string(Enter the values of a,b,c  and separated by comma)),unit()]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [3,[Ans]],
+string_concatenate(["[string(Find Position vector PQ)]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
 get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
 complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
 Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
@@ -708,24 +780,20 @@ generate_magnitude(Mag2),
 generate_magnitude(Mag3),
 generate_question_vector_ex_13(Mag1,Mag2,Mag3,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
-
-%generate_answer_vector_ex_13(Mag1,Mag2,Mag3,Ans),
-
+generate_answer_vector_ex_13(Mag1,Mag2,Mag3,Ans),
+term_string(Ans,Temp_ans),
 generate_solution_vector_ex_13(Mag1,Mag2,Mag3,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
-
-term1(Result,1),
-
-New_element_formed = term(Result,1),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
 Reasoning_list = [],
-
 New_reasoning_list =[find_angle_between_two_vectors_with_given_magnitude_and_product(Result)],
 Current_config = New_reasoning_list,
 Concept = basic_trignometry,
 Main_predicate = New_element_formed,
-string_concatenate(["answer_types([[string(Angle : ),type(fraction)]])"],"",Answer_type_str),
+string_concatenate(["answer_types([[string(Angle =),type(algebra_form),placeholder(string(Example of writing the answer: latex(sin^{-1}(\\\\frac{a}{b})) or latex(\\\\frac{\\\\pi}{a})  )),unit()]])"],"",Answer_type_str),
 Answer_type =  [Answer_type_str],
-Answer = [[1]],
+Answer = [3,[Ans]],
 string_concatenate(["[string(latex(\\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b} = |\\\\\\\\overrightarrow{a}|.|\\\\\\\\overrightarrow{b}| cos\\\\\\\\theta) )]"],"",Hint_str),
 Hint = [Hint_str],
 %string_concatenate([],"",Solution_steps),
@@ -747,17 +815,13 @@ generate_list(List1),
 generate_list(List2),
 generate_question_vector_ex_14(List1,List2,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
-
 generate_answer_vector_ex_14(List1,List2,Ans),
 term_string(Ans,Temp_Ans),
 generate_solution_vector_ex_14(List1,List2,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
-
 term1(Result,Temp_Ans),
-
 New_element_formed = term(Result,Temp_Ans),
 Reasoning_list = [],
-
 New_reasoning_list =[find_angle_between_the_vectors(Result)],
 Current_config = New_reasoning_list,
 Concept = trignometry_and_scalar_product,
@@ -932,18 +996,19 @@ generate_list(Point_list_3),
 generate_question_vector_ex_21(Point_list_1,Point_list_2,Point_list_3,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
 generate_answer_vector_ex_21(Point_list_1,Point_list_2,Point_list_3,Ans),
+term_string(Ans,Temp_ans),
 generate_solution_vector_ex_21(Point_list_1,Point_list_2,Point_list_3,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
-term1(Result,Ans),
-New_element_formed = term(Result,Ans),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
 Reasoning_list = [],
 New_reasoning_list =[check_whether_points_are_collinear_or_not(Result)],
 Current_config = New_reasoning_list,
 Concept = collinear_points,
 Main_predicate = New_element_formed,
-string_concatenate(["objective_answer_types([[string(False)],[string(True)]])"],"",Answer_type_str),
+string_concatenate(["objective_answer_types([[string(A),type(continuous(string(True, latex(|AB|,|BC|,|AC|) = ),input(string(),type(algebra_form),placeholder(string(Values of |AB|,|BC|,|AC| in integer or radical form seperated by comma)),unit()),string()))],[string(B),type(continuous(string(False, latex(|AB|,|BC|,|AC|) = ),input(string(),type(algebra_form),placeholder(string(Values of |AB|,|BC|,|AC| in integer or radical form seperated by comma)),unit()),string()))]])"],"",Answer_type_str),
 Answer_type =  [Answer_type_str],
-Answer = [[Ans]],
+Answer = [3,[Ans]],
 string_concatenate(["[string(If latex(|\\\\overrightarrow{AB}|) = latex(|\\\\overrightarrow{BC}|) + latex(|\\\\overrightarrow{AC}|), Then the points A,B,C are collinear. )]"],"",Hint_str),
 Hint = [Hint_str],
 %string_concatenate([],"",Solution_steps),
@@ -956,36 +1021,27 @@ get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
 complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
 Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
 
-/*****************************check_for_unit_vector_and_mutually_perpendicular***************/
-eof1,check_for_unit_vector_and_mutually_perpendicular1(Result)==> check_fact_exists(term1(Result,_))|
-
+/*****************************check_for_unit_vector***************/
+eof1,check_for_unit_vector1(Result)==> check_fact_exists(term1(Result,_))|
 %write(2),nl,read(_),
-generate_magnitude(Mag1),
-generate_magnitude(Mag2),
-generate_magnitude(Mag3),
-
-generate_list(List1),
-generate_list(List2),
-generate_list(List3),
-generate_question_vector_10_3_5(Mag1,Mag2,Mag3,List1,List2,List3,Question),
+generate_random_list_magnitude_for_unit_vector(List1,Mag1),
+generate_question_vector_10_3_5_1(Mag1,List1,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
-%generate_answer_vector_10_3_5(Mag1,Mag2,Mag3,List1,List2,List3,Ans),
-
-generate_solution_vector_10_3_5(Mag1,Mag2,Mag3,List1,List2,List3,Solution),
+generate_answer_vector_10_3_5_1(Mag1,List1,Ans),
+term_string(Ans,Temp_ans),
+generate_solution_vector_10_3_5_1(Mag1,List1,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
-term1(Result,1),
-
-New_element_formed = term(Result,1),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
 Reasoning_list = [],
-
-New_reasoning_list =[check_for_unit_vector_and_mutually_perpendicular(Result)],
+New_reasoning_list =[check_for_unit_vector(Result)],
 Current_config = New_reasoning_list,
-Concept = unit_vector_and_mutually_perpendicular,
+Concept = check_unit_vector,
 Main_predicate = New_element_formed,
-string_concatenate(["answer_types([[string(),type(continuous(string(Unit Vectors (Yes/No) :),input(string(),type(textbox)) ))]]),answer_types([[string(),type(continuous(string(Mutually perpendicular (Yes/No) :),input(string(),type(textbox)) ))]])"],"",Answer_type_str),
+string_concatenate(["objective_answer_types([[string(A),type(continuous(string(True, latex(|a|) = ),input(string(),type(algebra_form),placeholder(string(Magnitude of a in integer or radical form )),unit()),string()))],[string(B),type(continuous(string(False, latex(|a|) = ),input(string(),type(algebra_form),placeholder(string(Magnitude of a in integer or radical form )),unit()),string()))]])"],"",Answer_type_str),
 Answer_type =  [Answer_type_str],
-Answer = [[1]],
-string_concatenate(["[string(latex(i.)Unit vector, latex(|\\\\\\\\overrightarrow{a}| = 1.)),string(latex(ii.)If latex(\\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b} = \\\\\\\\overrightarrow{b}.\\\\\\\\overrightarrow{c} = \\\\\\\\overrightarrow{c}.\\\\\\\\overrightarrow{a} = 0) then latex(\\\\\\\\overrightarrow{a},\\\\\\\\overrightarrow{b},\\\\\\\\overrightarrow{c}) are mutually perpendicular)]"],"",Hint_str),
+Answer = [3,[Ans]],
+string_concatenate(["[string(Magnitude of Unit vector, latex(|\\\\\\\\overrightarrow{a}| = 1.))]"],"",Hint_str),
 Hint = [Hint_str],
 %string_concatenate([],"",Solution_steps),
 Steps = Solution_steps,
@@ -997,6 +1053,39 @@ get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
 complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
 Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
 
+/*****************************check_for_mutually_perpendicular_vector***************/
+eof1,check_for_mutually_perpendicular_vector1(Result)==> check_fact_exists(term1(Result,_))|
+%write(2),nl,read(_),
+generate_random_list_for_mutually_perpendicular_vector(List1,List2),
+generate_magnitude(Mag1),
+generate_magnitude(Mag2),
+generate_question_vector_10_3_5_2(Mag1,Mag2,List1,List2,Question),
+remove_square_brackets_from_string(Question,Q1_main_part),
+generate_answer_vector_10_3_5_2(Mag1,Mag2,List1,List2,Ans),
+term_string(Ans,Temp_ans),
+generate_solution_vector_10_3_5_2(Mag1,Mag2,List1,List2,Solution),
+remove_square_brackets_from_string(Solution,Solution_steps),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
+Reasoning_list = [],
+New_reasoning_list =[check_for_mutually_perpendicular_vector(Result)],
+Current_config = New_reasoning_list,
+Concept = check_mutually_perpendicular_vector,
+Main_predicate = New_element_formed,
+string_concatenate(["objective_answer_types([[string(A),type(continuous(string(True, latex((\\\\overrightarrow{a}.\\\\overrightarrow{b})) = ),input(string(),type(algebra_form),placeholder(string(Magnitude of latex((\\\\overrightarrow{a}.\\\\overrightarrow{b})) in integer or radical form )),unit()),string()))],[string(B),type(continuous(string(False, latex((\\\\overrightarrow{a}.\\\\overrightarrow{b})) = ),input(string(),type(algebra_form),placeholder(string(Magnitude of latex((\\\\overrightarrow{a}.\\\\overrightarrow{b})) in integer or radical form )),unit()),string()))]])"],"",Answer_type_str),
+Answer_type =  [Answer_type_str],
+Answer = [3,[Ans]],
+string_concatenate(["[string(If latex(\\\\\\\\overrightarrow{a}.\\\\\\\\overrightarrow{b} = \\\\\\\\overrightarrow{b}.\\\\\\\\overrightarrow{c} = \\\\\\\\overrightarrow{c}.\\\\\\\\overrightarrow{a} = 0) then latex(\\\\\\\\overrightarrow{a},\\\\\\\\overrightarrow{b},\\\\\\\\overrightarrow{c}) are mutually perpendicular)]"],"",Hint_str),
+Hint = [Hint_str],
+%string_concatenate([],"",Solution_steps),
+Steps = Solution_steps,
+
+Q1_side_part = "",
+Added_solution_step1 = "",
+Ques_config_list = [[[Q1_side_part],[Q1_main_part],Added_solution_step1,qt1]],
+get_qid_per_ques_representation(Ques_config_list, Qid_per_ques_representation),
+complete_rule_by_adding_properties(New_element_formed,Reasoning_list,New_reasoning_list,Concept,
+Main_predicate,Current_config,Answer_type,Answer,Steps,Qid_per_ques_representation,Hint,Ques_config_list,1).
 /*****************************find_variable_magnitude***************/
 eof1,find_variable_magnitude1(Result)==> check_fact_exists(term1(Result,_))|
 
@@ -1406,20 +1495,20 @@ eof1, find_value_of_variable_x1(Result)==> check_fact_exists(term1(Result,_))|
 generate_list(List),
 generate_question_vector_Mis_5(List,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
-%generate_answer_vector_Mis_5(List,Ans),
+generate_answer_vector_Mis_5(List,Ans),
+term_string(Ans,Temp_ans),
 generate_solution_vector_Mis_5(List,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
-
-term1(Result,1),
-New_element_formed = term(Result,1),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
 Reasoning_list = [],
 New_reasoning_list =[find_value_of_variable_x(Result)],
 Current_config = New_reasoning_list,
 Concept = variable_in_a_unit_vector,
 Main_predicate = New_element_formed,
-string_concatenate(["answer_types([[string(Value : ),type(s_textbox)]])"],"",Answer_type_str),
+string_concatenate(["answer_types([[string(Answer =),type(algebra_form),placeholder(string(Enter your answer in integer or radical form)),unit()]])"],"",Answer_type_str),
 Answer_type =  [Answer_type_str],
-Answer = [[1]],
+Answer = [3,[Ans]],
 string_concatenate(["[string(Magnitude of Unit Vector is 1)]"],"",Hint_str),
 Hint = [Hint_str],
 %string_concatenate([],"",Solution_steps),
@@ -1440,20 +1529,20 @@ generate_list(List2),
 generate_magnitude(Mag),
 generate_question_vector_Mis_6(List1,List2,Mag,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
-%generate_answer_vector_Mis_6(List1,List2,Mag,Ans),
+generate_answer_vector_Mis_6(List1,List2,Mag,Ans),
+term_string(Ans,Temp_ans),
 generate_solution_vector_Mis_6(List1,List2,Mag,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
-
-term1(Result,1),
-New_element_formed = term(Result,1),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
 Reasoning_list = [],
 New_reasoning_list =[find_a_vector_of_given_magnitude_and_parallel_to_resultant_of_vectors(Result)],
 Current_config = New_reasoning_list,
 Concept = parallel_vectors,
 Main_predicate = New_element_formed,
-string_concatenate(["answer_types([[string(Vector : ),type(s_textbox)]])"],"",Answer_type_str),
+string_concatenate(["answer_types([[string(latex(a\\\\hat{i} + b\\\\hat{j} + c\\\\hat{k}=)),type(algebra_form),placeholder(string(Enter the values of a,b,c in radical form and separated by comma)),unit()]])"],"",Answer_type_str),
 Answer_type =  [Answer_type_str],
-Answer = [[1]],
+Answer = [3,[Ans]],
 string_concatenate(["[string(Find Unit vector)]"],"",Hint_str),
 Hint = [Hint_str],
 %string_concatenate([],"",Solution_steps),
@@ -1475,20 +1564,20 @@ generate_list(List3),
 generate_list(List4),
 generate_question_vector_Mis_7(List1,List2,List3,List4,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
-%generate_answer_vector_Mis_7(List1,List2,List3,List4,Ans),
+generate_answer_vector_Mis_7(List1,List2,List3,List4,Ans),
+term_string(Ans,Temp_ans),
 generate_solution_vector_Mis_7(List1,List2,List3,List4,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
-
-term1(Result,1),
-New_element_formed = term(Result,1),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
 Reasoning_list = [],
 New_reasoning_list =[find_a_unit_vector_parallel_to_the_vector(Result)],
 Current_config = New_reasoning_list,
 Concept = unit_parallel_vector,
 Main_predicate = New_element_formed,
-string_concatenate(["answer_types([[string(Unit Vector : ),type(s_textbox)]])"],"",Answer_type_str),
+string_concatenate(["answer_types([[string(latex(a\\\\hat{i} + b\\\\hat{j} + c\\\\hat{k}=)),type(algebra_form),placeholder(string(Enter the values of a,b,c in radical form and separated by comma)),unit()]])"],"",Answer_type_str),
 Answer_type =  [Answer_type_str],
-Answer = [[1]],
+Answer = [3,[Ans]],
 string_concatenate(["[string(Substitute vector latex(\\\\\\\\overrightarrow{a},\\\\\\\\overrightarrow{b},\\\\\\\\overrightarrow{c}) to the vector.)]"],"",Hint_str),
 Hint = [Hint_str],
 %string_concatenate([],"",Solution_steps),
@@ -1510,20 +1599,20 @@ generate_list(List3),
 generate_magnitude(Mag),
 generate_question_vector_Mis_12(List1,List2,List3,Mag,Question),
 remove_square_brackets_from_string(Question,Q1_main_part),
-%generate_answer_vector_Mis_12(List1,List2,List3,Mag,Ans),
+generate_answer_vector_Mis_12(List1,List2,List3,Mag,Ans),
+term_string(Ans,Temp_ans),
 generate_solution_vector_Mis_12(List1,List2,List3,Mag,Solution),
 remove_square_brackets_from_string(Solution,Solution_steps),
-
-term1(Result,1),
-New_element_formed = term(Result,1),
+term1(Result,Temp_ans),
+New_element_formed = term(Result,Temp_ans),
 Reasoning_list = [],
 New_reasoning_list =[find_a_vector_perpendicular_to_given_vectors(Result)],
 Current_config = New_reasoning_list,
 Concept = linear_equation_with_three_variables ,
 Main_predicate = New_element_formed,
-string_concatenate(["answer_types([[string(Vector : ),type(s_textbox)]])"],"",Answer_type_str),
+string_concatenate(["answer_types([[string(latex(a\\\\hat{i} + b\\\\hat{j} + c\\\\hat{k}=)),type(algebra_form),placeholder(string(Enter the values of a,b,c in radical form and separated by comma)),unit()]])"],"",Answer_type_str),
 Answer_type =  [Answer_type_str],
-Answer = [[1]],
+Answer = [3,[Ans]],
 string_concatenate(["[string(Let latex(\\\\\\\\overrightarrow{d} = d_{1}\\\\hat{i} + d_{2}\\\\hat{j} + d_{3}\\\\hat{k}))]"],"",Hint_str),
 Hint = [Hint_str],
 %string_concatenate([],"",Solution_steps),

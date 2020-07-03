@@ -18,18 +18,24 @@ calculate_direction_cosines:-
 find_the_vector_joining_two_points:-
 	setName(Result),
    assert(objectList(find_the_vector_joining_two_points(Result))).
-find_position_vector_of_a_point_which_divide_line_segment:-   
+find_position_vector_of_a_point_which_divide_line_segment_internally:-   
 	setName(Result),
-   assert(objectList(find_position_vector_of_a_point_which_divide_line_segment(Result))).
+   assert(objectList(find_position_vector_of_a_point_which_divide_line_segment_internally(Result))).
+find_position_vector_of_a_point_which_divide_line_segment_externally:-   
+   setName(Result),
+   assert(objectList(find_position_vector_of_a_point_which_divide_line_segment_externally(Result))).
 find_given_points_are_vertices_of_a_right_angle_triangle_or_not:-
 	setName(Result),
    assert(objectList(find_given_points_are_vertices_of_a_right_angle_triangle_or_not(Result))).
 compute_magnitude_of_vector:-
 	setName(Result),
    assert(objectList(compute_magnitude_of_vector(Result))).
-find_scalar_and_vector_components:-
+find_scalar_components:-
 	setName(Result),
-   assert(objectList(find_scalar_and_vector_components(Result))).
+   assert(objectList(find_scalar_components(Result))).
+find_vector_components:-
+   setName(Result),
+   assert(objectList(find_vector_components(Result))).
 find_sum_of_vector:-
 	setName(Result),
    assert(objectList(find_sum_of_vector(Result))).
@@ -66,9 +72,12 @@ given_a_unit_vector_and_equation_find_magnitude_of_variable:-
 check_whether_points_are_collinear_or_not:-
 	setName(Result),
    assert(objectList(check_whether_points_are_collinear_or_not(Result))).
-check_for_unit_vector_and_mutually_perpendicular:-
+check_for_unit_vector:-
 	setName(Result),
-   assert(objectList(check_for_unit_vector_and_mutually_perpendicular(Result))).
+   assert(objectList(check_for_unit_vector(Result))).
+check_for_mutually_perpendicular_vector:-
+   setName(Result),
+   assert(objectList(check_for_mutually_perpendicular_vector(Result))).
 find_variable_magnitude:-
 	setName(Result),
    assert(objectList(find_variable_magnitude(Result))).
