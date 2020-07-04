@@ -84,7 +84,7 @@ generate_answer_vector_ex_14(List1,List2,Answer):-
 
 			S is (S1)*(S2),
 			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Den),
-			string_concatenate(["cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}"],"",Answer)
+			string_concatenate(["cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"})"],"",Answer)
 
 		);
 		(S1=:=S2->
@@ -97,7 +97,7 @@ generate_answer_vector_ex_14(List1,List2,Answer):-
 			S is (S1)*(S2),
 			M is (M1)*(M2),
 			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Den),
-			string_concatenate(["cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"}"],"",Answer)
+			string_concatenate(["cos^{-1}(\\\\\\\\frac{",Num,"}{",Den,"})"],"",Answer)
 
 		)
 	).
@@ -166,6 +166,7 @@ generate_solution_vector_ex_14(List1,List2,Solution):-
 generate_question_vector_ex_15(List1,List2,Question):-
 	Var1=a,
 	Var2=b,
+	%generate_random_list_for_perpendicular_vector(List1,List2),
 	/*generate_list(List1),
 	generate_list(List2),*/
 
@@ -190,8 +191,8 @@ generate_answer_vector_ex_15(List1,List2,Answer):-
     generate_sum(Mul,0,Result),
 
     (Result=:=0->
-    	Answer is 1;
-    	Answer is 0
+		string_concatenate(["",Result,"],[1"],"",Answer);
+		string_concatenate(["",Result,"],[0"],"",Answer)
     ).
 %Solution
 generate_solution_vector_ex_15(List1,List2,Solution):-
@@ -247,7 +248,7 @@ generate_answer_vector_ex_16(List1,List2,Answer):-
 	get_updated_coefficient([[[1,1],[List2_magnitude,1]]],X1,_),
 	get_updated_coefficient_result(X1,M1,S1),
 	(Result=:=0->
-		string_concatenate(["[string(0)]"],"",Answer);
+		string_concatenate(["0"],"",Answer);
 		(M1=:=1->
 			string_concatenate(["\\\\\\\\frac{",Result,"}{\\\\\\\\sqrt{",S1,"}}"],"",Answer);
 			string_concatenate(["\\\\\\\\frac{",Result,"}{",M1,"\\\\\\\\sqrt{",S1,"}}"],"",Answer)
@@ -418,7 +419,7 @@ generate_question_vector_ex_21(Point_list_1,Point_list_2,Point_list_3,Question):
 	/*generate_list(Point1),
 	generate_list(Point2),
 	generate_list(Point3),*/
-
+	%generate_random_list_for_collinear_point_list(List1,List2,List3)
 	generate_vector_ijk(Point_list_1, [i,j,k],"",Latex_str1),
     generate_vector_ijk(Point_list_2, [i,j,k],"",Latex_str2),
     generate_vector_ijk(Point_list_3, [i,j,k],"",Latex_str3),
@@ -477,16 +478,16 @@ generate_answer_vector_ex_21(Point1,Point2,Point3,Answer):-
 	),
 
 	(S1=\=S2->
-    	string_concatenate(["0,",Num1,",",Num2,",",Num3,""],"",Answer);
+    	string_concatenate(["",Num1,",",Num2,",",Num3,"],[0"],"",Answer);
     	(S2=\=S3->
-    		string_concatenate(["0,",Num1,",",Num2,",",Num3,""],"",Answer);
+    		string_concatenate(["",Num1,",",Num2,",",Num3,"],[0"],"",Answer);
 			(M3=:=M1+M2->
-    			string_concatenate(["1,",Num1,",",Num2,",",Num3,""],"",Answer);
+    			string_concatenate(["",Num1,",",Num2,",",Num3,"],[1"],"",Answer);
 	    	    (M2=:=M3+M1->
-    				string_concatenate(["1,",Num1,",",Num2,",",Num3,""],"",Answer);
+    				string_concatenate(["",Num1,",",Num2,",",Num3,"],[1"],"",Answer);
 	     			(M1=:=M3+M2->
-    					string_concatenate(["1,",Num1,",",Num2,",",Num3,""],"",Answer);
-    					string_concatenate(["0,",Num1,",",Num2,",",Num3,""],"",Answer)
+    					string_concatenate(["",Num1,",",Num2,",",Num3,"],[1"],"",Answer);
+    					string_concatenate(["",Num1,",",Num2,",",Num3,"],[0"],"",Answer)
 					)
 				)
     		)
@@ -819,10 +820,10 @@ generate_answer_vector_10_3_5_1(Mag1,List1,Answer):-
 	Pow_mag1 is (Mag1**2),
 	simplify(Pow_sum1,Pow_mag1,Num,Den),
 	(Pow_sum1=:=Pow_mag1->
-		string_concatenate(["1,1"],"",Answer);
+		string_concatenate(["1],[1"],"",Answer);
 		(Den=:=1->
-			string_concatenate(["0,",Num,""],"",Answer);
-			string_concatenate(["0,\\\\frac{",Num,"}{",Den,"}"],"",Answer)
+			string_concatenate(["",Num,"],[0"],"",Answer);
+			string_concatenate(["\\\\frac{",Num,"}{",Den,"}],[0"],"",Answer)
 		)		
 	).
 %Solution
@@ -870,11 +871,11 @@ generate_answer_vector_10_3_5_2(Mag1,Mag2,List1,List2,Answer):-
     generate_sum(Mul1,0,Result),	
     Product is ((Mag1)*(Mag2)),    
 	(Result=:=0->
-		string_concatenate(["1,0"],"",Answer);
+		string_concatenate(["0],[1"],"",Answer);
 		simplify(Result,Product,Num,Den),
 		(Den=:=1->
-			string_concatenate(["0,",Num,""],"",Answer);
-			string_concatenate(["0,\\\\frac{",Num,"}{",Den,"}"],"",Answer)
+			string_concatenate(["",Num,"],[0"],"",Answer);
+			string_concatenate(["\\\\frac{",Num,"}{",Den,"}],[0"],"",Answer)
 		)
 	).
 

@@ -636,22 +636,19 @@ generate_direction_cosines([],_,Init_str,Latex_str):-
     Latex_str = Init_str.
 generate_direction_cosines([H|T],Mag,Init_str,Latex_str):-
     (H>0 ->
-    	(Mag=:=1 ->
+
 		    (Init_str == "" ->
-		    string_concatenate(["\\\\\\\\hat{",H,"}"],"",Str1);
-		    string_concatenate([",\\\\\\\\hat{",H,"}"],"",Str1)
-		    );
-		    (Init_str == "" ->
-		    string_concatenate(["\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}}"],"",Str1);
-		    string_concatenate([",\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}}"],"",Str1)
+		    string_concatenate(["\\\\\\\\frac{",H,"}{",Mag,"}"],"",Str1);
+		    string_concatenate([",\\\\\\\\frac{",H,"}{",Mag,"}"],"",Str1)
 		    )
-		);
+		;
 
 		(H=:=0  ->
 		    Str1=",0"; 
+		    H2 is abs(H),
 			(Init_str == "" ->
-		    string_concatenate(["\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}}"],"",Str1);
-		    string_concatenate([",\\\\\\\\frac{",H,"}{\\\\\\\\sqrt{",Mag,"}}"],"",Str1)
+		    string_concatenate(["-\\\\\\\\frac{",H2,"}{",Mag,"}"],"",Str1);
+		    string_concatenate([",-\\\\\\\\frac{",H2,"}{",Mag,"}"],"",Str1)
 		    )		
 		)
 	),
@@ -1276,10 +1273,149 @@ generate_mutually_perpendicular_vector_list(List1,List2):-
 		List1=L1,
 		List2=L2
 	).
+
 generate_random_list_for_mutually_perpendicular_vector(List1,List2):-
 	random_between(0,1,X),
 	(X=:=0->
 		generate_mutually_perpendicular_vector_list(List1,List2);
+		generate_list(List1),
+		generate_list(List2)
+	).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Funtion for three points to be collinear or not
+
+generate_collinear_point_list(List1,List2,List3):-
+
+	generate_list(L1),
+	generate_list(L2),
+	generate_list(L3),
+
+	generate_diff_vector(L2,L1,Diff_1),
+	generate_diff_vector(L3,L2,Diff_2),
+	generate_diff_vector(L1,L3,Diff_3),
+
+    generate_magnitude(Diff_1,0,Diff_1_magnitude),
+    generate_magnitude(Diff_2,0,Diff_2_magnitude),
+    generate_magnitude(Diff_3,0,Diff_3_magnitude),
+
+    get_updated_coefficient([[[1,1],[Diff_1_magnitude,1]]],X1,_),
+	get_updated_coefficient_result(X1,M1,S1),
+	
+	get_updated_coefficient([[[1,1],[Diff_2_magnitude,1]]],X2,_),
+	get_updated_coefficient_result(X2,M2,S2), 
+	
+	get_updated_coefficient([[[1,1],[Diff_3_magnitude,1]]],X3,_),
+	get_updated_coefficient_result(X3,M3,S3),
+
+	(S1=\=S2->
+    	generate_collinear_point_list(List1,List2,List3);
+    	(S2=\=S3->
+    		generate_collinear_point_list(List1,List2,List3);
+			(M3=:=M1+M2->
+    			List1=L1,
+    			List2=L2,
+    			List3=L3;
+	    	    (M2=:=M3+M1->
+	    			List1=L1,
+	    			List2=L2,
+	    			List3=L3;	     			
+					(M1=:=M3+M2->
+						List1=L1,
+		    			List2=L2,
+		    			List3=L3;
+    					generate_collinear_point_list(List1,List2,List3)
+					)
+				)
+    		)
+    	)
+	).
+
+	
+
+
+generate_random_list_for_collinear_point_list(List1,List2,List3):-
+
+	random_between(0,1,X),
+	(X=:=0->
+		generate_collinear_point_list(List1,List2,List3);
+		generate_list(List1),
+		generate_list(List2),
+		generate_list(List3)
+	).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Funtion for three points to be vertices of right angle triangle
+
+generate_right_angle_triangle_point_list(List1,List2,List3):-
+
+	generate_list(L1),
+	generate_list(L2),
+	generate_list(L3),
+
+	generate_diff_vector(L2,L1,Diff_1),
+	generate_diff_vector(L3,L2,Diff_2),
+	generate_diff_vector(L1,L3,Diff_3),
+
+    generate_magnitude(Diff_1,0,Diff_1_magnitude),
+    generate_magnitude(Diff_2,0,Diff_2_magnitude),
+    generate_magnitude(Diff_3,0,Diff_3_magnitude),
+
+    (Diff_3_magnitude=:=Diff_1_magnitude+Diff_2_magnitude->
+    		List1=L1,
+			List2=L2,
+			List3=L3;
+    	    (Diff_2_magnitude=:=Diff_3_magnitude+Diff_1_magnitude->
+				List1=L1,
+				List2=L2,
+				List3=L3;
+     			(Diff_1_magnitude=:=Diff_3_magnitude+Diff_2_magnitude->
+		    		List1=L1,
+					List2=L2,
+					List3=L3;
+					generate_right_angle_triangle_point_list(List1,List2,List3)				)
+			)
+    ).
+
+	
+
+
+generate_random_list_for_right_angle_triangle_point_list(List1,List2,List3):-
+
+	random_between(0,1,X),
+	(X=:=0->
+		generate_right_angle_triangle_point_list(List1,List2,List3);
+		generate_list(List1),
+		generate_list(List2),
+		generate_list(List3)
+	).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Funtion for perpendicular vector (a+b).(a-b)=0
+
+generate_perpendicular_vector_list(List1,List2):-
+	generate_list(L1),
+	generate_list(L2),
+
+    generate_sum_vector(L1,L2,Sum),
+    generate_diff_vector(L1,L2,Diff),
+    generate_mul_vector(Sum,Diff,Mul),
+    generate_sum(Mul,0,Result),
+	(Result=\=0->
+		generate_perpendicular_vector_list(List1,List2);
+		List1=L1,
+		List2=L2
+	).
+
+generate_random_list_for_perpendicular_vector(List1,List2):-
+	random_between(0,1,X),
+	(X=:=0->
+		generate_perpendicular_vector_list(List1,List2);
 		generate_list(List1),
 		generate_list(List2)
 	).

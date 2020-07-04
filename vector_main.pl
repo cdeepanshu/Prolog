@@ -376,25 +376,52 @@ generate_question_vector_ex_9(List1,Question):-
 %Answer
 generate_answer_vector_ex_9(List1,Answer):-
 	generate_magnitude(List1,0,List1_magnitude),
-
-	generate_direction_cosines(List1,List1_magnitude,"",Latex_direction_cosine),
-   
-   string_concatenate(["[string(Direction Ratios are: ",List1,")"],"",Ans_0),
-   string_concatenate([",string(Direction Cosines are: latex(",Latex_direction_cosine,"))]"],"",Ans_1),
-   string_concatenate([Ans_0,Ans_1],"",Answer).
-
+	get_updated_coefficient([[[1,1],[List1_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	generate_direction_cosines(List1,Ans,"",Latex_direction_cosine),
+   	term_string(List1,List1_string),
+	sub_string(List1_string, _,_,Z,"["),
+	New is Z-1,
+	sub_string(List1_string, 1,New,_,List1_brackets_remove),
+   string_concatenate(["",List1_brackets_remove,"],[",Latex_direction_cosine,""],"",Answer).
 
 %generate_solution_vector_ex_9
 generate_solution_vector_ex_9(List1,Solution):-
 	generate_latex_var_vector_ijk([x,y,z], [i,j,k],"",Latex_vec),
     generate_latex_vector_name(r,Latex_str_vec),
     generate_magnitude(List1,0,List1_magnitude),
-	generate_direction_cosines(List1,List1_magnitude,"",Latex_direction_cosine),
+    get_updated_coefficient([[[1,1],[List1_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+    (M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	generate_direction_cosines(List1,Ans,"",Latex_direction_cosine),
+	term_string(List1,List1_string),
+	sub_string(List1_string, _,_,Z,"["),
+	New is Z-1,
+	sub_string(List1_string, 1,New,_,List1_brackets_remove),
 
     string_concatenate(["[string(Note that he direction ratios a,b,c of a vector ",Latex_str_vec," = ",Latex_vec," are just the respective components x, y and z of the vector)"],"",Sol_0),
-    string_concatenate([",string(So, for the given vector, we have [a,b,c] : ",List1,". Further if l, m and n are the direction cosines of the given vector, then)"],"",Sol_1),
-    string_concatenate([",string(l = latex(\\\\\\\\frac{a}{|\\\\\\\\overrightarrow{",r,"}|}), m = latex(\\\\\\\\frac{b}{|\\\\\\\\overrightarrow{",r,"}|}), n = latex(\\\\\\\\frac{c}{|\\\\\\\\overrightarrow{",r,"}|}) and |",Latex_str_vec,"| = latex(\\\\\\\\sqrt{",List1_magnitude,"}))"],"",Sol_2),
-    string_concatenate([",string(Thus, the direction cosines are (l,m,n) : latex((",Latex_direction_cosine,")))]"],"",Sol_3),
+    string_concatenate([",string(So, for the given vector, we have (a,b,c) latex(\\\\colon) latex((",List1_brackets_remove,")). Further if l, m and n are the direction cosines of the given vector, then)"],"",Sol_1),
+    string_concatenate([",string(l = latex(\\\\\\\\frac{a}{|\\\\\\\\overrightarrow{",r,"}|}), m = latex(\\\\\\\\frac{b}{|\\\\\\\\overrightarrow{",r,"}|}), n = latex(\\\\\\\\frac{c}{|\\\\\\\\overrightarrow{",r,"}|}) and |",Latex_str_vec,"| = latex(\\\\\\\\sqrt{",List1_magnitude,"} = ",Ans,"))"],"",Sol_2),
+    string_concatenate([",string(Thus, the direction cosines are (l,m,n) latex(\\\\colon) latex((",Latex_direction_cosine,")))]"],"",Sol_3),
 
     string_concatenate([Sol_0,Sol_1,Sol_2,Sol_3],"",Solution).
 
@@ -514,11 +541,12 @@ generate_question_vector_ex_12(Point_list_1,Point_list_2,Point_list_3,Question):
 	/*generate_list(Point1),
 	generate_list(Point2),
 	generate_list(Point3),*/
+	%generate_random_list_for_right_angle_triangle_point_list(List1,List2,List3)
 	convert_square_brackets_to_round_brackets(Point_list_1,Point_list_string_1),
     convert_square_brackets_to_round_brackets(Point_list_2,Point_list_string_2),
     convert_square_brackets_to_round_brackets(Point_list_3,Point_list_string_3),
 
-    string_concatenate(["[string(Show that the points A latex(",Point_list_string_1,"), B latex(",Point_list_string_2,"), C latex(",Point_list_string_3,") are vertices of right angle triangle.)]"],"",Question).
+    string_concatenate(["[string(Points A latex(",Point_list_string_1,"), B latex(",Point_list_string_2,"), C latex(",Point_list_string_3,") are vertices of right angle triangle. Determine whether the statement is true or false.)]"],"",Question).
 
 
 %Answer
@@ -532,12 +560,12 @@ generate_answer_vector_ex_12(Point1,Point2,Point3,Answer):-
     generate_magnitude(Diff_3,0,Diff_3_magnitude),
 
     (Diff_3_magnitude=:=Diff_1_magnitude+Diff_2_magnitude->
-    	    string_concatenate(["[string(The triangle formed is a right angled triangle)]"],"",Answer);
+    	string_concatenate(["",Diff_1_magnitude,",",Diff_2_magnitude,",",Diff_3_magnitude,"],[1"],"",Answer);
     	    (Diff_2_magnitude=:=Diff_3_magnitude+Diff_1_magnitude->
-    	    	string_concatenate(["[string(The triangle formed is a right angled triangle)]"],"",Answer);
+    			string_concatenate(["",Diff_1_magnitude,",",Diff_2_magnitude,",",Diff_3_magnitude,"],[1"],"",Answer);
      			(Diff_1_magnitude=:=Diff_3_magnitude+Diff_2_magnitude->
-     				string_concatenate(["[string(The triangle formed is a right angled triangle)]"],"",Answer);
-					string_concatenate(["[string(The triangle formed is a not right angled triangle.)]"],"",Answer)
+    				string_concatenate(["",Diff_1_magnitude,",",Diff_2_magnitude,",",Diff_3_magnitude,"],[1"],"",Answer);
+    				string_concatenate(["",Diff_1_magnitude,",",Diff_2_magnitude,",",Diff_3_magnitude,"],[0"],"",Answer)
 				)
 			)
     ).
@@ -1127,8 +1155,29 @@ generate_question_vector_q_12(Question):-
 %Answer
 generate_answer_vector_q_12(List1,Answer):-
 	generate_magnitude(List1,0,List1_magnitude),
-
-	generate_direction_cosines(List1,List1_magnitude,"",Latex_direction_cosine),
+	get_updated_coefficient([[[1,1],[List1_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	generate_direction_cosines(List1,Ans,"",Latex_direction_cosine),
    
    string_concatenate(["[string(Direction Cosines are: latex(",Latex_direction_cosine,"))]"],"",Answer).
 
@@ -1137,10 +1186,32 @@ generate_answer_vector_q_12(List1,Answer):-
 generate_solution_vector_q_12(List1,Solution):-
     generate_latex_vector_name(r,Latex_str_vec),
     generate_magnitude(List1,0,List1_magnitude),
-	generate_direction_cosines(List1,List1_magnitude,"",Latex_direction_cosine),
+    get_updated_coefficient([[[1,1],[List1_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+    (M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	generate_direction_cosines(List1,Ans,"",Latex_direction_cosine),
 
     string_concatenate(["[string(If l, m and n are the direction cosines of the given vector, then)"],"",Sol_1),
-    string_concatenate([",string(l = latex(\\\\frac{a}{|\\\\overrightarrow{",r,"}|}), m = latex(\\\\frac{b}{|\\\\overrightarrow{",r,"}|}), n = latex(\\\\frac{c}{|\\\\overrightarrow{",r,"}|}) and |",Latex_str_vec,"| = latex(\\\\sqrt{",List1_magnitude,"}))"],"",Sol_2),
+    string_concatenate([",string(l = latex(\\\\frac{a}{|\\\\overrightarrow{",r,"}|}), m = latex(\\\\frac{b}{|\\\\overrightarrow{",r,"}|}), n = latex(\\\\frac{c}{|\\\\overrightarrow{",r,"}|}) and |",Latex_str_vec,"| = latex(\\\\sqrt{",List1_magnitude,"} = ",Ans,"))"],"",Sol_2),
     string_concatenate([",string(Thus, the direction cosines are [l,m,n] : latex((",Latex_direction_cosine,")))]"],"",Sol_3),
 
     string_concatenate([Sol_1,Sol_2,Sol_3],"",Solution).
@@ -1164,7 +1235,29 @@ generate_answer_vector_q_13(Point1,Point2,Answer):-
 	
 	generate_diff_vector(Point2,Point1,Diff),
 	generate_magnitude(Diff,0,Diff_magnitude),
-	generate_direction_cosines(Diff,Diff_magnitude,"",Latex_direction_cosine),
+	get_updated_coefficient([[[1,1],[Diff_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	generate_direction_cosines(Diff,Ans,"",Latex_direction_cosine),
    
    string_concatenate(["[string(Direction Cosines are: latex(",Latex_direction_cosine,"))]"],"",Answer).
 
@@ -1180,7 +1273,29 @@ generate_solution_vector_q_13(Point1,Point2,Solution):-
     generate_magnitude(Diff,0,List1_magnitude),
     generate_magnitude(Diff,0,Diff_magnitude),
     generate_latex_magnitude_expression_ijk(Diff,"",List1_mag_exp),
-    generate_direction_cosines(Diff,Diff_magnitude,"",Latex_direction_cosine),
+    	get_updated_coefficient([[[1,1],[Diff_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+    generate_direction_cosines(Diff,Ans,"",Latex_direction_cosine),
 
 
 
@@ -1225,11 +1340,33 @@ generate_solution_vector_q_14(List,Solution):-
 	generate_latex_vector_ijk(List, [i,j,k],"",Latex_str1),
 	generate_latex_magnitude_expression_ijk(List,"",List_mag_exp),
 	generate_magnitude(List,0,List_magnitude),
-	generate_direction_cosines(List,List_magnitude,"",Latex_direction_cosine),
+	get_updated_coefficient([[[1,1],[List_magnitude,1]]],X,_),
+	get_updated_coefficient_result(X,M,S),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\\\\\sqrt{",S,"}"],"",Ans)
+		)
+	),
+	generate_direction_cosines(List,Ans,"",Latex_direction_cosine),
     check_list(List,Check_result),
 
 	string_concatenate(["[string(Let ",Latex_str_name1," = ",Latex_str1,")" ],"",Sol_1),
-	string_concatenate([",string(and  |",Latex_str_name1,"| = ",List_mag_exp," = latex(\\\\\\\\sqrt{",List_magnitude,"}) )"],"",Sol_2),
+	string_concatenate([",string(and  |",Latex_str_name1,"| = ",List_mag_exp," = latex(\\\\\\\\sqrt{",List_magnitude,"} = ",Ans,") )"],"",Sol_2),
     string_concatenate([",string(Therefore, the direction cosines of latex(\\\\\\\\overrightarrow{a}) are latex((",Latex_direction_cosine,")))"],"",Sol_3),
 
 	(Check_result=="Equal"->
