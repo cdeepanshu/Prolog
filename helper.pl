@@ -72,7 +72,7 @@ generate_latex_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Pro,Init_str,Latex_
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %fraction of type 1/sqrt(5)+1 i/sqrt(3) j vector latex 
-generate_updated_fraction_vector_ijk([],_,_,_,Init_str,Latex_str):-
+/*generate_updated_fraction_vector_ijk([],_,_,_,Init_str,Latex_str):-
     Latex_str = Init_str.
 generate_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Pro,Init_str,Latex_str):-
     (H>0 ->
@@ -99,7 +99,9 @@ generate_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Pro,Init_str,Latex_str):-
 	),
 
     string_concat(Init_str, Str1,Temp_str),
-    generate_updated_fraction_vector_ijk(T,T1,Mag,Pro,Temp_str,Latex_str).
+    generate_updated_fraction_vector_ijk(T,T1,Mag,Pro,Temp_str,Latex_str).*/
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %fraction of type 1/sqrt(5)+1 i/sqrt(3) j vector latex 
@@ -122,7 +124,10 @@ generate_latex_updated_fraction_vector([H|T],[H1|T1],Mag,Pro,Init_str,Frac_str):
 		);
 
 		(H=:=0  ->
-		    Str=""; 
+			(Init_str == "" ->
+		    Str="0";
+		    Str=",0"
+		    );
 		    H2 is abs(H),
 		    (Init_str == "" ->
 		    	string_concatenate(["-\\\\\\\\frac{",H2,"}{",Mag,"}"],"",Str);
@@ -284,7 +289,7 @@ generate_vector([H|T],[H1|T1],Init_str,Str):-
 			(H2=:=1 ->
 			    (Init_str == "" ->
 			    string_concatenate(["-1"],"",Str1);
-			    string_concatenate(["-1"],"",Str1)
+			    string_concatenate([",-1"],"",Str1)
 			    );
 			    (Init_str == "" ->
 			    string_concatenate(["-",H2,""],"",Str1);
@@ -460,6 +465,12 @@ check_vector([H|T],[H1|T1]):-
 	H=H1,
 
 	check_vector(T,T1).
+
+multiply_list([],_,[]).
+multiply_list([H|T],M,[Final_H|Final_T]):-
+	Final_H is ((M)*(H)),
+	multiply_list(T,M,Final_T).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %fraction of type 7*1/sqrt(5)i+(7*1)/sqrt(3) j vector latex 
@@ -502,9 +513,9 @@ generate_latex_mag_updated_fraction_vector_ijk([H|T],[H1|T1],Mag,Given_mag,Pro,I
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %fraction of type 7*1/sqrt(5)i+(7*1)/sqrt(3) j vector latex 
-generate_latex_mag_updated_fraction_vector([],_,_,_,_,Init_str,Latex_str):-
+generate_mag_updated_fraction_vector([],_,_,_,_,Init_str,Latex_str):-
     Latex_str = Init_str.
-generate_latex_mag_updated_fraction_vector([H|T],[H1|T1],Mag,Given_mag,Pro,Init_str,Latex_str):-
+generate_mag_updated_fraction_vector([H|T],[H1|T1],Mag,Given_mag,Pro,Init_str,Latex_str):-
     (H>0 ->
     	(Pro=:=1 ->
     		(Given_mag=:=1 ->
@@ -527,7 +538,10 @@ generate_latex_mag_updated_fraction_vector([H|T],[H1|T1],Mag,Given_mag,Pro,Init_
 		);
 
 		(H=:=0  ->
-		    Str1=""; 
+		    (Init_str == "" ->
+		    Str="0";
+		    Str=",0"
+		    );
 		    H2 is abs(H),
 		    H5 is Given_mag*H2,
 			(Init_str == "" ->
@@ -539,46 +553,9 @@ generate_latex_mag_updated_fraction_vector([H|T],[H1|T1],Mag,Given_mag,Pro,Init_
 	),
 
     string_concat(Init_str, Str1,Temp_str),
-    generate_latex_mag_updated_fraction_vector(T,T1,Mag,Given_mag,Pro,Temp_str,Latex_str).
+    generate_mag_updated_fraction_vector(T,T1,Mag,Given_mag,Pro,Temp_str,Latex_str).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%fraction of type 7*1/sqrt(5)i+(7*1)/sqrt(3) j vector latex 
-generate_latex_mag_fraction_vector_ijk([],_,_,_,Init_str,Latex_str):-
-    Latex_str = Init_str.
-generate_latex_mag_fraction_vector_ijk([H|T],[H1|T1],Mag,Given_mag,Init_str,Latex_str):-
-    (H>0 ->
-    	(Mag=:=1 ->
-    		(Given_mag=:=1 ->
-			    (Init_str == "" ->
-			    string_concatenate(["latex(\\\\hat{",H1,"})"],"",Str1);
-			    string_concatenate(["+latex(\\\\hat{",H1,"})"],"",Str1)
-			    );
-
-			    (Init_str == "" ->
-			    string_concatenate(["latex(\\frac{",Given_mag,"}{\\sqrt{",Mag,"}}\\\\hat{",H1,"})"],"",Str1);
-		    	string_concatenate(["+latex(\\frac{",Given_mag,"}{\\sqrt{",Mag,"}}\\\\hat{",H1,"})"],"",Str1)
-			    )
-			);
-		    (Init_str == "" ->
-		    H3 is Given_mag*H,
-		    string_concatenate(["latex(\\frac{",H3,"}{\\sqrt{",Mag,"}}\\\\hat{",H1,"})"],"",Str1);
-		    H4 is Given_mag*H,
-		    string_concatenate(["+latex(\\frac{",H4,"}{\\sqrt{",Mag,"}}\\\\hat{",H1,"})"],"",Str1)
-		    )
-		);
-
-		(H=:=0  ->
-		    Str1=""; 
-		    H2 is abs(H),
-		    H5 is Given_mag*H2,
-		    string_concatenate(["-latex(\\frac{",H5,"}{\\sqrt{",Mag,"}}\\\\hat{",H1,"})"],"",Str1)
-		)
-	),
-
-    string_concat(Init_str, Str1,Temp_str),
-    generate_latex_mag_fraction_vector_ijk(T,T1,Mag,Given_mag,Temp_str,Latex_str).
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %(-1-2)i+(2-3)j+(3-2)k   //for 2 vectors
@@ -1223,6 +1200,16 @@ generate_random_list_collinear_or_non_collinear(List1,List2):-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Function to genertate two equal list
+generate_two_equal_magnitude_list(List1,List2):-
+	generate_list(L1),
+	generate_list(L2),
+    generate_magnitude(L1,0,L1_magnitude),
+    generate_magnitude(L2,0,L2_magnitude),
+    (L1_magnitude=\=L2_magnitude->
+		generate_two_equal_magnitude_list(List1,List2);
+		List1 = L1,
+		List2 = L2
+	).
 generate_two_equal_list(List1,List2):-
 	generate_list(L1),
 	generate_list(L2),
@@ -1236,8 +1223,12 @@ generate_random_list_equal_or_unequal_vectors(List1,List2):-
 	random_between(0,1,X),
 	(X=:=0->
 		generate_two_equal_list(List1,List2);
-		generate_list(List1),
-		generate_list(List2)
+		random_between(0,1,Y),
+		(Y=:=0->
+			generate_two_equal_magnitude_list(List1,List2);
+			generate_list(List1),
+			generate_list(List2)
+		)
 	).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Funtion for unit vector
@@ -1421,3 +1412,111 @@ generate_random_list_for_perpendicular_vector(List1,List2):-
 	).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%====== Explanation ===================================================
+%Simplify the list in lowesr form w.r.t denominatoir 
+%======================================================================
+
+simplify_list([],_,[],[]).
+simplify_list([H_list|T_list],Mag,[H_simplify_list|T_simplify_list],[H_mag_list|T_mag_list]):-
+
+	simplify(H_list,Mag,H_simplify_list,H_mag_list),
+	simplify_list(T_list,Mag,T_simplify_list,T_mag_list).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%====== Explanation ===================================================
+%Ans = m(sqrt(S)).
+%======================================================================
+combine_mag_square_root(M,S,Ans):-
+	(M=:=1->
+		(S=:=1->
+			Ans is S;
+			string_concatenate(["\\\\sqrt{",S,"}"],"",Ans)
+		);
+		(S=:=1->
+			Ans is M*S;
+			string_concatenate(["",M,"\\\\sqrt{",S,"}"],"",Ans)
+		)
+	).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%====== Explanation ===================================================
+%fraction of type 1/sqrt(5)+1 i/sqrt(3) j vector in simplied form
+%======================================================================
+generate_updated_fraction_vector_ijk([],_,_,_,Init_str,Latex_str):-
+    Latex_str = Init_str.
+generate_updated_fraction_vector_ijk([H|T],[H1|T1],[H_Mag|T_Mag],S,Init_str,Latex_str):-
+	combine_mag_square_root(H_Mag,S,Mag),
+	Pro is H_Mag*S,
+    (H>0 ->
+    	(Pro=:=1 ->
+		    (Init_str == "" ->
+		    string_concatenate(["\\\\\\\\hat{",H1,"}"],"",Str1);
+
+		    string_concatenate(["+\\\\\\\\hat{",H1,"}"],"",Str1)
+
+		    );
+		    (Init_str == "" ->
+		    string_concatenate(["\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"}"],"",Str1);
+
+		    string_concatenate(["+\\\\\\\\frac{",H,"}{",Mag,"}\\\\\\\\hat{",H1,"}"],"",Str1)
+		    )
+		);
+
+		(H=:=0  ->
+		    Str1=""; 
+		    H2 is abs(H),
+		    string_concatenate(["-\\\\\\\\frac{",H2,"}{",Mag,"}\\\\\\\\hat{",H1,"}"],"",Str1)
+
+		)
+	),
+
+    string_concat(Init_str, Str1,Temp_str),
+    generate_updated_fraction_vector_ijk(T,T1,T_Mag,S,Temp_str,Latex_str).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%====== Explanation ===================================================
+%fraction of type 1/sqrt(5)+1 i/sqrt(3) j vector in simplied form
+%======================================================================
+generate_updated_fraction_vector([],_,_,Init_str,Latex_str):-
+    Latex_str = Init_str.
+generate_updated_fraction_vector([H|T],[H_Mag|T_Mag],S,Init_str,Latex_str):-
+	combine_mag_square_root(H_Mag,S,Mag),
+	Pro is H_Mag*S,
+    (H>0 ->
+    	(Pro=:=1 ->
+		    (Init_str == "" ->
+		    string_concatenate(["1"],"",Str);
+
+		    string_concatenate([",1"],"",Str)
+
+		    );
+		    (Init_str == "" ->
+		    string_concatenate(["\\\\\\\\frac{",H,"}{",Mag,"}"],"",Str);
+
+		    string_concatenate([",\\\\\\\\frac{",H,"}{",Mag,"}"],"",Str)
+		    )
+		);
+
+		(H=:=0  ->
+			(Init_str == "" ->
+		    Str="0";
+		    Str=",0"
+		    );
+		    H2 is abs(H),
+		    (Init_str == "" ->
+		    	string_concatenate(["-\\\\\\\\frac{",H2,"}{",Mag,"}"],"",Str);
+		    	string_concatenate([",-\\\\\\\\frac{",H2,"}{",Mag,"}"],"",Str)
+		    )
+
+
+		)
+	),
+    string_concat(Init_str, Str,Temp_str),
+    generate_updated_fraction_vector(T,T_Mag,S,Temp_str,Latex_str).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%====== Explanation ===================================================
+%fraction of type 1/sqrt(5)+1 i/sqrt(3) j vector in simplied form
+%======================================================================

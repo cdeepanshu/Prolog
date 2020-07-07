@@ -1,4 +1,4 @@
-unit_vector : find_the_unit_vector.
+unit_vector : find_unit_vector.
 magitude_product : find_vector_in_direction_of_vector_that_has_magnitude.
 equal_vector : check_whether_given_two_vectors_are_equal_or_not.
 direction_cosines : calculate_direction_cosines. 
